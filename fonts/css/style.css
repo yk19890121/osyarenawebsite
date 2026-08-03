@@ -5,7 +5,7 @@
   --bg:#121110; --bg-soft:#1b1a18; --ink:#f3efe6; --ink-dim:rgba(243,239,230,.6);
   --line:rgba(243,239,230,.14); --card:#1e1d1b;
   --accent:#ff7847; --accent-2:#3fd6b4;
-  --ff-mono:'JetBrains Mono', monospace; --ff-jp:'Zen Kaku Gothic New', sans-serif;
+  --ff-mono:'Outfit', sans-serif; --ff-jp:'Zen Kaku Gothic New', sans-serif;
   --container:clamp(20px,5vw,72px);
 }
 *,*::before,*::after{box-sizing:border-box;}

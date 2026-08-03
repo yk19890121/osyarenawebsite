@@ -3,7 +3,7 @@
    ========================================================================== */
 
 :root{
-  --ff-mono:'JetBrains Mono', monospace;
+  --ff-mono:'Outfit', sans-serif;
   --ff-sans:'Space Grotesk', sans-serif;
   --ff-jp:'Zen Kaku Gothic New', sans-serif;
   --ease:cubic-bezier(.16,1,.3,1);

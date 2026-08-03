@@ -2071,7 +2071,7 @@
     function resize() {
       canvas.width = box.clientWidth; canvas.height = box.clientHeight;
       ctx.fillStyle = "#c9c2b4"; ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "rgba(21,19,15,.55)"; ctx.font = "bold 15px 'JetBrains Mono', monospace";
+      ctx.fillStyle = "rgba(21,19,15,.55)"; ctx.font = "bold 15px 'Outfit', sans-serif";
       ctx.fillText("ドラッグして削ってください", 18, canvas.height / 2);
     }
     new ResizeObserver(resize).observe(box);
