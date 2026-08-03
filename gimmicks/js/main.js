@@ -132,7 +132,7 @@
     const track = document.getElementById("drag-track");
     if (!track) return;
     track.innerHTML = LOOKS.map((look, i) =>
-      `<img src="assets/img/${look.variants[0].thumb}" alt="LOOK ${pad(i + 1)}">`
+      `<img src="../assets/img/${look.variants[0].thumb}" alt="LOOK ${pad(i + 1)}">`
     ).join("");
 
     whenReady(() => {
@@ -325,7 +325,7 @@
 
     optionsList.innerHTML = LOOKS.map((look, i) => {
       const n = i + 1;
-      return `<li class="cs-option" data-look="${n}" role="option"><img src="assets/img/${look.variants[0].thumb}" alt="">LOOK ${pad(n)}</li>`;
+      return `<li class="cs-option" data-look="${n}" role="option"><img src="../assets/img/${look.variants[0].thumb}" alt="">LOOK ${pad(n)}</li>`;
     }).join("");
 
     trigger.addEventListener("click", () => {
@@ -336,7 +336,7 @@
       opt.addEventListener("click", () => {
         const n = opt.dataset.look;
         label.textContent = `LOOK ${pad(n)} を選択`;
-        previewImg.src = `assets/img/${LOOKS[n - 1].variants[0].thumb}`;
+        previewImg.src = `../assets/img/${LOOKS[n - 1].variants[0].thumb}`;
         root.classList.remove("open");
         trigger.setAttribute("aria-expanded", "false");
       });
@@ -432,7 +432,7 @@
       const n = Number(card.dataset.look);
       const variants = LOOKS[n - 1].variants;
       card.innerHTML = variants
-        .map((v, i) => `<img src="assets/img/${v.thumb}" alt="" class="${i === 0 ? "active" : ""}">`)
+        .map((v, i) => `<img src="../assets/img/${v.thumb}" alt="" class="${i === 0 ? "active" : ""}">`)
         .join("");
       const imgs = [...card.querySelectorAll("img")];
       let idx = 0, timer = null;
@@ -1097,7 +1097,7 @@
     const nextBtn = document.getElementById("coverflow-next");
     if (!track) return;
     const order = [1, 4, 8, 11, 15, 17];
-    track.innerHTML = order.map((n) => `<div class="cf-item"><img src="assets/img/${LOOKS[n - 1].variants[0].thumb}" alt="LOOK ${pad(n)}"></div>`).join("");
+    track.innerHTML = order.map((n) => `<div class="cf-item"><img src="../assets/img/${LOOKS[n - 1].variants[0].thumb}" alt="LOOK ${pad(n)}"></div>`).join("");
     const items = [...track.querySelectorAll(".cf-item")];
     let active = 0;
     function layout() {
@@ -1456,7 +1456,7 @@
     const base = order.map((n, i) => {
       const el = document.createElement("div");
       el.className = "sphere-item";
-      el.innerHTML = `<img src="assets/img/${LOOKS[n - 1].variants[0].thumb}" alt="">`;
+      el.innerHTML = `<img src="../assets/img/${LOOKS[n - 1].variants[0].thumb}" alt="">`;
       inner.appendChild(el);
       const phi = Math.acos(1 - (2 * (i + 0.5)) / N);
       const theta0 = Math.PI * (1 + Math.sqrt(5)) * i;
@@ -1520,7 +1520,7 @@
     const items = order.map((n) => {
       const el = document.createElement("div");
       el.className = "orbit-item";
-      el.innerHTML = `<img src="assets/img/${LOOKS[n - 1].variants[0].thumb}" alt="">`;
+      el.innerHTML = `<img src="../assets/img/${LOOKS[n - 1].variants[0].thumb}" alt="">`;
       inner.appendChild(el);
       return el;
     });
