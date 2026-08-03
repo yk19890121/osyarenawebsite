@@ -1,23 +1,20 @@
-# BLENCI — SS26 Lookbook
+# BLENCI LAB — 120 Gimmicks Showcase
 
-架空のミニマル・オーバーサイズファッションブランド「BLENCI」の、ギミック多用のティザー/ルックブックサイト。
+Webでよく使われる演出・ギミックを120種類集めた実験カタログ。架空のミニマル・オーバーサイズファッションブランド「BLENCI」のルックブック素材を使い、ひとつずつ動かしながら確認できます。
 
 ## 使用技術
 - Vanilla HTML / CSS / JS(ビルド不要)
-- [GSAP](https://gsap.com/) + ScrollTrigger — スクロール連動アニメーション
-- [Lenis](https://github.com/darkroomengineering/lenis) — スムーススクロール
+- [GSAP](https://gsap.com/) + ScrollTrigger / Draggable / Flip / Observer
+- [Lenis](https://github.com/darkroomengineering/lenis) — スコープ付きスムーススクロール
+- Web Audio API(トーンバー)
 
-## ギミック一覧
-- プログレスローダー → カーテン開き
-- カスタムカーソル(ホバーで拡大 / 画像プレビュー追従)
-- マグネティックボタン
-- ヒーローの文字マスクリビール & 背景クロスフェード
-- 無限スクロールマーキー
-- ピン留め横スクロールギャラリー
-- スクロール連動の背景カラーモーフ(Featuredセクション)
-- カウントアップ数字
-- ホバー追従プレビュー付きインデックスリスト
-- ルックブックグリッド + ライトボックス(4バリアント切り替え)
+## 構成
+- `index.html` / `css/style.css` / `js/main.js` — カタログ本体
+- `js/data.js` — 72枚のルック画像メタデータ
+- `assets/img/` — 最適化済みWebP画像
+- `js/vendor/` — GSAP等のローカルバンドル(CDN非依存)
+
+ギミックはA〜Sの19グループに分かれ、各セクションに `01 — 名称` のようなタグが付いています。
 
 ## ローカル確認
 ```bash
