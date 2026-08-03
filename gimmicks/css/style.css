@@ -125,21 +125,17 @@ code{font-family:var(--ff-mono);background:var(--line);padding:2px 6px;border-ra
 [data-theme="dark"] .toggle-thumb{transform:translateX(20px);}
 
 /* ==========================================================================
-   Hero + GIMMICK 27 — Animated mesh gradient
+   Hero (GIMMICK 37 — background crossfade)
    ========================================================================== */
 .hero{
   position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;
   padding:120px var(--container) 80px;
 }
-.mesh-bg{position:absolute;inset:0;z-index:0;overflow:hidden;filter:blur(60px) saturate(130%);}
-.mesh-bg .blob{position:absolute;border-radius:50%;opacity:.55;mix-blend-mode:normal;}
-.mesh-bg .b1{width:46vw;height:46vw;background:var(--accent);top:-10%;left:-10%;animation:blobMove1 22s ease-in-out infinite;}
-.mesh-bg .b2{width:38vw;height:38vw;background:var(--accent-2);bottom:-12%;right:-6%;animation:blobMove2 26s ease-in-out infinite;}
-.mesh-bg .b3{width:30vw;height:30vw;background:#e8c34a;top:20%;right:20%;animation:blobMove3 19s ease-in-out infinite;}
-.mesh-bg .b4{width:26vw;height:26vw;background:#6a7fd1;bottom:10%;left:20%;animation:blobMove1 30s ease-in-out infinite reverse;}
-@keyframes blobMove1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(8%,10%) scale(1.15);}}
-@keyframes blobMove2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-10%,-6%) scale(.9);}}
-@keyframes blobMove3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-6%,12%) scale(1.2);}}
+.bg-crossfade{position:absolute;inset:0;z-index:0;}
+.bg-slide{position:absolute;inset:0;background-size:cover;background-position:center 20%;opacity:0;transition:opacity 2.4s ease;filter:saturate(85%);}
+.bg-slide.active{opacity:1;}
+.bg-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,5,4,.55),rgba(18,17,16,.72) 55%,var(--bg) 100%);}
+[data-theme="light"] .bg-scrim{background:linear-gradient(180deg,rgba(21,19,15,.5),rgba(21,19,15,.68) 55%,var(--bg) 100%);}
 .hero-inner{position:relative;z-index:1;max-width:760px;}
 .hero h1{font-family:var(--ff-jp);font-weight:900;font-size:clamp(44px,8vw,96px);line-height:1.05;margin-bottom:26px;}
 .hero-desc{font-family:var(--ff-jp);font-size:clamp(14px,1.6vw,17px);line-height:1.9;color:var(--ink-dim);max-width:56ch;margin-bottom:34px;}
@@ -149,6 +145,20 @@ code{font-family:var(--ff-mono);background:var(--line);padding:2px 6px;border-ra
   transition:background .3s,color .3s;
 }
 .hero-cta:hover{background:var(--ink);color:var(--bg);}
+
+/* ==========================================================================
+   GIMMICK 27 — Animated mesh gradient (boxed demo)
+   ========================================================================== */
+.mesh-demo-box{position:relative;height:240px;border-radius:12px;overflow:hidden;border:1px solid var(--line);}
+.mesh-bg{position:absolute;inset:0;z-index:0;overflow:hidden;filter:blur(30px) saturate(130%);}
+.mesh-bg .blob{position:absolute;border-radius:50%;opacity:.6;mix-blend-mode:normal;}
+.mesh-bg .b1{width:180px;height:180px;background:var(--accent);top:-10%;left:-10%;animation:blobMove1 22s ease-in-out infinite;}
+.mesh-bg .b2{width:150px;height:150px;background:var(--accent-2);bottom:-12%;right:-6%;animation:blobMove2 26s ease-in-out infinite;}
+.mesh-bg .b3{width:120px;height:120px;background:#e8c34a;top:20%;right:20%;animation:blobMove3 19s ease-in-out infinite;}
+.mesh-bg .b4{width:100px;height:100px;background:#6a7fd1;bottom:10%;left:20%;animation:blobMove1 30s ease-in-out infinite reverse;}
+@keyframes blobMove1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(8%,10%) scale(1.15);}}
+@keyframes blobMove2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-10%,-6%) scale(.9);}}
+@keyframes blobMove3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-6%,12%) scale(1.2);}}
 
 /* ==========================================================================
    Group layout
@@ -975,10 +985,10 @@ code{font-family:var(--ff-mono);background:var(--line);padding:2px 6px;border-ra
 .cube3d{position:relative;width:150px;height:150px;transform-style:preserve-3d;cursor:grab;}
 .cube3d:active{cursor:grabbing;}
 .cube3d-face{position:absolute;inset:0;background-size:cover;background-position:center;border:1px solid var(--line);background-color:var(--card);}
-.cube3d-face.front{transform:translateZ(75px);background-image:url(../assets/img/look-01-0-thumb.webp);}
-.cube3d-face.back{transform:translateZ(-75px) rotateY(180deg);background-image:url(../assets/img/look-06-0-thumb.webp);}
-.cube3d-face.right{transform:rotateY(90deg) translateZ(75px);background-image:url(../assets/img/look-11-0-thumb.webp);}
-.cube3d-face.left{transform:rotateY(-90deg) translateZ(75px);background-image:url(../assets/img/look-16-0-thumb.webp);}
+.cube3d-face.front{transform:translateZ(75px);background-image:url(../../assets/img/look-01-0-thumb.webp);}
+.cube3d-face.back{transform:translateZ(-75px) rotateY(180deg);background-image:url(../../assets/img/look-06-0-thumb.webp);}
+.cube3d-face.right{transform:rotateY(90deg) translateZ(75px);background-image:url(../../assets/img/look-11-0-thumb.webp);}
+.cube3d-face.left{transform:rotateY(-90deg) translateZ(75px);background-image:url(../../assets/img/look-16-0-thumb.webp);}
 
 /* ==========================================================================
    GIMMICK 81 — layered parallax 3D card

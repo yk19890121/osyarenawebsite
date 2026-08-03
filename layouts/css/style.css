@@ -31,7 +31,14 @@ button{font-family:inherit;background:none;border:0;color:inherit;cursor:pointer
 .lab-footer-text a{text-decoration:underline;}
 
 /* hero */
-.hero{padding:60px var(--container) 20px;max-width:900px;}
+/* background crossfade (scoped to hero only) */
+.bg-crossfade{position:absolute;inset:0;z-index:0;}
+.bg-slide{position:absolute;inset:0;background-size:cover;background-position:center 20%;opacity:0;transition:opacity 2.4s ease;filter:saturate(85%);}
+.bg-slide.active{opacity:1;}
+.bg-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,5,4,.55),rgba(18,17,16,.75) 65%,var(--bg) 100%);}
+
+.hero{position:relative;overflow:hidden;padding:70px var(--container) 50px;}
+.hero-inner{position:relative;z-index:1;max-width:900px;}
 .hero h1{font-family:var(--ff-jp);font-weight:900;font-size:clamp(36px,6vw,64px);line-height:1.15;margin:0 0 20px;}
 .hero-desc{font-family:var(--ff-jp);font-size:15px;line-height:1.9;color:var(--ink-dim);max-width:56ch;}
 
@@ -58,6 +65,7 @@ button{font-family:inherit;background:none;border:0;color:inherit;cursor:pointer
 /* wireframe blocks (inside cfl-item) */
 .layout-frame{position:absolute;inset:14px;display:grid;gap:6px;}
 .lf-block{border-radius:4px;background:var(--line);}
+.lf-photo{background-size:cover;background-position:center 12%;}
 .lf-b-accent{background:var(--accent);}
 .lf-b-accent2{background:var(--accent-2);}
 .lf-b-accent3{background:var(--accent-3);}
@@ -89,6 +97,103 @@ button{font-family:inherit;background:none;border:0;color:inherit;cursor:pointer
 .lf-zpattern{grid-template-areas:"img1 txt1" "txt2 img2" "img3 txt3";grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr 1fr;}
 
 .lf-bento{grid-template-areas:"a a b c" "a a d d" "e f d d";grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);}
+
+/* ---- extra area helpers for layouts 9-28 ---- */
+.ga-head{grid-area:head;} .ga-main{grid-area:main;} .ga-aside{grid-area:aside;} .ga-foot{grid-area:foot;}
+.ga-img{grid-area:img;} .ga-text1{grid-area:text1;} .ga-text2{grid-area:text2;}
+.ga-drawer{grid-area:drawer;}
+
+/* 9. Card grid — simple uniform auto grid */
+.lf-cardgrid{grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);}
+
+/* 10. Sticky scroll story */
+.lf-sticky{grid-template-areas:"img content1" "img content2" "img content3";grid-template-columns:1.1fr 1fr;grid-template-rows:repeat(3,1fr);}
+
+/* 11. Centered article */
+.lf-article{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:10px 30px;}
+.lf-article .lf-block{width:100%;}
+.lf-article .lf-block.lf-photo{height:70px;}
+.lf-article .lf-block:not(.lf-photo){height:12px;}
+.lf-article .lf-block:nth-child(2){width:70%;}
+
+/* 12. Holy grail */
+.lf-holygrail{grid-template-areas:"head head head" "nav main aside" "foot foot foot";grid-template-columns:.7fr 2fr .7fr;grid-template-rows:.4fr 1.6fr .4fr;}
+
+/* 13. Off-canvas drawer */
+.lf-offcanvas{grid-template-areas:"drawer main";grid-template-columns:.6fr 2fr;}
+
+/* 14. Horizontal card scroll */
+.lf-hscroll{display:flex;gap:8px;align-items:stretch;overflow:hidden;}
+.lf-hscroll .lf-block{flex:1 0 auto;width:25%;}
+
+/* 15. Diagonal split */
+
+.lf-diagonal .lf-block{position:absolute;inset:0;}
+.lf-diagonal .diag-a{clip-path:polygon(0 0,65% 0,35% 100%,0 100%);}
+.lf-diagonal .diag-b{clip-path:polygon(65% 0,100% 0,100% 100%,35% 100%);}
+
+/* 16. Vertical timeline */
+.lf-timeline{display:flex;flex-direction:column;gap:10px;position:relative;padding:0 10px;}
+.lf-timeline::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line);}
+.lf-timeline .lf-block{width:42%;height:34px;}
+.lf-timeline .lf-block:nth-child(odd){margin-right:58%;}
+.lf-timeline .lf-block:nth-child(even){margin-left:58%;}
+
+/* 17. Dashboard widgets */
+.lf-dashboard{grid-template-columns:1.4fr 1fr;grid-template-rows:repeat(2,1fr);}
+
+/* 18. Pricing table */
+.lf-pricing{grid-template-columns:repeat(3,1fr);align-items:end;}
+.lf-pricing .lf-block:nth-child(2){align-self:stretch;}
+
+/* 19. Sticky nav bar */
+.lf-stickynav{grid-template-areas:"head" "main";grid-template-rows:.25fr 1.75fr;}
+
+/* 20. Text over image */
+
+.lf-textoverimage .lf-block.lf-photo{position:absolute;inset:0;}
+.lf-textoverimage .lf-overlay-bar{position:absolute;left:10%;right:10%;bottom:14%;height:16%;background:rgba(10,9,8,.72);border-radius:4px;}
+
+/* 21. Accordion stack */
+.lf-accordion{display:flex;flex-direction:column;gap:6px;justify-content:center;}
+.lf-accordion .lf-block{height:16%;}
+.lf-accordion .lf-block:nth-child(2){height:34%;}
+
+/* 22. Tabbed panels */
+.lf-tabs{display:flex;flex-direction:column;gap:6px;}
+.lf-tabs .tab-row{display:flex;gap:6px;height:14%;}
+.lf-tabs .tab-row .lf-block{flex:1;}
+.lf-tabs .tab-content{flex:1;}
+
+/* 23. Social feed */
+.lf-feed{display:flex;flex-direction:column;gap:8px;}
+.lf-feed .feed-post{display:flex;gap:6px;height:30%;}
+.lf-feed .feed-avatar{width:16%;border-radius:50%;}
+.lf-feed .feed-body{flex:1;}
+
+/* 24. Thumbnail grid */
+.lf-thumbgrid{grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,1fr);}
+
+/* 25. Video hero */
+
+.lf-videohero .lf-block.lf-photo{position:absolute;inset:0;}
+.lf-videohero .play-btn{position:absolute;left:50%;top:50%;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:rgba(255,255,255,.9);}
+.lf-videohero .play-btn::after{content:"";position:absolute;left:56%;top:50%;transform:translate(-50%,-50%);border-style:solid;border-width:6px 0 6px 10px;border-color:transparent transparent transparent #15130f;}
+
+/* 26. Mega footer */
+.lf-megafooter{grid-template-columns:repeat(4,1fr);align-content:start;gap:6px 10px;}
+.lf-megafooter .lf-block{height:8px;}
+.lf-megafooter .lf-block.foot-head{height:12px;opacity:.9;}
+
+/* 27. Before / after slider */
+
+.lf-beforeafter .lf-block{position:absolute;inset:0;}
+.lf-beforeafter .ba-after{clip-path:inset(0 0 0 55%);}
+.lf-beforeafter .ba-divider{position:absolute;left:55%;top:0;bottom:0;width:2px;background:#fff;}
+.lf-beforeafter .ba-handle{position:absolute;left:55%;top:50%;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;background:#fff;}
+
+/* 28. Asymmetric hero */
+.lf-asymhero{grid-template-areas:"img text1" "img text2";grid-template-columns:1.5fr 1fr;grid-template-rows:1fr 1fr;}
 
 /* detail */
 .detail-section{padding:20px var(--container) 40px;display:flex;justify-content:center;}

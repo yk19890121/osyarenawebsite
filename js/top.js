@@ -17,58 +17,6 @@
     }, 4500);
   }
 
-  /* ---------------- rope-chain cursor (full page) ---------------- */
-  function initRopeCursor() {
-    const canvas = document.getElementById("rope-cursor-canvas");
-    if (!canvas || !FINE_POINTER) return;
-    document.body.classList.add("cursor-ready");
-    const ctx = canvas.getContext("2d");
-    const DPR = Math.min(window.devicePixelRatio || 1, 2);
-    function resize() { canvas.width = window.innerWidth * DPR; canvas.height = window.innerHeight * DPR; }
-    window.addEventListener("resize", resize);
-    resize();
-    const N = 16;
-    const points = Array.from({ length: N }, () => ({ x: (window.innerWidth / 2) * DPR, y: (window.innerHeight / 2) * DPR }));
-    const target = { x: points[0].x, y: points[0].y };
-    window.addEventListener("mousemove", (e) => { target.x = e.clientX * DPR; target.y = e.clientY * DPR; });
-    function draw() {
-      points[0].x += (target.x - points[0].x) * 0.35;
-      points[0].y += (target.y - points[0].y) * 0.35;
-      for (let i = 1; i < N; i++) {
-        points[i].x += (points[i - 1].x - points[i].x) * 0.35;
-        points[i].y += (points[i - 1].y - points[i].y) * 0.35;
-      }
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.strokeStyle = "rgba(255,120,71,.75)";
-      ctx.lineWidth = 2.5 * DPR;
-      ctx.lineCap = "round";
-      ctx.beginPath();
-      points.forEach((p, i) => (i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y)));
-      ctx.stroke();
-      ctx.fillStyle = "#fff";
-      ctx.beginPath(); ctx.arc(points[0].x, points[0].y, 3 * DPR, 0, Math.PI * 2); ctx.fill();
-      requestAnimationFrame(draw);
-    }
-    draw();
-  }
-
-  /* ---------------- click shockwave (full page) ---------------- */
-  function initShockwave() {
-    const layer = document.getElementById("shockwave-layer");
-    if (!layer) return;
-    document.addEventListener("click", (e) => {
-      for (let i = 0; i < 2; i++) {
-        const ring = document.createElement("div");
-        ring.className = "shock-ring";
-        ring.style.left = e.clientX + "px";
-        ring.style.top = e.clientY + "px";
-        ring.style.width = ring.style.height = "10px";
-        layer.appendChild(ring);
-        gsap.to(ring, { width: 260 + i * 50, height: 260 + i * 50, opacity: 0, duration: 0.9 + i * 0.2, ease: "power2.out", delay: i * 0.1, onComplete: () => ring.remove() });
-      }
-    });
-  }
-
   /* ---------------- tunnel menu (mouse-driven depth) ---------------- */
   function initTunnel() {
     const wrap = document.querySelector(".tunnel-menu");
@@ -153,8 +101,6 @@
 
   function boot() {
     initBgCrossfade();
-    initRopeCursor();
-    initShockwave();
     initTunnel();
     initSphereTop();
     initTransitions();

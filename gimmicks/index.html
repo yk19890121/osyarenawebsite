@@ -10,9 +10,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@300..700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../js/vendor/lenis.css">
+<link rel="stylesheet" href="../css/cursor.css">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+<canvas id="rope-cursor-canvas" aria-hidden="true"></canvas>
+<div id="shockwave-layer" aria-hidden="true"></div>
 
 <div id="scroll-progress" aria-hidden="true"><div id="scroll-progress-fill"></div></div>
 
@@ -55,12 +59,16 @@
 <main>
 
   <section id="hero" class="hero">
-    <div class="mesh-bg" aria-hidden="true">
-      <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="blob b4"></span>
+    <div class="bg-crossfade" aria-hidden="true">
+      <div class="bg-slide active" style="background-image:url(../assets/img/look-01-0.webp)"></div>
+      <div class="bg-slide" style="background-image:url(../assets/img/look-06-0.webp)"></div>
+      <div class="bg-slide" style="background-image:url(../assets/img/look-14-0.webp)"></div>
+      <div class="bg-slide" style="background-image:url(../assets/img/look-17-0.webp)"></div>
+      <div class="bg-scrim"></div>
     </div>
     <div class="hero-inner">
-      <p class="tag light-tag"><span class="tag-num">27</span><span class="tag-name">ANIMATED MESH GRADIENT (背景)</span></p>
-      <h1>ギミック<br>見本帳</h1>
+      <p class="tag light-tag"><span class="tag-num">37</span><span class="tag-name">BACKGROUND CROSSFADE</span></p>
+      <h1>GIMMICK<br>CATALOGUE</h1>
       <p class="hero-desc">同じ写真素材を使って、Webでよく見る演出を120種類集めた実験カタログです。ひとつずつ、動かしながら確認できます。</p>
       <a href="#group-scroll" class="hero-cta">SCROLL TO EXPLORE ↓</a>
     </div>
@@ -125,7 +133,7 @@
       <p class="tag"><span class="tag-num">06</span><span class="tag-name">SPOTLIGHT CURSOR</span></p>
       <h3>暗闇をカーソルの光で照らす</h3>
       <p class="demo-desc">下の黒い箱の中にマウスを入れて動かしてみてください。光の輪の中だけ文字と写真が見えます。</p>
-      <div class="spotlight-box" id="spotlight-box" style="background-image:url(../assets/img/look-11-0.webp)">
+      <div class="spotlight-box local-cursor" id="spotlight-box" style="background-image:url(../assets/img/look-11-0.webp)">
         <div class="spotlight-overlay"></div>
         <div class="spotlight-content"><p>MOVE YOUR<br>CURSOR HERE</p></div>
       </div>
@@ -350,6 +358,16 @@
       </div>
     </article>
 
+    <article class="demo" id="g27">
+      <p class="tag"><span class="tag-num">27</span><span class="tag-name">ANIMATED MESH GRADIENT</span></p>
+      <h3>漂う色のかたまりがゆっくり形を変える</h3>
+      <div class="mesh-demo-box">
+        <div class="mesh-bg" aria-hidden="true">
+          <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="blob b4"></span>
+        </div>
+      </div>
+    </article>
+
     <article class="demo" id="g28">
       <p class="tag"><span class="tag-num">28</span><span class="tag-name">KEN BURNS EFFECT</span></p>
       <h3>静止画がゆっくりズーム・移動し続ける</h3>
@@ -385,7 +403,7 @@
     <article class="demo" id="g32">
       <p class="tag"><span class="tag-num">32</span><span class="tag-name">CUSTOM CURSOR</span></p>
       <h3>ドット＋リングがマウスに追従</h3>
-      <div class="scoped-cursor-box" id="cursor-demo-box">
+      <div class="scoped-cursor-box local-cursor" id="cursor-demo-box">
         <span class="scoped-dot" id="scoped-dot"></span>
         <span class="scoped-ring" id="scoped-ring"></span>
         <p>この箱の中だけ、カーソルが変わります。</p>
@@ -683,7 +701,7 @@
     <article class="demo" id="g60">
       <p class="tag"><span class="tag-num">60</span><span class="tag-name">MORPHING CURSOR SHAPE</span></p>
       <h3>対象によってカーソルの形が変わる</h3>
-      <div class="morph-cursor-box" id="morph-cursor-box">
+      <div class="morph-cursor-box local-cursor" id="morph-cursor-box">
         <span class="mc-cursor" id="mc-cursor"></span>
         <div class="mc-zone" data-shape="link">LINK</div>
         <div class="mc-zone" data-shape="image">IMAGE</div>
@@ -694,19 +712,19 @@
     <article class="demo" id="g61">
       <p class="tag"><span class="tag-num">61</span><span class="tag-name">INK BLOT TRAIL</span></p>
       <h3>カーソルの軌跡ににじむインク</h3>
-      <div class="trail-box" id="ink-trail-box"><p>この中でマウスを動かしてください。</p></div>
+      <div class="trail-box local-cursor" id="ink-trail-box"><p>この中でマウスを動かしてください。</p></div>
     </article>
 
     <article class="demo" id="g62">
       <p class="tag"><span class="tag-num">62</span><span class="tag-name">SPARKLE TRAIL</span></p>
       <h3>カーソルにキラキラが舞う</h3>
-      <div class="trail-box dark" id="sparkle-trail-box"><p>この中でマウスを動かしてください。</p></div>
+      <div class="trail-box dark local-cursor" id="sparkle-trail-box"><p>この中でマウスを動かしてください。</p></div>
     </article>
 
     <article class="demo" id="g63">
       <p class="tag"><span class="tag-num">63</span><span class="tag-name">MAGNIFIER LENS</span></p>
       <h3>虫眼鏡で写真を拡大</h3>
-      <div class="magnifier-box" id="magnifier-box" style="background-image:url(../assets/img/look-17-0.webp)">
+      <div class="magnifier-box local-cursor" id="magnifier-box" style="background-image:url(../assets/img/look-17-0.webp)">
         <div class="magnifier-lens" id="magnifier-lens"></div>
       </div>
     </article>
@@ -995,7 +1013,7 @@
     <article class="demo" id="g91">
       <p class="tag"><span class="tag-num">91</span><span class="tag-name">CURSOR PET FOLLOWER</span></p>
       <h3>ペットのように追いかけてくる</h3>
-      <div class="pet-box" id="pet-box"><div class="pet-blob" id="pet-blob"></div></div>
+      <div class="pet-box local-cursor" id="pet-box"><div class="pet-blob" id="pet-blob"></div></div>
     </article>
 
     <article class="demo" id="g92">
@@ -1157,7 +1175,7 @@
     <article class="demo" id="g110">
       <p class="tag"><span class="tag-num">110</span><span class="tag-name">WATER DROPLET CURSOR</span></p>
       <h3>ガラスの上を転がる水滴</h3>
-      <div class="droplet-box" id="droplet-box"><div class="droplet" id="droplet"></div></div>
+      <div class="droplet-box local-cursor" id="droplet-box"><div class="droplet" id="droplet"></div></div>
     </article>
   </section>
 
@@ -1253,6 +1271,7 @@
 <script src="../js/vendor/Flip.min.js"></script>
 <script src="../js/vendor/Observer.min.js"></script>
 <script src="../js/data.js"></script>
+<script src="../js/cursor.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

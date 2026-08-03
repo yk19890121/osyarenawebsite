@@ -3,24 +3,75 @@
   "use strict";
 
   const FINE_POINTER = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function initBgCrossfade() {
+    const slides = document.querySelectorAll(".bg-slide");
+    if (slides.length < 2 || REDUCED) return;
+    let i = 0;
+    setInterval(() => {
+      slides[i].classList.remove("active");
+      i = (i + 1) % slides.length;
+      slides[i].classList.add("active");
+    }, 4500);
+  }
 
   const FONTS = [
     { name: "Space Grotesk", family: "'Space Grotesk', sans-serif", cat: "SANS-SERIF", desc: "幾何学的でテック感のあるサンセリフ", sample: "BLENCI 2026" },
     { name: "Inter", family: "'Inter', sans-serif", cat: "SANS-SERIF", desc: "UI・本文に強い、高い可読性の定番", sample: "Design System" },
     { name: "Poppins", family: "'Poppins', sans-serif", cat: "SANS-SERIF", desc: "丸みのあるジオメトリック", sample: "Friendly Grotesk" },
+    { name: "Manrope", family: "'Manrope', sans-serif", cat: "SANS-SERIF", desc: "すっきりとモダンな汎用サンセリフ", sample: "Clean & Modern" },
+    { name: "Outfit", family: "'Outfit', sans-serif", cat: "SANS-SERIF", desc: "シンプルで柔らかいUIフォント", sample: "Outfit Grotesk" },
+    { name: "Work Sans", family: "'Work Sans', sans-serif", cat: "SANS-SERIF", desc: "中立的で読みやすい実務向け", sample: "Work In Progress" },
+    { name: "Sora", family: "'Sora', sans-serif", cat: "SANS-SERIF", desc: "やや丸みのある近未来的サンセリフ", sample: "Future Forward" },
+    { name: "DM Sans", family: "'DM Sans', sans-serif", cat: "SANS-SERIF", desc: "低コントラストで扱いやすい定番", sample: "Material Sans" },
+    { name: "Plus Jakarta Sans", family: "'Plus Jakarta Sans', sans-serif", cat: "SANS-SERIF", desc: "親しみやすいジオメトリック", sample: "Jakarta Nights" },
+    { name: "Karla", family: "'Karla', sans-serif", cat: "SANS-SERIF", desc: "グロテスク系の温かみあるサンセリフ", sample: "Warm Grotesk" },
+
     { name: "Playfair Display", family: "'Playfair Display', serif", cat: "SERIF", desc: "ハイコントラストなハイファッション系", sample: "Vogue Editorial" },
     { name: "Lora", family: "'Lora', serif", cat: "SERIF", desc: "長文でも読みやすい柔らかな本文セリフ", sample: "Reading Comfort" },
     { name: "Cormorant", family: "'Cormorant', serif", cat: "SERIF", desc: "繊細で優美なディスプレイセリフ", sample: "Delicate Luxury" },
+    { name: "Fraunces", family: "'Fraunces', serif", cat: "SERIF", desc: "個性的なウェットインクのセリフ", sample: "Wet Ink Serif" },
+    { name: "Bodoni Moda", family: "'Bodoni Moda', serif", cat: "SERIF", desc: "極端なコントラストのモダンセリフ", sample: "Fashion Bodoni" },
+    { name: "Libre Baskerville", family: "'Libre Baskerville', serif", cat: "SERIF", desc: "印刷物のような伝統的セリフ", sample: "Classic Print" },
+    { name: "EB Garamond", family: "'EB Garamond', serif", cat: "SERIF", desc: "歴史あるオールドスタイルセリフ", sample: "Old Style Text" },
+    { name: "Crimson Text", family: "'Crimson Text', serif", cat: "SERIF", desc: "学術書のような端正なセリフ", sample: "Scholarly Text" },
+    { name: "Newsreader", family: "'Newsreader', serif", cat: "SERIF", desc: "新聞のような可読性重視のセリフ", sample: "News Reader" },
+    { name: "Spectral", family: "'Spectral', serif", cat: "SERIF", desc: "画面表示に最適化されたセリフ", sample: "Screen Serif" },
+
     { name: "Bebas Neue", family: "'Bebas Neue', sans-serif", cat: "DISPLAY", desc: "縦長で圧の強い見出し向け", sample: "IMPACT TITLE" },
     { name: "Anton", family: "'Anton', sans-serif", cat: "DISPLAY", desc: "極太でスポーティな存在感", sample: "BOLD STATEMENT" },
     { name: "Archivo Black", family: "'Archivo Black', sans-serif", cat: "DISPLAY", desc: "がっしりとした安定感のある極太", sample: "HEAVY WEIGHT" },
+    { name: "Oswald", family: "'Oswald', sans-serif", cat: "DISPLAY", desc: "縦長コンデンスなグロテスク", sample: "CONDENSED IMPACT" },
+    { name: "Fjalla One", family: "'Fjalla One', sans-serif", cat: "DISPLAY", desc: "シャープな北欧系コンデンス", sample: "NORDIC EDGE" },
+    { name: "Bungee", family: "'Bungee', sans-serif", cat: "DISPLAY", desc: "ポップでアーバンな極太", sample: "URBAN POP" },
+    { name: "Righteous", family: "'Righteous', sans-serif", cat: "DISPLAY", desc: "レトロでカジュアルな見出し", sample: "RETRO VIBES" },
+    { name: "Alfa Slab One", family: "'Alfa Slab One', serif", cat: "DISPLAY", desc: "重厚なスラブセリフの極太", sample: "HEAVY SLAB" },
+    { name: "Passion One", family: "'Passion One', sans-serif", cat: "DISPLAY", desc: "丸みのあるポップな極太", sample: "PASSION POP" },
+
     { name: "JetBrains Mono", family: "'JetBrains Mono', monospace", cat: "MONOSPACE", desc: "コード表示向けの等幅", sample: "const x = 1;" },
     { name: "Space Mono", family: "'Space Mono', monospace", cat: "MONOSPACE", desc: "レトロでクセのある等幅", sample: "01001 CODE" },
+    { name: "IBM Plex Mono", family: "'IBM Plex Mono', monospace", cat: "MONOSPACE", desc: "エンジニアリング感のある等幅", sample: "System.out" },
+    { name: "Fira Code", family: "'Fira Code', monospace", cat: "MONOSPACE", desc: "リガチャが美しいコード用", sample: "=> lambda" },
+    { name: "Roboto Mono", family: "'Roboto Mono', monospace", cat: "MONOSPACE", desc: "Android標準の等幅", sample: "android_mono" },
+    { name: "Source Code Pro", family: "'Source Code Pro', monospace", cat: "MONOSPACE", desc: "Adobe製の定番コード用", sample: "source.code" },
+
     { name: "Caveat", family: "'Caveat', cursive", cat: "HANDWRITING", desc: "自然な手書き風スクリプト", sample: "Just a note" },
     { name: "Kalam", family: "'Kalam', cursive", cat: "HANDWRITING", desc: "カジュアルな手書き", sample: "Sketch it out" },
+    { name: "Dancing Script", family: "'Dancing Script', cursive", cat: "HANDWRITING", desc: "流れるような筆記体", sample: "Elegant Script" },
+    { name: "Pacifico", family: "'Pacifico', cursive", cat: "HANDWRITING", desc: "丸くポップな筆記体", sample: "Surf Vibes" },
+    { name: "Indie Flower", family: "'Indie Flower', cursive", cat: "HANDWRITING", desc: "素朴でゆるい手書き", sample: "Doodle Notes" },
+    { name: "Shadows Into Light", family: "'Shadows Into Light', cursive", cat: "HANDWRITING", desc: "軽やかな手書き風", sample: "Light Shadow" },
+
     { name: "Zen Kaku Gothic New", family: "'Zen Kaku Gothic New', sans-serif", cat: "日本語", desc: "モダンな角ゴシック", sample: "境界線をドラッグ" },
     { name: "Shippori Mincho", family: "'Shippori Mincho', serif", cat: "日本語", desc: "エディトリアルな明朝体", sample: "余白をデザインする" },
     { name: "Zen Maru Gothic", family: "'Zen Maru Gothic', sans-serif", cat: "日本語", desc: "やわらかい丸ゴシック", sample: "やさしい書体です" },
+    { name: "Noto Sans JP", family: "'Noto Sans JP', sans-serif", cat: "日本語", desc: "汎用的な標準ゴシック", sample: "標準的な文字組み" },
+    { name: "Noto Serif JP", family: "'Noto Serif JP', serif", cat: "日本語", desc: "汎用的な明朝体", sample: "伝統と革新の明朝" },
+    { name: "M PLUS 1p", family: "'M PLUS 1p', sans-serif", cat: "日本語", desc: "視認性の高いゴシック", sample: "視認性重視の書体" },
+    { name: "M PLUS Rounded 1c", family: "'M PLUS Rounded 1c', sans-serif", cat: "日本語", desc: "丸みのある親しみやすいゴシック", sample: "まるくてやさしい" },
+    { name: "Kosugi Maru", family: "'Kosugi Maru', sans-serif", cat: "日本語", desc: "カジュアルな丸ゴシック", sample: "ポップな丸文字" },
+    { name: "Yuji Syuku", family: "'Yuji Syuku', serif", cat: "日本語", desc: "筆致を感じる縦書き向け明朝", sample: "筆致を感じる書体" },
   ];
 
   function buildGroups() {
@@ -82,6 +133,7 @@
   }
 
   function boot() {
+    initBgCrossfade();
     buildGroups();
     initEyeTracking();
   }

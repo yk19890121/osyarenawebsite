@@ -1,0 +1,7 @@
+/* BLENCI LAB — shared rope-chain cursor + click shockwave styles */
+@media (hover:hover) and (pointer:fine){
+  body.cursor-ready{cursor:none;}
+}
+#rope-cursor-canvas{position:fixed;inset:0;width:100vw;height:100vh;z-index:9000;pointer-events:none;transition:opacity .2s;}
+#shockwave-layer{position:fixed;inset:0;z-index:8999;pointer-events:none;overflow:hidden;}
+.shock-ring{position:absolute;width:10px;height:10px;border:2px solid #ff7847;border-radius:50%;transform:translate(-50%,-50%);opacity:1;}

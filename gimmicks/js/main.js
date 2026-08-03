@@ -656,6 +656,14 @@
     if (btn) btn.addEventListener("click", play);
   }
 
+  /* ---------------- hero background crossfade ---------------- */
+  function initHeroCrossfade() {
+    const slides = document.querySelectorAll(".hero .bg-slide");
+    if (slides.length < 2 || REDUCED) return;
+    let i = 0;
+    setInterval(() => { slides[i].classList.remove("active"); i = (i + 1) % slides.length; slides[i].classList.add("active"); }, 4500);
+  }
+
   /* ============================ 37 — background crossfade ============================ */
   function initCrossfadeV1() {
     const slides = document.querySelectorAll("#g37 .crossfade-slide");
@@ -2312,6 +2320,7 @@
     initPreviewListV1();
     initMaskReveal();
     initSplitChar();
+    initHeroCrossfade();
     initCrossfadeV1();
     initScopedLenis();
     initV1Pin();
