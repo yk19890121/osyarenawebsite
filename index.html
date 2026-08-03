@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>BLENCI — Sculptural Silhouettes / SS26</title>
+<meta name="description" content="BLENCI — 身体と生地の境界を再定義する、オーバーサイズ・ジェンダーレス・コレクション SS26 ルックブック。">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300..700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="js/vendor/lenis.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="grain" aria-hidden="true"></div>
+<div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+<div id="cursor-preview" aria-hidden="true"><img alt=""></div>
+
+<div id="loader">
+  <div class="loader-top">
+    <span class="loader-brand">BLENCI</span>
+    <span class="loader-count" id="loader-count">00</span>
+  </div>
+  <div class="loader-bar"><div class="loader-bar-fill" id="loader-bar-fill"></div></div>
+  <div class="loader-bottom">
+    <span>SS26 — SCULPTURAL SILHOUETTES</span>
+    <span>TOKYO</span>
+  </div>
+</div>
+
+<header class="site-header" id="site-header">
+  <a href="#top" class="logo" data-magnetic>BLENCI</a>
+  <nav class="nav-desktop">
+    <a href="#collection" data-magnetic>COLLECTION</a>
+    <a href="#philosophy" data-magnetic>PHILOSOPHY</a>
+    <a href="#lookbook" data-magnetic>LOOKBOOK</a>
+    <a href="#contact" data-magnetic>CONTACT</a>
+  </nav>
+  <button id="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
+    <span class="menu-icon"><i></i><i></i></span>
+    <span class="menu-label">MENU</span>
+  </button>
+</header>
+
+<div id="menu-overlay" aria-hidden="true">
+  <div class="menu-inner">
+    <nav class="menu-links">
+      <a href="#collection" class="menu-link"><span class="menu-link-index">01</span><span class="menu-link-text">COLLECTION</span></a>
+      <a href="#philosophy" class="menu-link"><span class="menu-link-index">02</span><span class="menu-link-text">PHILOSOPHY</span></a>
+      <a href="#lookbook" class="menu-link"><span class="menu-link-index">03</span><span class="menu-link-text">LOOKBOOK</span></a>
+      <a href="#contact" class="menu-link"><span class="menu-link-index">04</span><span class="menu-link-text">CONTACT</span></a>
+    </nav>
+    <div class="menu-foot">
+      <div class="menu-social">
+        <a href="#" data-magnetic>INSTAGRAM</a>
+        <a href="#" data-magnetic>WEIBO</a>
+        <a href="#" data-magnetic>NEWSLETTER</a>
+      </div>
+      <div class="menu-meta">
+        <p>BLENCI STUDIO<br>TOKYO / JP</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main id="top">
+
+  <section id="hero">
+    <div class="hero-bg">
+      <div class="hero-slide active" style="background-image:url('assets/img/look-01-0.webp')"></div>
+      <div class="hero-slide" style="background-image:url('assets/img/look-06-0.webp')"></div>
+      <div class="hero-slide" style="background-image:url('assets/img/look-14-0.webp')"></div>
+      <div class="hero-scrim"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow reveal-line"><span>SS26 COLLECTION</span></p>
+      <h1 class="hero-title" aria-label="BLENCI">
+        <span class="ht-line"><span class="ht-char">B</span><span class="ht-char">L</span><span class="ht-char">E</span><span class="ht-char">N</span><span class="ht-char">C</span><span class="ht-char">I</span></span>
+      </h1>
+      <p class="hero-sub reveal-line"><span>身体と生地の境界を、もう一度引きなおす。</span></p>
+    </div>
+    <div class="hero-scroll" data-magnetic>
+      <span class="hs-line"></span><span>SCROLL</span>
+    </div>
+    <div class="hero-index">
+      <span>18 LOOKS</span>
+      <span>72 FRAMES</span>
+    </div>
+  </section>
+
+  <div class="marquee-band" id="marquee-1">
+    <div class="marquee-track">
+      <span>SCULPTURAL — OVERSIZED — GENDERLESS — BLENCI — SS26 — TOKYO — </span>
+      <span>SCULPTURAL — OVERSIZED — GENDERLESS — BLENCI — SS26 — TOKYO — </span>
+    </div>
+  </div>
+
+  <section id="manifesto">
+    <div class="manifesto-inner">
+      <p class="manifesto-index">MANIFESTO / 01</p>
+      <p class="manifesto-text">
+        <span class="reveal-line"><span>服は、身体を説明するための輪郭ではない。</span></span>
+        <span class="reveal-line"><span>BLENCIにとって布とは、余白であり、</span></span>
+        <span class="reveal-line"><span>着る人の動きがはじめて意味を持つ、</span></span>
+        <span class="reveal-line"><span><em>ひとつの空間そのものだ。</em></span></span>
+      </p>
+    </div>
+  </section>
+
+  <section id="collection">
+    <div class="gallery-pin-wrap">
+      <div class="gallery-pin" id="gallery-pin">
+        <div class="gallery-head">
+          <h2>COLLECTION</h2>
+          <p>SS26 — SELECTED LOOKS</p>
+        </div>
+        <div class="gallery-track" id="gallery-track">
+          <!-- injected by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee-band alt" id="marquee-2">
+    <div class="marquee-track">
+      <span>身体と生地の間 — BETWEEN BODY AND CLOTH — 身体と生地の間 — BETWEEN BODY AND CLOTH — </span>
+      <span>身体と生地の間 — BETWEEN BODY AND CLOTH — 身体と生地の間 — BETWEEN BODY AND CLOTH — </span>
+    </div>
+  </div>
+
+  <section id="featured">
+    <article class="feature" data-look="11">
+      <div class="feature-media">
+        <div class="feature-img-wrap"><img src="assets/img/look-11-0.webp" alt="LOOK 11 — TEAL SILK BLOUSE"></div>
+      </div>
+      <div class="feature-copy">
+        <p class="feature-num">FEATURE — 11 / TEAL SILK BLOUSE</p>
+        <h3 class="reveal-line"><span>流れる素材が、</span></h3>
+        <h3 class="reveal-line"><span>体温を可視化する。</span></h3>
+        <p class="feature-desc">シルクの落ち感を生かしたブラウスは、静止した状態でも風をはらんでいるように見える一着。</p>
+      </div>
+    </article>
+
+    <article class="feature reverse" data-look="15">
+      <div class="feature-media">
+        <div class="feature-img-wrap"><img src="assets/img/look-15-0.webp" alt="LOOK 15 — SCARLET MINIMAL COAT"></div>
+      </div>
+      <div class="feature-copy">
+        <p class="feature-num">FEATURE — 15 / SCARLET MINIMAL COAT</p>
+        <h3 class="reveal-line"><span>過剰な装飾を、</span></h3>
+        <h3 class="reveal-line"><span>ひとつずつ引き算する。</span></h3>
+        <p class="feature-desc">一枚の赤を、削ぎ落とした直線だけで構築したコート。色そのものがディテールになる。</p>
+      </div>
+    </article>
+
+    <article class="feature" data-look="17">
+      <div class="feature-media">
+        <div class="feature-img-wrap"><img src="assets/img/look-17-0.webp" alt="LOOK 17 — OCHRE UTILITY JACKET"></div>
+      </div>
+      <div class="feature-copy">
+        <p class="feature-num">FEATURE — 17 / OCHRE UTILITY JACKET</p>
+        <h3 class="reveal-line"><span>機能性は、</span></h3>
+        <h3 class="reveal-line"><span>最終的に静けさへ辿り着く。</span></h3>
+        <p class="feature-desc">ユーティリティのディテールを残しながら、全体のシルエットは限りなく彫刻的に。</p>
+      </div>
+    </article>
+  </section>
+
+  <section id="philosophy">
+    <div class="philosophy-media">
+      <img src="assets/img/look-16-0.webp" alt="LOOK 16 — CHARCOAL DRAPE SUIT">
+    </div>
+    <div class="philosophy-copy">
+      <p class="manifesto-index">PHILOSOPHY / 02</p>
+      <p class="philosophy-text reveal-line"><span>デザインとは、削ること。</span></p>
+      <p class="philosophy-text reveal-line"><span>装飾ではなく、構造そのものを美しくすること。</span></p>
+      <p class="philosophy-desc">BLENCIは2021年、東京で設立。性別・体型・年齢という既存の分類から服を解放し、布と身体のあいだにある「余白」をデザインするスタジオとして活動しています。すべてのシルエットは、着る人の動きによって初めて完成します。</p>
+      <div class="philosophy-stats">
+        <div><span class="num" data-count="18">0</span><span class="label">LOOKS / SS26</span></div>
+        <div><span class="num" data-count="72">0</span><span class="label">FRAMES SHOT</span></div>
+        <div><span class="num" data-count="2021">0</span><span class="label">ESTABLISHED</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="index-list">
+    <div class="index-head">
+      <h2>LOOK INDEX</h2>
+      <p>HOVER TO PREVIEW — CLICK TO OPEN</p>
+    </div>
+    <div class="index-rows" id="index-rows">
+      <!-- injected by JS -->
+    </div>
+  </section>
+
+  <section id="lookbook">
+    <div class="lookbook-head">
+      <h2>LOOKBOOK</h2>
+      <p>SS26 FULL COLLECTION — 18 LOOKS</p>
+    </div>
+    <div class="lookbook-grid" id="lookbook-grid">
+      <!-- injected by JS -->
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="contact-inner">
+      <p class="manifesto-index">CONTACT / 03</p>
+      <h2 class="reveal-line"><span>次のシーズンを、</span></h2>
+      <h2 class="reveal-line"><span>一緒に見届けませんか。</span></h2>
+      <a href="mailto:hello@blenci.example" class="contact-btn" data-magnetic>
+        <span>JOIN THE LIST</span>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer id="site-footer">
+  <div class="footer-marquee">
+    <div class="marquee-track">
+      <span>BLENCI&nbsp;&nbsp;&nbsp;BLENCI&nbsp;&nbsp;&nbsp;BLENCI&nbsp;&nbsp;&nbsp;BLENCI&nbsp;&nbsp;&nbsp;</span>
+      <span>BLENCI&nbsp;&nbsp;&nbsp;BLENCI&nbsp;&nbsp;&nbsp;BLENCI&nbsp;&nbsp;&nbsp;BLENCI&nbsp;&nbsp;&nbsp;</span>
+    </div>
+  </div>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <p class="footer-title">STUDIO</p>
+      <a href="#" data-magnetic>ABOUT</a>
+      <a href="#philosophy" data-magnetic>PHILOSOPHY</a>
+      <a href="#" data-magnetic>CAREERS</a>
+    </div>
+    <div class="footer-col">
+      <p class="footer-title">COLLECTION</p>
+      <a href="#collection" data-magnetic>SS26</a>
+      <a href="#lookbook" data-magnetic>LOOKBOOK</a>
+      <a href="#" data-magnetic>ARCHIVE</a>
+    </div>
+    <div class="footer-col">
+      <p class="footer-title">SOCIAL</p>
+      <a href="#" data-magnetic>INSTAGRAM</a>
+      <a href="#" data-magnetic>WEIBO</a>
+      <a href="#" data-magnetic>NEWSLETTER</a>
+    </div>
+    <div class="footer-col">
+      <p class="footer-title">STUDIO</p>
+      <p class="footer-plain">〒150-0001<br>東京都渋谷区 BLENCI STUDIO</p>
+      <p class="footer-plain">hello@blenci.example</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 BLENCI STUDIO. ALL RIGHTS RESERVED.</span>
+    <button id="back-to-top" data-magnetic>BACK TO TOP ↑</button>
+  </div>
+</footer>
+
+<div id="modal-viewer" aria-hidden="true">
+  <button id="modal-close" aria-label="閉じる" data-magnetic>CLOSE ✕</button>
+  <button id="modal-prev" class="modal-nav" aria-label="前のルック" data-magnetic>‹</button>
+  <button id="modal-next" class="modal-nav next" aria-label="次のルック" data-magnetic>›</button>
+  <div class="modal-stage" id="modal-stage"></div>
+  <div class="modal-info">
+    <div class="modal-title">
+      <span id="modal-look-num">LOOK 01</span>
+      <span id="modal-look-name">—</span>
+    </div>
+    <div class="modal-variants" id="modal-variants"></div>
+  </div>
+</div>
+
+<script src="js/vendor/gsap.min.js"></script>
+<script src="js/vendor/ScrollTrigger.min.js"></script>
+<script src="js/vendor/lenis.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
