@@ -1365,6 +1365,920 @@
     }, { passive: true });
   }
 
+  /* ============================ 80 — 3D cube gallery ============================ */
+  function initCube3D() {
+    const cube = document.getElementById("cube3d");
+    if (!cube) return;
+    let rotY = -20, rotX = -15;
+    gsap.set(cube, { rotateX: rotX, rotateY: rotY });
+    let startX, startY, startRotY, startRotX, dragging = false;
+    cube.addEventListener("pointerdown", (e) => { dragging = true; startX = e.clientX; startY = e.clientY; startRotY = rotY; startRotX = rotX; cube.setPointerCapture(e.pointerId); });
+    cube.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      rotY = startRotY + (e.clientX - startX) * 0.5;
+      rotX = gsap.utils.clamp(-60, 60, startRotX - (e.clientY - startY) * 0.5);
+      gsap.set(cube, { rotateX: rotX, rotateY: rotY });
+    });
+    cube.addEventListener("pointerup", () => (dragging = false));
+  }
+
+  /* ============================ 81 — layered parallax 3D card ============================ */
+  function initDiorama() {
+    const box = document.getElementById("diorama");
+    if (!box || !FINE_POINTER) return;
+    const mid = box.querySelector(".diorama-mid");
+    const label = box.querySelector(".diorama-label");
+    box.addEventListener("mousemove", (e) => {
+      const r = box.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      gsap.to(box, { rotateY: px * 10, rotateX: -py * 10, duration: 0.4, overwrite: "auto" });
+      gsap.to(mid, { x: px * 30, y: py * 20, duration: 0.4, overwrite: "auto" });
+      gsap.to(label, { x: px * 10, y: py * 10, duration: 0.4, overwrite: "auto" });
+    });
+    box.addEventListener("mouseleave", () => {
+      gsap.to(box, { rotateX: 0, rotateY: 0, duration: 0.5, overwrite: "auto" });
+      gsap.to([mid, label], { x: 0, y: 0, duration: 0.5, overwrite: "auto" });
+    });
+  }
+
+  /* ============================ 82 — 3D bellows fold ============================ */
+  function initBellows() {
+    const btn = document.getElementById("replay-bellows");
+    const panels = document.querySelectorAll("#bellows .bellows-panel");
+    if (!btn) return;
+    let open = false;
+    btn.addEventListener("click", () => {
+      open = !open;
+      gsap.to(panels, { rotateX: open ? 0 : 75, duration: 0.6, stagger: 0.1, ease: "power3.out" });
+    });
+  }
+
+  /* ============================ 83 — flip-clock digit ============================ */
+  function initFlipClock() {
+    const el = document.getElementById("flipclock");
+    const btn = document.getElementById("shuffle-flipclock");
+    if (!el) return;
+    function buildDigit(d) {
+      const box = document.createElement("div");
+      box.className = "flip-digit";
+      box.innerHTML = `<div class="flip-digit-half flip-digit-top"><span>${d}</span></div><div class="flip-digit-half flip-digit-bottom"><span>${d}</span></div>`;
+      return box;
+    }
+    function render(str) { el.innerHTML = ""; [...str].forEach((d) => el.appendChild(buildDigit(d))); }
+    render("072");
+    function flipTo(newStr) {
+      const digits = el.querySelectorAll(".flip-digit");
+      [...newStr].forEach((d, i) => {
+        const digitBox = digits[i];
+        const topSpan = digitBox.querySelector(".flip-digit-top span");
+        const oldVal = topSpan.textContent;
+        if (oldVal === d) return;
+        const flap = document.createElement("div");
+        flap.className = "flip-card-anim";
+        flap.innerHTML = `<span>${oldVal}</span>`;
+        digitBox.appendChild(flap);
+        topSpan.textContent = d;
+        digitBox.querySelector(".flip-digit-bottom span").textContent = d;
+        gsap.fromTo(flap, { rotateX: 0 }, { rotateX: -90, duration: 0.35, ease: "power1.in", onComplete: () => flap.remove() });
+      });
+    }
+    if (btn) btn.addEventListener("click", () => flipTo(String(Math.floor(Math.random() * 1000)).padStart(3, "0")));
+  }
+
+  /* ============================ 85 — 3D sphere gallery ============================ */
+  function initSphere() {
+    const inner = document.getElementById("sphere-inner");
+    const stage = document.getElementById("sphere-stage");
+    if (!inner || REDUCED) return;
+    const order = [2, 5, 7, 9, 12, 14, 16, 18, 3, 10];
+    const N = order.length, radius = 120;
+    const base = order.map((n, i) => {
+      const el = document.createElement("div");
+      el.className = "sphere-item";
+      el.innerHTML = `<img src="../assets/img/${LOOKS[n - 1].variants[0].thumb}" alt="">`;
+      inner.appendChild(el);
+      const phi = Math.acos(1 - (2 * (i + 0.5)) / N);
+      const theta0 = Math.PI * (1 + Math.sqrt(5)) * i;
+      return { el, by: radius * Math.cos(phi), r: radius * Math.sin(phi), theta0 };
+    });
+    let angle = 0, paused = false;
+    stage.addEventListener("mouseenter", () => (paused = true));
+    stage.addEventListener("mouseleave", () => (paused = false));
+    function loop() {
+      if (!paused) angle += 0.006;
+      base.forEach((item) => {
+        const t = angle * 2 * Math.PI + item.theta0;
+        const x = item.r * Math.cos(t), z = item.r * Math.sin(t);
+        const scaleF = ((z + radius) / (radius * 2)) * 0.6 + 0.5;
+        gsap.set(item.el, { x, y: item.by, z, scale: scaleF, opacity: scaleF, zIndex: Math.round(z) });
+      });
+      requestAnimationFrame(loop);
+    }
+    loop();
+  }
+
+  /* ============================ 87 — 3D book page turn ============================ */
+  function initBook() {
+    const book = document.getElementById("book");
+    const btn = document.getElementById("turn-page");
+    if (!book) return;
+    btn.addEventListener("click", () => book.classList.toggle("turned"));
+  }
+
+  /* ============================ 88 — depth-parallax grid ============================ */
+  function initDepthGrid() {
+    const grid = document.getElementById("depth-grid");
+    if (!grid) return;
+    const order = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    order.forEach((n) => {
+      const el = document.createElement("div");
+      el.className = "depth-tile";
+      el.style.backgroundImage = `url(../assets/img/${LOOKS[n - 1].variants[0].thumb})`;
+      grid.appendChild(el);
+    });
+    if (!FINE_POINTER) return;
+    const tiles = [...grid.querySelectorAll(".depth-tile")];
+    grid.addEventListener("mousemove", (e) => {
+      tiles.forEach((tile) => {
+        const r = tile.getBoundingClientRect();
+        const dist = Math.hypot(e.clientX - (r.left + r.width / 2), e.clientY - (r.top + r.height / 2));
+        const scale = gsap.utils.clamp(1, 1.35, 1.35 - dist / 220);
+        gsap.to(tile, { scale, z: (scale - 1) * 100, duration: 0.3, overwrite: "auto" });
+      });
+    });
+    grid.addEventListener("mouseleave", () => gsap.to(tiles, { scale: 1, z: 0, duration: 0.4 }));
+  }
+
+  /* ============================ 89 — 3D orbit ring carousel ============================ */
+  function initOrbit() {
+    const inner = document.getElementById("orbit-inner");
+    const stage = document.getElementById("orbit-stage");
+    if (!inner || REDUCED) return;
+    const order = [4, 8, 13, 17, 1, 9];
+    const N = order.length, radius = 140;
+    const items = order.map((n) => {
+      const el = document.createElement("div");
+      el.className = "orbit-item";
+      el.innerHTML = `<img src="../assets/img/${LOOKS[n - 1].variants[0].thumb}" alt="">`;
+      inner.appendChild(el);
+      return el;
+    });
+    let angle = 0, paused = false;
+    stage.addEventListener("mouseenter", () => (paused = true));
+    stage.addEventListener("mouseleave", () => (paused = false));
+    function loop() {
+      if (!paused) angle += 0.008;
+      items.forEach((el, i) => {
+        const theta = angle + i * ((2 * Math.PI) / N);
+        const x = Math.sin(theta) * radius, z = Math.cos(theta) * radius;
+        const scale = ((z + radius) / (radius * 2)) * 0.5 + 0.65;
+        gsap.set(el, { x, z, scale, opacity: scale, zIndex: Math.round(z) });
+      });
+      requestAnimationFrame(loop);
+    }
+    loop();
+  }
+
+  /* ============================ 90 — cursor-repel icon swarm ============================ */
+  function initSwarm() {
+    const box = document.getElementById("swarm-box");
+    if (!box) return;
+    const icons = [...box.querySelectorAll(".swarm-icon")];
+    const state = icons.map((el, i) => ({ el, ox: (i + 1) * (100 / (icons.length + 1)), oy: 50 }));
+    state.forEach((s) => { s.el.style.left = s.ox + "%"; s.el.style.top = s.oy + "%"; });
+    box.addEventListener("mousemove", (e) => {
+      const r = box.getBoundingClientRect();
+      const mx = ((e.clientX - r.left) / r.width) * 100, my = ((e.clientY - r.top) / r.height) * 100;
+      state.forEach((s) => {
+        const dx = s.ox - mx, dy = s.oy - my, dist = Math.hypot(dx, dy);
+        if (dist < 25) gsap.to(s.el, { left: s.ox + (dx / dist) * 18 + "%", top: s.oy + (dy / dist) * 18 + "%", duration: 0.3, ease: "power2.out", overwrite: "auto" });
+        else gsap.to(s.el, { left: s.ox + "%", top: s.oy + "%", duration: 0.6, ease: "elastic.out(1,0.4)", overwrite: "auto" });
+      });
+    });
+    box.addEventListener("mouseleave", () => state.forEach((s) => gsap.to(s.el, { left: s.ox + "%", top: s.oy + "%", duration: 0.6, ease: "elastic.out(1,0.4)" })));
+  }
+
+  /* ============================ 91 — cursor pet follower ============================ */
+  function initPet() {
+    const box = document.getElementById("pet-box");
+    const blob = document.getElementById("pet-blob");
+    if (!box) return;
+    const setX = gsap.quickTo(blob, "x", { duration: 0.6, ease: "power2.out" });
+    const setY = gsap.quickTo(blob, "y", { duration: 0.6, ease: "power2.out" });
+    box.addEventListener("mousemove", (e) => { const r = box.getBoundingClientRect(); setX(e.clientX - r.left); setY(e.clientY - r.top); });
+  }
+
+  /* ============================ 92 — eye-tracking letters ============================ */
+  function initEyeText() {
+    const el = document.getElementById("eye-text");
+    if (!el || !FINE_POINTER) return;
+    el.innerHTML = [...el.textContent].map((c) => `<span class="eye-char">${c}</span>`).join("");
+    const chars = [...el.querySelectorAll(".eye-char")];
+    document.addEventListener("mousemove", (e) => {
+      chars.forEach((ch) => {
+        const r = ch.getBoundingClientRect();
+        const angle = (Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2)) * 180) / Math.PI;
+        gsap.to(ch, { rotate: gsap.utils.clamp(-25, 25, angle / 4), duration: 0.3, overwrite: "auto" });
+      });
+    });
+  }
+
+  /* ============================ 93 — cursor shockwave burst ============================ */
+  function initShockwave() {
+    const box = document.getElementById("shockwave-box");
+    if (!box) return;
+    box.addEventListener("click", (e) => {
+      const r = box.getBoundingClientRect();
+      const x = e.clientX - r.left, y = e.clientY - r.top;
+      for (let i = 0; i < 2; i++) {
+        const ring = document.createElement("div");
+        ring.className = "shock-ring";
+        ring.style.left = x + "px"; ring.style.top = y + "px";
+        ring.style.width = ring.style.height = "10px";
+        box.appendChild(ring);
+        gsap.to(ring, { width: 220 + i * 40, height: 220 + i * 40, opacity: 0, duration: 0.8 + i * 0.2, ease: "power2.out", delay: i * 0.1, onComplete: () => ring.remove() });
+      }
+    });
+  }
+
+  /* ============================ 94 — cursor magnet snap ============================ */
+  function initSnapTarget() {
+    const box = document.getElementById("snap-target-box");
+    const target = document.getElementById("snap-target");
+    if (!box) return;
+    let snapped = false;
+    box.addEventListener("mousemove", (e) => {
+      const r = target.getBoundingClientRect();
+      const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      const dist = Math.hypot(e.clientX - cx, e.clientY - cy);
+      if (dist < 90) { snapped = true; gsap.to(target, { x: (e.clientX - cx) * 0.15, y: (e.clientY - cy) * 0.15, scale: 1.08, duration: 0.2, overwrite: "auto" }); }
+      else if (snapped) { snapped = false; gsap.to(target, { x: 0, y: 0, scale: 1, duration: 0.4, ease: "power2.out" }); }
+    });
+    box.addEventListener("mouseleave", () => { snapped = false; gsap.to(target, { x: 0, y: 0, scale: 1, duration: 0.4 }); });
+  }
+
+  /* ============================ 95 — card fan riffle ============================ */
+  function initRiffle() {
+    const box = document.getElementById("riffle-box");
+    if (!box) return;
+    const order = [3, 6, 9, 12, 15, 18, 2, 7];
+    const N = order.length;
+    const cards = order.map((n, i) => {
+      const el = document.createElement("div");
+      el.className = "riffle-card";
+      el.style.backgroundImage = `url(../assets/img/${LOOKS[n - 1].variants[0].thumb})`;
+      const angle = (i - (N - 1) / 2) * 8;
+      el.style.left = `calc(50% - 35px + ${(i - (N - 1) / 2) * 22}px)`;
+      el.dataset.baseAngle = angle;
+      gsap.set(el, { rotate: angle });
+      box.appendChild(el);
+      return el;
+    });
+    box.addEventListener("mousemove", (e) => {
+      const r = box.getBoundingClientRect();
+      const activeIdx = Math.round(((e.clientX - r.left) / r.width) * (N - 1));
+      cards.forEach((c, i) => gsap.to(c, { y: i === activeIdx ? -30 : 0, duration: 0.25, overwrite: "auto" }));
+    });
+    box.addEventListener("mouseleave", () => cards.forEach((c) => gsap.to(c, { y: 0, duration: 0.3 })));
+  }
+
+  /* ============================ 96 — pinball drag launch ============================ */
+  function initPinball() {
+    const canvas = document.getElementById("pinball-canvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    const DPR = Math.min(window.devicePixelRatio || 1, 2);
+    let w, h;
+    function resize() { w = canvas.width = canvas.clientWidth * DPR; h = canvas.height = canvas.clientHeight * DPR; }
+    new ResizeObserver(resize).observe(canvas);
+    resize();
+    const ball = { x: 0, y: 0, vx: 0, vy: 0, r: 10 * DPR };
+    ball.x = w / 2; ball.y = h / 2;
+    let dragging = false, dragStart = null;
+    canvas.addEventListener("pointerdown", (e) => {
+      const r = canvas.getBoundingClientRect();
+      const mx = (e.clientX - r.left) * DPR, my = (e.clientY - r.top) * DPR;
+      if (Math.hypot(mx - ball.x, my - ball.y) < 40 * DPR) { dragging = true; dragStart = { x: mx, y: my }; }
+    });
+    canvas.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      const r = canvas.getBoundingClientRect();
+      ball.x = (e.clientX - r.left) * DPR; ball.y = (e.clientY - r.top) * DPR;
+    });
+    canvas.addEventListener("pointerup", (e) => {
+      if (!dragging) return;
+      dragging = false;
+      const r = canvas.getBoundingClientRect();
+      const mx = (e.clientX - r.left) * DPR, my = (e.clientY - r.top) * DPR;
+      ball.vx = (dragStart.x - mx) * 0.15; ball.vy = (dragStart.y - my) * 0.15;
+    });
+    function step() {
+      if (!dragging) {
+        ball.x += ball.vx; ball.y += ball.vy;
+        ball.vx *= 0.995; ball.vy *= 0.995;
+        if (ball.x < ball.r || ball.x > w - ball.r) { ball.vx *= -0.85; ball.x = Math.max(ball.r, Math.min(w - ball.r, ball.x)); }
+        if (ball.y < ball.r || ball.y > h - ball.r) { ball.vy *= -0.85; ball.y = Math.max(ball.r, Math.min(h - ball.r, ball.y)); }
+      }
+      ctx.clearRect(0, 0, w, h);
+      if (dragging) { ctx.strokeStyle = "rgba(216,71,31,.6)"; ctx.lineWidth = 2 * DPR; ctx.beginPath(); ctx.moveTo(dragStart.x, dragStart.y); ctx.lineTo(ball.x, ball.y); ctx.stroke(); }
+      ctx.fillStyle = "#d8471f";
+      ctx.beginPath(); ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2); ctx.fill();
+      requestAnimationFrame(step);
+    }
+    if (!REDUCED) step();
+  }
+
+  /* ============================ 97 — pendulum drag swing ============================ */
+  function initPendulum() {
+    const box = document.getElementById("pendulum-box");
+    const bob = document.getElementById("pendulum-bob");
+    const line = document.getElementById("pendulum-line");
+    if (!box) return;
+    let pivotX, pivotY, length;
+    function setup() { const r = box.getBoundingClientRect(); pivotX = r.width / 2; pivotY = 20; length = r.height - 60; }
+    setup();
+    window.addEventListener("resize", setup);
+    let angle = 0.3, angVel = 0, dragging = false;
+    function place() {
+      const x = pivotX + Math.sin(angle) * length, y = pivotY + Math.cos(angle) * length;
+      bob.style.left = x + "px"; bob.style.top = y + "px";
+      line.setAttribute("x1", pivotX); line.setAttribute("y1", pivotY);
+      line.setAttribute("x2", x); line.setAttribute("y2", y);
+    }
+    bob.addEventListener("pointerdown", (e) => { dragging = true; bob.setPointerCapture(e.pointerId); });
+    bob.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      const r = box.getBoundingClientRect();
+      angle = Math.atan2(e.clientX - r.left - pivotX, e.clientY - r.top - pivotY);
+      angVel = 0;
+      place();
+    });
+    bob.addEventListener("pointerup", () => (dragging = false));
+    function loop() {
+      if (!dragging) { angVel += -0.02 * Math.sin(angle); angVel *= 0.995; angle += angVel; place(); }
+      requestAnimationFrame(loop);
+    }
+    place();
+    if (!REDUCED) loop();
+  }
+
+  /* ============================ 98 — toppling block stack ============================ */
+  function initJenga() {
+    const btn = document.getElementById("jenga-push");
+    const blocks = document.querySelectorAll("#jenga-box .jenga-block");
+    if (!btn) return;
+    let toppled = false;
+    btn.addEventListener("click", () => {
+      if (toppled) { gsap.to(blocks, { rotate: 0, x: 0, y: 0, duration: 0.5, stagger: 0.05, ease: "power3.out" }); toppled = false; }
+      else { gsap.to(blocks, { rotate: (i) => 15 + i * 20, x: (i) => 20 + i * 45, y: (i) => -i * 4, duration: 0.6, stagger: 0.07, ease: "power2.in" }); toppled = true; }
+    });
+  }
+
+  /* ============================ 99 — weighted momentum slider ============================ */
+  function initMomentum() {
+    const track = document.getElementById("momentum-track");
+    const handle = document.getElementById("momentum-handle");
+    if (!track) return;
+    let pos = 0.5, vel = 0, dragging = false, lastX = 0;
+    function place() { handle.style.left = pos * 100 + "%"; }
+    place();
+    handle.addEventListener("pointerdown", (e) => { dragging = true; lastX = e.clientX; handle.setPointerCapture(e.pointerId); });
+    handle.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      const r = track.getBoundingClientRect();
+      const dx = e.clientX - lastX;
+      vel = dx / r.width;
+      pos = gsap.utils.clamp(0, 1, pos + dx / r.width);
+      lastX = e.clientX;
+      place();
+    });
+    handle.addEventListener("pointerup", () => (dragging = false));
+    function loop() {
+      if (!dragging && Math.abs(vel) > 0.0005) {
+        pos += vel; vel *= 0.92;
+        if (pos < 0) { pos = 0; vel *= -0.4; }
+        if (pos > 1) { pos = 1; vel *= -0.4; }
+        place();
+      }
+      requestAnimationFrame(loop);
+    }
+    if (!REDUCED) loop();
+  }
+
+  /* ============================ 100 — elastic rubber-band button ============================ */
+  function initRubberBand() {
+    const box = document.getElementById("rubber-box");
+    const btn = document.getElementById("rubber-btn");
+    const line = document.getElementById("rubber-line");
+    if (!box) return;
+    function anchor() { const r = box.getBoundingClientRect(); return { x: r.width / 2, y: r.height / 2 }; }
+    let dragging = false;
+    btn.addEventListener("pointerdown", (e) => { dragging = true; btn.setPointerCapture(e.pointerId); });
+    btn.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      const r = box.getBoundingClientRect();
+      const a = anchor();
+      let dx = e.clientX - r.left - a.x, dy = e.clientY - r.top - a.y;
+      const dist = Math.hypot(dx, dy), max = 70;
+      if (dist > max) { dx = (dx / dist) * max; dy = (dy / dist) * max; }
+      gsap.set(btn, { x: dx, y: dy });
+      line.setAttribute("x1", a.x); line.setAttribute("y1", a.y);
+      line.setAttribute("x2", a.x + dx); line.setAttribute("y2", a.y + dy);
+      line.setAttribute("stroke-width", 2 + dist / 20);
+    });
+    btn.addEventListener("pointerup", () => {
+      dragging = false;
+      gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1,0.35)" });
+      const a = anchor();
+      gsap.to(line, { attr: { x2: a.x, y2: a.y }, duration: 0.6, ease: "elastic.out(1,0.35)" });
+    });
+  }
+
+  /* ============================ 101 — rotary dial knob ============================ */
+  function initKnob() {
+    const knob = document.getElementById("knob");
+    const valueEl = document.getElementById("knob-value");
+    if (!knob) return;
+    let angle = 0, dragging = false;
+    function apply() { gsap.set(knob, { rotate: angle }); valueEl.textContent = Math.round(((angle + 150) / 300) * 100); }
+    knob.addEventListener("pointerdown", (e) => { dragging = true; knob.setPointerCapture(e.pointerId); });
+    knob.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      const r = knob.getBoundingClientRect();
+      const a = (Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2)) * 180) / Math.PI + 90;
+      angle = gsap.utils.clamp(-150, 150, ((a + 180) % 360) - 180);
+      apply();
+    });
+    knob.addEventListener("pointerup", () => (dragging = false));
+    apply();
+  }
+
+  /* ============================ 102 — scroll magnetic snap ============================ */
+  function initMagSnap() {
+    const box = document.getElementById("magsnap-box");
+    const items = box && box.querySelectorAll(".magsnap-item");
+    if (!box) return;
+    const positions = [{ x: 15, y: 20 }, { x: 80, y: 25 }, { x: 20, y: 75 }, { x: 78, y: 72 }];
+    items.forEach((el, i) => { el.style.left = positions[i].x + "%"; el.style.top = positions[i].y + "%"; });
+    ScrollTrigger.create({
+      trigger: box, start: "top 70%", end: "bottom 30%", scrub: true,
+      onUpdate: (self) => {
+        const pull = 1 - Math.abs(self.progress - 0.5) * 2;
+        items.forEach((el, i) => {
+          const base = positions[i];
+          el.style.left = base.x + (50 - base.x) * pull + "%";
+          el.style.top = base.y + (50 - base.y) * pull + "%";
+        });
+      },
+    });
+  }
+
+  /* ============================ 103 — scroll jigsaw assembly ============================ */
+  function initJigsaw() {
+    const box = document.getElementById("jigsaw-box");
+    if (!box) return;
+    const bgUrl = box.style.backgroundImage;
+    box.style.backgroundImage = "none";
+    const COLS = 4, ROWS = 3;
+    let pieces = [];
+    function build() {
+      box.querySelectorAll(".jigsaw-piece").forEach((p) => p.remove());
+      const w = box.clientWidth, h = box.clientHeight, pw = w / COLS, ph = h / ROWS;
+      pieces = [];
+      for (let r = 0; r < ROWS; r++) {
+        for (let c = 0; c < COLS; c++) {
+          const p = document.createElement("div");
+          p.className = "jigsaw-piece";
+          p.style.width = pw + "px"; p.style.height = ph + "px";
+          p.style.left = c * pw + "px"; p.style.top = r * ph + "px";
+          p.style.backgroundImage = bgUrl;
+          p.style.backgroundSize = w + "px " + h + "px";
+          p.style.backgroundPosition = `-${c * pw}px -${r * ph}px`;
+          box.appendChild(p);
+          gsap.set(p, { x: (Math.random() - 0.5) * 300, y: (Math.random() - 0.5) * 300, rotate: (Math.random() - 0.5) * 90, opacity: 0.4 });
+          pieces.push(p);
+        }
+      }
+    }
+    build();
+    window.addEventListener("resize", build);
+    ScrollTrigger.create({ trigger: box, start: "top 80%", once: true, onEnter: () => gsap.to(pieces, { x: 0, y: 0, rotate: 0, opacity: 1, duration: 1, stagger: 0.02, ease: "power3.out" }) });
+  }
+
+  /* ============================ 104 — scroll-scrubbed 3D rotation ============================ */
+  function initScrubCube() {
+    const cube = document.getElementById("scrub-cube");
+    const stage = document.getElementById("scrub-stage");
+    if (!cube || REDUCED) return;
+    gsap.to(cube, { rotateY: 360, rotateX: 180, ease: "none", scrollTrigger: { trigger: stage, start: "top bottom", end: "bottom top", scrub: true } });
+  }
+
+  /* ============================ 105 — scroll wave text ============================ */
+  function initWaveText() {
+    const el = document.getElementById("wave-text");
+    if (!el) return;
+    el.innerHTML = [...el.textContent].map((c) => `<span class="wv-char">${c === " " ? "&nbsp;" : c}</span>`).join("");
+    const chars = [...el.querySelectorAll(".wv-char")];
+    if (REDUCED) return;
+    ScrollTrigger.create({
+      trigger: el, start: "top bottom", end: "bottom top", scrub: 0.3,
+      onUpdate: (self) => { const phase = self.progress * Math.PI * 4; chars.forEach((c, i) => gsap.set(c, { y: Math.sin(phase + i * 0.5) * 10 })); },
+    });
+  }
+
+  /* ============================ 106 — newspaper parallax columns ============================ */
+  function initNewsParallax() {
+    const cols = document.querySelectorAll("#news-box .news-col");
+    const box = document.getElementById("news-box");
+    if (!cols.length || REDUCED) return;
+    cols.forEach((col) => {
+      const speed = Number(col.dataset.speed);
+      gsap.to(col, { y: -60 * speed, ease: "none", scrollTrigger: { trigger: box, start: "top bottom", end: "bottom top", scrub: true } });
+    });
+  }
+
+  /* ============================ 107 — jelly wobble card ============================ */
+  function initJelly() {
+    const card = document.getElementById("jelly-card");
+    if (!card) return;
+    card.addEventListener("mouseenter", () => {
+      gsap.timeline()
+        .to(card, { scaleX: 1.15, scaleY: 0.85, duration: 0.15, ease: "power1.out" })
+        .to(card, { scaleX: 0.92, scaleY: 1.1, duration: 0.15 })
+        .to(card, { scaleX: 1.05, scaleY: 0.96, duration: 0.15 })
+        .to(card, { scaleX: 1, scaleY: 1, duration: 0.3, ease: "elastic.out(1,0.3)" });
+    });
+  }
+
+  /* ============================ 108 — liquid pour bar ============================ */
+  function initPour() {
+    const path = document.getElementById("pour-wave");
+    const btn = document.getElementById("pour-fill");
+    if (!path) return;
+    const state = { level: 0 };
+    let t = 0;
+    function waveD(level) {
+      const y = 200 - level * 200;
+      let d = `M0,${y}`;
+      for (let x = 0; x <= 200; x += 20) d += ` L${x},${y + Math.sin(x * 0.05 + t) * 6}`;
+      d += ` L200,200 L0,200 Z`;
+      return d;
+    }
+    function animate() { t += 0.15; gsap.set(path, { attr: { d: waveD(state.level) } }); requestAnimationFrame(animate); }
+    if (!REDUCED) animate(); else gsap.set(path, { attr: { d: waveD(0) } });
+    if (btn) btn.addEventListener("click", () => gsap.to(state, { level: 0.85, duration: 1.8, ease: "power2.inOut" }));
+  }
+
+  /* ============================ 109 — goo slime button ============================ */
+  function initGoo() {
+    const box = document.getElementById("goo-box");
+    const follower = document.getElementById("goo-follower");
+    if (!box) return;
+    const setX = gsap.quickTo(follower, "x", { duration: 0.4, ease: "power2.out" });
+    const setY = gsap.quickTo(follower, "y", { duration: 0.4, ease: "power2.out" });
+    box.addEventListener("mousemove", (e) => {
+      const r = box.getBoundingClientRect();
+      setX(e.clientX - r.left - r.width / 2);
+      setY(e.clientY - r.top - r.height / 2);
+    });
+  }
+
+  /* ============================ 110 — water droplet cursor ============================ */
+  function initDroplet() {
+    const box = document.getElementById("droplet-box");
+    const drop = document.getElementById("droplet");
+    if (!box) return;
+    let lastX = 0;
+    box.addEventListener("mousemove", (e) => {
+      const r = box.getBoundingClientRect();
+      const x = e.clientX - r.left, y = e.clientY - r.top;
+      gsap.to(drop, { left: x, top: y, rotate: -45 + gsap.utils.clamp(-20, 20, (x - lastX) * 2), duration: 0.15, overwrite: "auto" });
+      lastX = x;
+    });
+  }
+
+  /* ============================ 111 — reactive cell grid ============================ */
+  function initReactiveGrid() {
+    const grid = document.getElementById("reactive-grid");
+    if (!grid) return;
+    const cells = [];
+    for (let i = 0; i < 50; i++) { const c = document.createElement("div"); c.className = "reactive-cell"; grid.appendChild(c); cells.push(c); }
+    if (!FINE_POINTER) return;
+    grid.addEventListener("mousemove", (e) => {
+      cells.forEach((c) => {
+        const r = c.getBoundingClientRect();
+        const dist = Math.hypot(e.clientX - (r.left + r.width / 2), e.clientY - (r.top + r.height / 2));
+        const glow = Math.max(0, 1 - dist / 110);
+        gsap.to(c, { opacity: 0.12 + glow * 0.88, scale: 1 + glow * 0.35, duration: 0.3, overwrite: "auto" });
+      });
+    });
+    grid.addEventListener("mouseleave", () => gsap.to(cells, { opacity: 0.12, scale: 1, duration: 0.5 }));
+  }
+
+  /* ============================ 112 — dissolving orbs ============================ */
+  function initOrbs() {
+    const box = document.getElementById("bubble-box");
+    if (!box) return;
+    function spawn() {
+      const el = document.createElement("div");
+      el.className = "orb";
+      const size = 20 + Math.random() * 30;
+      el.style.width = el.style.height = size + "px";
+      el.style.left = Math.random() * 90 + "%";
+      el.style.top = "100%";
+      box.appendChild(el);
+      const dur = 6 + Math.random() * 4;
+      const tween = gsap.to(el, { y: -(box.clientHeight + 60), duration: dur, ease: "none", onComplete: () => { el.remove(); spawn(); } });
+      el.addEventListener("click", () => { tween.kill(); gsap.to(el, { scale: 1.6, opacity: 0, duration: 0.4, ease: "power1.out", onComplete: () => { el.remove(); spawn(); } }); });
+    }
+    if (!REDUCED) for (let i = 0; i < 8; i++) setTimeout(spawn, i * 400);
+  }
+
+  /* ============================ 113 — drag-reorder list ============================ */
+  function initReorderList() {
+    const list = document.getElementById("reorder-list");
+    if (!list) return;
+    list.querySelectorAll(".reorder-item").forEach((item) => {
+      let startY = 0, origIndex = 0;
+      item.addEventListener("pointerdown", (e) => {
+        startY = e.clientY;
+        origIndex = [...list.children].indexOf(item);
+        item.classList.add("dragging");
+        item.style.zIndex = 10;
+        item.setPointerCapture(e.pointerId);
+      });
+      item.addEventListener("pointermove", (e) => {
+        if (!item.classList.contains("dragging")) return;
+        item.style.transform = `translateY(${e.clientY - startY}px)`;
+      });
+      item.addEventListener("pointerup", (e) => {
+        if (!item.classList.contains("dragging")) return;
+        item.classList.remove("dragging");
+        item.style.transform = ""; item.style.zIndex = "";
+        const itemHeight = item.offsetHeight + 8;
+        const shift = Math.round((e.clientY - startY) / itemHeight);
+        const newIndex = gsap.utils.clamp(0, list.children.length - 1, origIndex + shift);
+        const siblings = [...list.children];
+        siblings.splice(origIndex, 1);
+        siblings.splice(newIndex, 0, item);
+        siblings.forEach((el) => list.appendChild(el));
+      });
+    });
+  }
+
+  /* ============================ 114 — velocity ink brush ============================ */
+  function initInkBrush() {
+    const canvas = document.getElementById("ink-brush-canvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    const DPR = Math.min(window.devicePixelRatio || 1, 2);
+    function resize() { canvas.width = canvas.clientWidth * DPR; canvas.height = canvas.clientHeight * DPR; }
+    new ResizeObserver(resize).observe(canvas);
+    resize();
+    let last = null, lastT = 0, drawing = false;
+    canvas.addEventListener("pointerdown", (e) => { drawing = true; const r = canvas.getBoundingClientRect(); last = { x: (e.clientX - r.left) * DPR, y: (e.clientY - r.top) * DPR }; lastT = performance.now(); });
+    canvas.addEventListener("pointermove", (e) => {
+      if (!drawing) return;
+      const r = canvas.getBoundingClientRect();
+      const x = (e.clientX - r.left) * DPR, y = (e.clientY - r.top) * DPR;
+      const now = performance.now();
+      const dt = Math.max(1, now - lastT);
+      const speed = Math.hypot(x - last.x, y - last.y) / dt;
+      ctx.strokeStyle = "rgba(243,239,230,.85)";
+      ctx.lineCap = "round"; ctx.lineJoin = "round";
+      ctx.lineWidth = gsap.utils.clamp(1.5, 22, 22 - speed * 18) * DPR;
+      ctx.beginPath(); ctx.moveTo(last.x, last.y); ctx.lineTo(x, y); ctx.stroke();
+      last = { x, y }; lastT = now;
+    });
+    window.addEventListener("pointerup", () => (drawing = false));
+  }
+
+  /* ============================ 115 — scratch-to-reveal ============================ */
+  function initScratch() {
+    const box = document.getElementById("scratch-box");
+    const canvas = document.getElementById("scratch-canvas");
+    if (!box || !canvas) return;
+    const ctx = canvas.getContext("2d");
+    function resize() {
+      canvas.width = box.clientWidth; canvas.height = box.clientHeight;
+      ctx.fillStyle = "#c9c2b4"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "rgba(21,19,15,.55)"; ctx.font = "bold 15px 'JetBrains Mono', monospace";
+      ctx.fillText("ドラッグして削ってください", 18, canvas.height / 2);
+    }
+    new ResizeObserver(resize).observe(box);
+    resize();
+    let scratching = false;
+    function scratchAt(x, y) { ctx.globalCompositeOperation = "destination-out"; ctx.beginPath(); ctx.arc(x, y, 22, 0, Math.PI * 2); ctx.fill(); }
+    function pos(e) { const r = canvas.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
+    canvas.addEventListener("pointerdown", (e) => { scratching = true; const p = pos(e); scratchAt(p.x, p.y); });
+    canvas.addEventListener("pointermove", (e) => { if (scratching) { const p = pos(e); scratchAt(p.x, p.y); } });
+    window.addEventListener("pointerup", () => (scratching = false));
+  }
+
+  /* ============================ 116 — billiard ball collision ============================ */
+  function initBilliard() {
+    const canvas = document.getElementById("billiard-canvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    const DPR = Math.min(window.devicePixelRatio || 1, 2);
+    let w, h;
+    function resize() { w = canvas.width = canvas.clientWidth * DPR; h = canvas.height = canvas.clientHeight * DPR; }
+    new ResizeObserver(resize).observe(canvas);
+    resize();
+    const colors = ["#d8471f", "#1c6b5a", "#c99a3b", "#6a7fd1"];
+    const balls = colors.map((c, i) => ({ x: ((i + 1) * w) / (colors.length + 1), y: h / 2, vx: (Math.random() - 0.5) * 2, vy: (Math.random() - 0.5) * 2, r: 16 * DPR, c }));
+    const mouse = { x: -9999, y: -9999, px: -9999, py: -9999 };
+    canvas.addEventListener("mousemove", (e) => {
+      const r = canvas.getBoundingClientRect();
+      mouse.px = mouse.x; mouse.py = mouse.y;
+      mouse.x = (e.clientX - r.left) * DPR; mouse.y = (e.clientY - r.top) * DPR;
+    });
+    function step() {
+      balls.forEach((b) => {
+        const d = Math.hypot(b.x - mouse.x, b.y - mouse.y);
+        if (d < b.r + 16 * DPR) {
+          const mvx = mouse.x - mouse.px, mvy = mouse.y - mouse.py;
+          b.vx += (b.x - mouse.x) / Math.max(d, 1) * 2 + mvx * 0.3;
+          b.vy += (b.y - mouse.y) / Math.max(d, 1) * 2 + mvy * 0.3;
+        }
+        b.x += b.vx; b.y += b.vy; b.vx *= 0.99; b.vy *= 0.99;
+        if (b.x < b.r || b.x > w - b.r) b.vx *= -1;
+        if (b.y < b.r || b.y > h - b.r) b.vy *= -1;
+        b.x = Math.max(b.r, Math.min(w - b.r, b.x));
+        b.y = Math.max(b.r, Math.min(h - b.r, b.y));
+      });
+      for (let i = 0; i < balls.length; i++) {
+        for (let j = i + 1; j < balls.length; j++) {
+          const a = balls[i], bb = balls[j];
+          const dx = bb.x - a.x, dy = bb.y - a.y, dist = Math.hypot(dx, dy), minDist = a.r + bb.r;
+          if (dist < minDist && dist > 0) {
+            const nx = dx / dist, ny = dy / dist, overlap = (minDist - dist) / 2;
+            a.x -= nx * overlap; a.y -= ny * overlap; bb.x += nx * overlap; bb.y += ny * overlap;
+            const avx = a.vx, avy = a.vy;
+            a.vx = bb.vx; a.vy = bb.vy; bb.vx = avx; bb.vy = avy;
+          }
+        }
+      }
+      ctx.clearRect(0, 0, w, h);
+      balls.forEach((b) => { ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2); ctx.fillStyle = b.c; ctx.fill(); });
+      requestAnimationFrame(step);
+    }
+    if (!REDUCED) step();
+  }
+
+  /* ============================ 117 — kaleidoscope drag ============================ */
+  function initKaleidoscope() {
+    const canvas = document.getElementById("kaleidoscope-canvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    const DPR = Math.min(window.devicePixelRatio || 1, 2);
+    let w, h, cx, cy;
+    function resize() { w = canvas.width = canvas.clientWidth * DPR; h = canvas.height = canvas.clientHeight * DPR; cx = w / 2; cy = h / 2; }
+    new ResizeObserver(resize).observe(canvas);
+    resize();
+    const SEGMENTS = 8;
+    let points = [], dragging = false;
+    function pos(e) { const r = canvas.getBoundingClientRect(); return { x: (e.clientX - r.left) * DPR - cx, y: (e.clientY - r.top) * DPR - cy }; }
+    canvas.addEventListener("pointerdown", () => (dragging = true));
+    canvas.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      points.push({ ...pos(e), hue: (performance.now() / 20) % 360 });
+      if (points.length > 400) points.shift();
+    });
+    window.addEventListener("pointerup", () => (dragging = false));
+    function draw() {
+      ctx.fillStyle = "rgba(13,12,11,0.15)";
+      ctx.fillRect(0, 0, w, h);
+      points.forEach((p) => {
+        const r = Math.hypot(p.x, p.y);
+        const baseAngle = Math.atan2(p.y, p.x);
+        for (let s = 0; s < SEGMENTS; s++) {
+          const angle = baseAngle + s * ((Math.PI * 2) / SEGMENTS);
+          ctx.fillStyle = `hsla(${p.hue},70%,60%,.8)`;
+          ctx.beginPath(); ctx.arc(cx + Math.cos(angle) * r, cy + Math.sin(angle) * r, 3 * DPR, 0, Math.PI * 2); ctx.fill();
+          const angleM = -baseAngle + s * ((Math.PI * 2) / SEGMENTS);
+          ctx.beginPath(); ctx.arc(cx + Math.cos(angleM) * r, cy + Math.sin(angleM) * r, 3 * DPR, 0, Math.PI * 2); ctx.fill();
+        }
+      });
+      requestAnimationFrame(draw);
+    }
+    if (!REDUCED) draw();
+  }
+
+  /* ============================ 118 — tone bars (Web Audio) ============================ */
+  function initToneBars() {
+    const row = document.getElementById("piano-row");
+    if (!row) return;
+    const freqs = [261.63, 293.66, 329.63, 349.23, 392, 440, 493.88, 523.25];
+    let audioCtx = null;
+    function ensureCtx() { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); return audioCtx; }
+    freqs.forEach((freq, i) => {
+      const bar = document.createElement("div");
+      bar.className = "tone-bar";
+      bar.style.height = 30 + i * 8 + "%";
+      row.appendChild(bar);
+      bar.addEventListener("pointerdown", () => {
+        try {
+          const ctx = ensureCtx();
+          const osc = ctx.createOscillator(), gain = ctx.createGain();
+          osc.type = "sine"; osc.frequency.value = freq; gain.gain.value = 0.0001;
+          osc.connect(gain); gain.connect(ctx.destination);
+          const now = ctx.currentTime;
+          gain.gain.exponentialRampToValueAtTime(0.2, now + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.5);
+          osc.start(now); osc.stop(now + 0.55);
+        } catch (err) { /* audio unavailable */ }
+        gsap.fromTo(bar, { scaleY: 1.15 }, { scaleY: 1, duration: 0.4, ease: "power2.out" });
+      });
+    });
+  }
+
+  /* ============================ 119 — elastic launch ============================ */
+  function initElasticLaunch() {
+    const canvas = document.getElementById("slingshot-canvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    const DPR = Math.min(window.devicePixelRatio || 1, 2);
+    let w, h;
+    function resize() { w = canvas.width = canvas.clientWidth * DPR; h = canvas.height = canvas.clientHeight * DPR; }
+    new ResizeObserver(resize).observe(canvas);
+    resize();
+    const anchor = () => ({ x: w * 0.2, y: h * 0.5 });
+    const ball = { x: 0, y: 0, vx: 0, vy: 0, r: 12 * DPR, flying: false };
+    function resetBall() { const a = anchor(); ball.x = a.x; ball.y = a.y; ball.vx = 0; ball.vy = 0; ball.flying = false; }
+    resetBall();
+    let dragging = false;
+    canvas.addEventListener("pointerdown", (e) => {
+      const r = canvas.getBoundingClientRect();
+      const mx = (e.clientX - r.left) * DPR, my = (e.clientY - r.top) * DPR;
+      if (!ball.flying && Math.hypot(mx - ball.x, my - ball.y) < 50 * DPR) dragging = true;
+    });
+    canvas.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      const r = canvas.getBoundingClientRect();
+      const a = anchor();
+      let mx = (e.clientX - r.left) * DPR, my = (e.clientY - r.top) * DPR;
+      const dx = mx - a.x, dy = my - a.y, dist = Math.hypot(dx, dy), max = 80 * DPR;
+      if (dist > max) { mx = a.x + (dx / dist) * max; my = a.y + (dy / dist) * max; }
+      ball.x = mx; ball.y = my;
+    });
+    canvas.addEventListener("pointerup", () => {
+      if (!dragging) return;
+      dragging = false;
+      const a = anchor();
+      ball.vx = (a.x - ball.x) * 0.18; ball.vy = (a.y - ball.y) * 0.18;
+      ball.flying = true;
+    });
+    function step() {
+      const a = anchor();
+      if (ball.flying) {
+        ball.x += ball.vx; ball.y += ball.vy; ball.vy += 0.25 * DPR;
+        if (ball.y > h + 40 * DPR || ball.x > w + 40 * DPR || ball.x < -40 * DPR) resetBall();
+      }
+      ctx.clearRect(0, 0, w, h);
+      if (!ball.flying) {
+        ctx.strokeStyle = "rgba(216,71,31,.5)"; ctx.lineWidth = 3 * DPR;
+        ctx.beginPath(); ctx.moveTo(a.x - 20 * DPR, a.y - 30 * DPR); ctx.lineTo(ball.x, ball.y); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(a.x - 20 * DPR, a.y + 30 * DPR); ctx.lineTo(ball.x, ball.y); ctx.stroke();
+      }
+      ctx.fillStyle = "#d8471f";
+      ctx.beginPath(); ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2); ctx.fill();
+      requestAnimationFrame(step);
+    }
+    if (!REDUCED) step();
+  }
+
+  /* ============================ 120 — neon cursor trail ============================ */
+  function initNeonTrail() {
+    const canvas = document.getElementById("neon-canvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    const DPR = Math.min(window.devicePixelRatio || 1, 2);
+    let w, h;
+    function resize() { w = canvas.width = canvas.clientWidth * DPR; h = canvas.height = canvas.clientHeight * DPR; }
+    new ResizeObserver(resize).observe(canvas);
+    resize();
+    let points = [];
+    canvas.addEventListener("mousemove", (e) => {
+      const r = canvas.getBoundingClientRect();
+      points.push({ x: (e.clientX - r.left) * DPR, y: (e.clientY - r.top) * DPR });
+      if (points.length > 60) points.shift();
+    });
+    function draw() {
+      ctx.fillStyle = "rgba(8,7,6,0.15)";
+      ctx.fillRect(0, 0, w, h);
+      ctx.lineCap = "round"; ctx.lineJoin = "round";
+      ctx.shadowBlur = 14; ctx.shadowColor = "#4fe0ff"; ctx.strokeStyle = "#4fe0ff"; ctx.lineWidth = 3 * DPR;
+      ctx.beginPath();
+      points.forEach((p, i) => (i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y)));
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+      requestAnimationFrame(draw);
+    }
+    if (!REDUCED) draw();
+  }
+
   /* ================================ boot ================================ */
   function boot() {
     initScrollProgress();
@@ -1441,6 +2355,47 @@
     initGlitchSlice();
     initPeelDrag();
     initOverscrollBounce();
+
+    // 80–120: even more
+    initCube3D();
+    initDiorama();
+    initBellows();
+    initFlipClock();
+    initSphere();
+    initBook();
+    initDepthGrid();
+    initOrbit();
+    initSwarm();
+    initPet();
+    initEyeText();
+    initShockwave();
+    initSnapTarget();
+    initRiffle();
+    initPinball();
+    initPendulum();
+    initJenga();
+    initMomentum();
+    initRubberBand();
+    initKnob();
+    initMagSnap();
+    initJigsaw();
+    initScrubCube();
+    initWaveText();
+    initNewsParallax();
+    initJelly();
+    initPour();
+    initGoo();
+    initDroplet();
+    initReactiveGrid();
+    initOrbs();
+    initReorderList();
+    initInkBrush();
+    initScratch();
+    initBilliard();
+    initKaleidoscope();
+    initToneBars();
+    initElasticLaunch();
+    initNeonTrail();
 
     setTimeout(() => ScrollTrigger.refresh(), 300);
   }

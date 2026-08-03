@@ -965,6 +965,288 @@ code{font-family:var(--ff-mono);background:var(--line);padding:2px 6px;border-ra
 }
 
 /* ==========================================================================
+   GIMMICK 80 — 3D cube gallery
+   ========================================================================== */
+.cube-stage{height:260px;display:flex;align-items:center;justify-content:center;perspective:900px;}
+.cube3d{position:relative;width:150px;height:150px;transform-style:preserve-3d;cursor:grab;}
+.cube3d:active{cursor:grabbing;}
+.cube3d-face{position:absolute;inset:0;background-size:cover;background-position:center;border:1px solid var(--line);background-color:var(--card);}
+.cube3d-face.front{transform:translateZ(75px);background-image:url(../assets/img/look-01-0-thumb.webp);}
+.cube3d-face.back{transform:translateZ(-75px) rotateY(180deg);background-image:url(../assets/img/look-06-0-thumb.webp);}
+.cube3d-face.right{transform:rotateY(90deg) translateZ(75px);background-image:url(../assets/img/look-11-0-thumb.webp);}
+.cube3d-face.left{transform:rotateY(-90deg) translateZ(75px);background-image:url(../assets/img/look-16-0-thumb.webp);}
+
+/* ==========================================================================
+   GIMMICK 81 — layered parallax 3D card
+   ========================================================================== */
+.diorama{position:relative;height:280px;border-radius:12px;overflow:hidden;perspective:700px;border:1px solid var(--line);background:var(--bg-soft);}
+.diorama-layer{position:absolute;will-change:transform;}
+.diorama-bg{inset:0;background:linear-gradient(160deg,var(--accent),var(--accent-2));opacity:.5;}
+.diorama-mid{width:150px;height:190px;left:50%;top:50%;margin:-95px 0 0 -75px;border-radius:8px;overflow:hidden;box-shadow:0 30px 50px rgba(0,0,0,.3);}
+.diorama-mid img{width:100%;height:100%;object-fit:cover;}
+.diorama-label{left:20px;bottom:20px;font-family:var(--ff-mono);font-size:12px;color:#fff;background:rgba(0,0,0,.4);padding:6px 12px;border-radius:4px;}
+
+/* ==========================================================================
+   GIMMICK 82 — 3D bellows fold
+   ========================================================================== */
+.bellows{display:flex;flex-direction:column;height:220px;perspective:800px;}
+.bellows-panel{
+  flex:1;background:linear-gradient(180deg,var(--card),var(--bg));border:1px solid var(--line);
+  transform:rotateX(75deg);transform-origin:top;
+}
+.bellows-panel:nth-child(even){transform-origin:bottom;}
+
+/* ==========================================================================
+   GIMMICK 83 — flip-clock digit
+   ========================================================================== */
+.flipclock{display:flex;gap:8px;justify-content:center;perspective:400px;}
+.flip-digit{position:relative;width:50px;height:70px;font-family:var(--ff-mono);font-weight:700;font-size:38px;}
+.flip-digit-half{position:absolute;left:0;right:0;height:35px;overflow:hidden;background:var(--card);border:1px solid var(--line);display:flex;justify-content:center;color:var(--ink);}
+.flip-digit-half span{position:absolute;line-height:70px;}
+.flip-digit-top{top:0;border-radius:6px 6px 0 0;align-items:flex-start;}
+.flip-digit-bottom{bottom:0;border-radius:0 0 6px 6px;align-items:flex-end;}
+.flip-digit-top span{top:0;}
+.flip-digit-bottom span{bottom:0;}
+.flip-card-anim{position:absolute;left:0;right:0;top:0;height:35px;background:var(--card);border:1px solid var(--line);overflow:hidden;transform-origin:bottom;backface-visibility:hidden;display:flex;justify-content:center;}
+.flip-card-anim span{position:absolute;top:0;line-height:70px;}
+
+/* ==========================================================================
+   GIMMICK 84 — 3D door open reveal
+   ========================================================================== */
+.door-box{position:relative;height:280px;border-radius:12px;overflow:hidden;background-size:cover;background-position:center;perspective:1000px;}
+.door-panel{position:absolute;top:0;bottom:0;width:50%;background:var(--bg-soft);border:1px solid var(--line);transition:transform .8s var(--ease);}
+.door-panel.left{left:0;transform-origin:left;}
+.door-panel.right{right:0;transform-origin:right;}
+.door-box:hover .door-panel.left{transform:rotateY(-105deg);}
+.door-box:hover .door-panel.right{transform:rotateY(105deg);}
+
+/* ==========================================================================
+   GIMMICK 85 — 3D sphere gallery
+   ========================================================================== */
+.sphere-stage{height:280px;display:flex;align-items:center;justify-content:center;perspective:800px;overflow:hidden;}
+.sphere-inner{position:relative;width:10px;height:10px;transform-style:preserve-3d;}
+.sphere-item{position:absolute;width:56px;height:70px;margin:-35px 0 0 -28px;border-radius:6px;overflow:hidden;box-shadow:0 6px 16px rgba(0,0,0,.25);}
+.sphere-item img{width:100%;height:100%;object-fit:cover;}
+
+/* ==========================================================================
+   GIMMICK 86 — isometric hover card
+   ========================================================================== */
+.iso-stage{height:280px;display:flex;align-items:center;justify-content:center;perspective:1200px;}
+.iso-card{
+  width:160px;height:160px;background-size:cover;background-position:center;border-radius:6px;
+  transform:rotateX(55deg) rotateZ(-45deg) translateZ(0);box-shadow:0 30px 30px -10px rgba(0,0,0,.35);
+  transition:transform .5s var(--ease);
+}
+.iso-card:hover{transform:rotateX(55deg) rotateZ(-45deg) translateZ(30px);}
+
+/* ==========================================================================
+   GIMMICK 87 — 3D book page turn
+   ========================================================================== */
+.book{position:relative;height:220px;width:280px;margin:0 auto;perspective:1200px;}
+.book-page-static{position:absolute;inset:0;background-size:cover;background-position:center;border-radius:0 6px 6px 0;}
+.book-page{position:absolute;inset:0;transform-style:preserve-3d;transform-origin:left center;transition:transform 1s var(--ease);}
+.book-page-front,.book-page-back{position:absolute;inset:0;background-size:cover;background-position:center;backface-visibility:hidden;border-radius:0 6px 6px 0;}
+.book-page-back{transform:rotateY(180deg);}
+.book.turned .book-page{transform:rotateY(-160deg);}
+
+/* ==========================================================================
+   GIMMICK 88 — depth-parallax grid
+   ========================================================================== */
+.depth-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;perspective:600px;}
+.depth-tile{aspect-ratio:1;border-radius:6px;background-size:cover;background-position:center;will-change:transform;}
+
+/* ==========================================================================
+   GIMMICK 89 — 3D orbit ring carousel
+   ========================================================================== */
+.orbit-stage{height:280px;display:flex;align-items:center;justify-content:center;perspective:900px;overflow:hidden;}
+.orbit-inner{position:relative;width:10px;height:10px;transform-style:preserve-3d;}
+.orbit-item{position:absolute;width:64px;height:80px;margin:-40px 0 0 -32px;border-radius:6px;overflow:hidden;box-shadow:0 10px 20px rgba(0,0,0,.25);}
+.orbit-item img{width:100%;height:100%;object-fit:cover;}
+
+/* ==========================================================================
+   GIMMICK 90 — cursor-repel icon swarm
+   ========================================================================== */
+.swarm-box{position:relative;height:220px;border-radius:12px;border:1px solid var(--line);overflow:hidden;}
+.swarm-icon{position:absolute;font-size:26px;color:var(--accent);will-change:transform;}
+
+/* ==========================================================================
+   GIMMICK 91 — cursor pet follower
+   ========================================================================== */
+.pet-box{position:relative;height:220px;border-radius:12px;border:1px solid var(--line);overflow:hidden;cursor:none;}
+.pet-blob{position:absolute;top:0;left:0;width:26px;height:26px;border-radius:50%;background:var(--accent-2);will-change:transform;}
+
+/* ==========================================================================
+   GIMMICK 92 — eye-tracking letters
+   ========================================================================== */
+.eye-text{font-family:var(--ff-mono);font-size:clamp(26px,4vw,42px);}
+.eye-text .eye-char{display:inline-block;will-change:transform;}
+
+/* ==========================================================================
+   GIMMICK 93 — cursor shockwave burst
+   ========================================================================== */
+.shockwave-box{position:relative;height:220px;border-radius:12px;border:1px solid var(--line);overflow:hidden;display:flex;align-items:center;justify-content:center;color:var(--ink-dim);font-family:var(--ff-mono);font-size:12px;cursor:pointer;}
+.shock-ring{position:absolute;border:2px solid var(--accent);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);}
+
+/* ==========================================================================
+   GIMMICK 94 — cursor magnet snap
+   ========================================================================== */
+.snap-target-box{height:220px;border-radius:12px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;}
+.snap-target{padding:20px 36px;border-radius:999px;border:1px solid var(--ink);font-family:var(--ff-mono);font-size:12px;letter-spacing:.08em;will-change:transform;}
+
+/* ==========================================================================
+   GIMMICK 95 — card fan riffle
+   ========================================================================== */
+.riffle-box{position:relative;height:220px;display:flex;align-items:flex-end;justify-content:center;}
+.riffle-card{position:absolute;width:70px;height:100px;bottom:20px;border-radius:6px;background-size:cover;background-position:center;box-shadow:0 6px 16px rgba(0,0,0,.2);transform-origin:bottom center;transition:transform .25s var(--ease);}
+
+/* ==========================================================================
+   GIMMICK 97 — pendulum drag swing
+   ========================================================================== */
+.pendulum-box{position:relative;height:280px;border-radius:12px;border:1px solid var(--line);overflow:hidden;}
+.pendulum-svg{position:absolute;inset:0;width:100%;height:100%;}
+.pendulum-svg line{stroke:var(--ink-dim);stroke-width:2;}
+.pendulum-bob{position:absolute;width:40px;height:40px;border-radius:50%;background:var(--accent);cursor:grab;transform:translate(-50%,-50%);}
+.pendulum-bob:active{cursor:grabbing;}
+
+/* ==========================================================================
+   GIMMICK 98 — toppling block stack
+   ========================================================================== */
+.jenga-box{position:relative;height:220px;display:flex;flex-direction:column-reverse;align-items:center;gap:2px;perspective:600px;}
+.jenga-block{width:120px;height:24px;background:linear-gradient(90deg,var(--accent-2),var(--accent));border-radius:3px;transform-origin:bottom center;}
+
+/* ==========================================================================
+   GIMMICK 99 — weighted momentum slider
+   ========================================================================== */
+.momentum-track{position:relative;height:8px;border-radius:999px;background:var(--line);margin:100px 20px;}
+.momentum-handle{position:absolute;top:50%;width:30px;height:30px;border-radius:50%;background:var(--accent);transform:translate(-50%,-50%);cursor:grab;box-shadow:0 6px 14px rgba(0,0,0,.25);}
+.momentum-handle:active{cursor:grabbing;}
+
+/* ==========================================================================
+   GIMMICK 100 — elastic rubber-band button
+   ========================================================================== */
+.rubber-box{position:relative;height:220px;border-radius:12px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.rubber-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+.rubber-svg line{stroke:var(--accent);}
+.rubber-btn{padding:18px 34px;border-radius:999px;background:var(--ink);color:var(--bg);font-family:var(--ff-mono);font-size:12px;letter-spacing:.08em;cursor:grab;touch-action:none;}
+.rubber-btn:active{cursor:grabbing;}
+
+/* ==========================================================================
+   GIMMICK 101 — rotary dial knob
+   ========================================================================== */
+.knob-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;padding:20px 0;}
+.knob{width:100px;height:100px;border-radius:50%;background:var(--card);border:1px solid var(--line);position:relative;cursor:grab;box-shadow:inset 0 2px 8px rgba(0,0,0,.15);touch-action:none;}
+.knob:active{cursor:grabbing;}
+.knob-mark{position:absolute;top:8px;left:50%;width:4px;height:16px;background:var(--accent);border-radius:2px;transform:translateX(-50%);}
+.knob-value{font-family:var(--ff-mono);font-size:12px;color:var(--ink-dim);letter-spacing:.08em;}
+
+/* ==========================================================================
+   GIMMICK 102 — scroll magnetic snap
+   ========================================================================== */
+.magsnap-box{position:relative;height:220px;border-radius:12px;border:1px solid var(--line);}
+.magsnap-item{position:absolute;font-family:var(--ff-mono);font-weight:700;font-size:20px;color:var(--ink-dim);}
+.magsnap-center{position:absolute;top:50%;left:50%;width:6px;height:6px;border-radius:50%;background:var(--accent);transform:translate(-50%,-50%);}
+
+/* ==========================================================================
+   GIMMICK 103 — scroll jigsaw assembly
+   ========================================================================== */
+.jigsaw-box{position:relative;height:280px;border-radius:12px;overflow:hidden;background-size:cover;}
+.jigsaw-piece{position:absolute;background-repeat:no-repeat;}
+
+/* ==========================================================================
+   GIMMICK 104 — scroll-scrubbed 3D rotation
+   ========================================================================== */
+.scrub-stage{height:240px;display:flex;align-items:center;justify-content:center;perspective:700px;}
+.scrub-cube{position:relative;width:110px;height:110px;transform-style:preserve-3d;}
+.scrub-face{position:absolute;inset:0;border:1px solid var(--line);}
+.scrub-face.f1{background:var(--accent);transform:translateZ(55px);}
+.scrub-face.f2{background:var(--accent-2);transform:rotateY(90deg) translateZ(55px);}
+.scrub-face.f3{background:#c99a3b;transform:rotateY(180deg) translateZ(55px);}
+.scrub-face.f4{background:#6a7fd1;transform:rotateY(-90deg) translateZ(55px);}
+
+/* ==========================================================================
+   GIMMICK 105 — scroll wave text
+   ========================================================================== */
+.wave-text{font-family:var(--ff-mono);font-size:clamp(24px,3.6vw,38px);}
+.wave-text .wv-char{display:inline-block;will-change:transform;}
+
+/* ==========================================================================
+   GIMMICK 106 — newspaper parallax columns
+   ========================================================================== */
+.news-box{position:relative;height:220px;border-radius:12px;border:1px solid var(--line);overflow:hidden;display:flex;align-items:center;justify-content:space-around;}
+.news-col{font-family:var(--ff-display,var(--ff-mono));font-weight:700;font-size:clamp(20px,3vw,30px);color:var(--ink-dim);will-change:transform;}
+
+/* ==========================================================================
+   GIMMICK 107 — jelly wobble card
+   ========================================================================== */
+.jelly-card{
+  height:180px;border-radius:16px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--ff-mono);font-size:13px;letter-spacing:.08em;
+  will-change:transform;
+}
+
+/* ==========================================================================
+   GIMMICK 108 — liquid pour bar
+   ========================================================================== */
+.pour-box{height:220px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--bg-soft);}
+.pour-svg{width:100%;height:100%;display:block;}
+#pour-wave{fill:var(--accent-2);}
+
+/* ==========================================================================
+   GIMMICK 109 — goo slime button
+   ========================================================================== */
+.goo-box{position:relative;height:180px;filter:url(#goo-filter);}
+.goo-blob{position:absolute;border-radius:50%;background:var(--accent);}
+.goo-blob.main{width:70px;height:70px;left:50%;top:50%;margin:-35px 0 0 -35px;}
+.goo-blob.follower{width:36px;height:36px;top:50%;left:50%;margin:-18px 0 0 -18px;}
+
+/* ==========================================================================
+   GIMMICK 110 — water droplet cursor
+   ========================================================================== */
+.droplet-box{position:relative;height:220px;border-radius:12px;background:linear-gradient(160deg,var(--bg-soft),var(--bg));border:1px solid var(--line);overflow:hidden;cursor:none;}
+.droplet{
+  position:absolute;top:0;left:0;width:30px;height:30px;border-radius:70% 70% 70% 0%;
+  background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), rgba(120,180,255,.35));
+  box-shadow:0 6px 14px rgba(0,0,0,.15);transform:translate(-50%,-50%) rotate(-45deg);
+}
+
+/* ==========================================================================
+   GIMMICK 111 — reactive cell grid
+   ========================================================================== */
+.reactive-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;padding:10px;border-radius:12px;border:1px solid var(--line);}
+.reactive-cell{aspect-ratio:1;border-radius:2px;background:var(--accent);opacity:.12;}
+
+/* ==========================================================================
+   GIMMICK 112 — dissolving orbs
+   ========================================================================== */
+.bubble-box{position:relative;height:260px;border-radius:12px;overflow:hidden;background:var(--bg-soft);border:1px solid var(--line);}
+.orb{position:absolute;border-radius:50%;background:radial-gradient(circle at 35% 30%, rgba(255,255,255,.6), var(--accent-2));cursor:pointer;}
+
+/* ==========================================================================
+   GIMMICK 113 — drag-reorder list
+   ========================================================================== */
+.reorder-list{display:flex;flex-direction:column;gap:8px;}
+.reorder-item{
+  padding:16px 18px;border-radius:8px;background:var(--card);border:1px solid var(--line);
+  font-family:var(--ff-mono);font-size:13px;letter-spacing:.06em;cursor:grab;user-select:none;
+}
+.reorder-item:active{cursor:grabbing;}
+.reorder-item.dragging{opacity:.5;}
+
+/* ==========================================================================
+   GIMMICK 115 — scratch-to-reveal
+   ========================================================================== */
+.scratch-box{position:relative;height:280px;border-radius:12px;overflow:hidden;}
+.scratch-box img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+#scratch-canvas{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair;touch-action:none;}
+
+/* ==========================================================================
+   GIMMICK 118 — tone bars
+   ========================================================================== */
+.piano-row{display:flex;gap:6px;height:140px;align-items:flex-end;}
+.tone-bar{flex:1;height:40%;border-radius:6px 6px 3px 3px;background:linear-gradient(180deg,var(--accent-2),var(--accent));cursor:pointer;transition:transform .08s;}
+.tone-bar:active{transform:scaleY(.92);}
+
+/* ==========================================================================
    Footer
    ========================================================================== */
 .lab-footer{padding:80px var(--container) 100px;max-width:1280px;margin:0 auto;border-top:1px solid var(--line);}

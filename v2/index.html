@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BLENCI LAB — 79 Gimmicks Showcase</title>
-<meta name="description" content="Webでよく使われる演出・ギミックを79種類集めた実験カタログ。BLENCIのルックブック素材を使って一つずつ確認できます。">
+<title>BLENCI LAB — 120 Gimmicks Showcase</title>
+<meta name="description" content="Webでよく使われる演出・ギミックを120種類集めた実験カタログ。BLENCIのルックブック素材を使って一つずつ確認できます。">
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,6 +31,12 @@
   <a href="#group-3d" class="dot" data-label="K — 3D"><i></i></a>
   <a href="#group-structure" class="dot" data-label="L — REVEAL"><i></i></a>
   <a href="#group-misc" class="dot" data-label="M — MISC"><i></i></a>
+  <a href="#group-3d2" class="dot" data-label="N — MORE 3D"><i></i></a>
+  <a href="#group-cursor3" class="dot" data-label="O — MORE CURSOR"><i></i></a>
+  <a href="#group-physics" class="dot" data-label="P — MORE PHYSICS"><i></i></a>
+  <a href="#group-scroll2" class="dot" data-label="Q — MORE SCROLL"><i></i></a>
+  <a href="#group-organic" class="dot" data-label="R — ORGANIC"><i></i></a>
+  <a href="#group-play" class="dot" data-label="S — KINETIC"><i></i></a>
 </nav>
 
 <header class="lab-header">
@@ -50,7 +56,7 @@
     <div class="hero-inner">
       <p class="tag light-tag"><span class="tag-num">27</span><span class="tag-name">ANIMATED MESH GRADIENT (背景)</span></p>
       <h1>ギミック<br>見本帳</h1>
-      <p class="hero-desc">同じ写真素材を使って、Webでよく見る演出を79種類集めた実験カタログです。ひとつずつ、動かしながら確認できます。</p>
+      <p class="hero-desc">同じ写真素材を使って、Webでよく見る演出を120種類集めた実験カタログです。ひとつずつ、動かしながら確認できます。</p>
       <a href="#group-scroll" class="hero-cta">SCROLL TO EXPLORE ↓</a>
     </div>
   </section>
@@ -874,9 +880,359 @@
     </article>
   </section>
 
+  <!-- ============================ GROUP N — MORE 3D & SPATIAL ============================ -->
+  <section id="group-3d2" class="group">
+    <h2 class="group-title"><span>N</span>MORE 3D & SPATIAL</h2>
+
+    <article class="demo" id="g80">
+      <p class="tag"><span class="tag-num">80</span><span class="tag-name">3D CUBE GALLERY</span></p>
+      <h3>ドラッグで回る立方体ギャラリー</h3>
+      <div class="cube-stage" id="cube-stage">
+        <div class="cube3d" id="cube3d">
+          <div class="cube3d-face front"></div>
+          <div class="cube3d-face back"></div>
+          <div class="cube3d-face right"></div>
+          <div class="cube3d-face left"></div>
+        </div>
+      </div>
+      <p class="demo-desc">左右にドラッグしてください。</p>
+    </article>
+
+    <article class="demo" id="g81">
+      <p class="tag"><span class="tag-num">81</span><span class="tag-name">LAYERED PARALLAX 3D CARD</span></p>
+      <h3>複数レイヤーが立体的に浮くカード</h3>
+      <div class="diorama" id="diorama">
+        <div class="diorama-layer diorama-bg"></div>
+        <div class="diorama-layer diorama-mid"><img src="../assets/img/look-13-0-thumb.webp" alt=""></div>
+        <div class="diorama-layer diorama-label">LOOK 13</div>
+      </div>
+    </article>
+
+    <article class="demo" id="g82">
+      <p class="tag"><span class="tag-num">82</span><span class="tag-name">3D BELLOWS FOLD</span></p>
+      <h3>蛇腹のように畳まれて開く</h3>
+      <div class="bellows" id="bellows">
+        <div class="bellows-panel"></div>
+        <div class="bellows-panel"></div>
+        <div class="bellows-panel"></div>
+        <div class="bellows-panel"></div>
+      </div>
+      <button class="replay-btn" id="replay-bellows">開く / 畳む</button>
+    </article>
+
+    <article class="demo" id="g83">
+      <p class="tag"><span class="tag-num">83</span><span class="tag-name">FLIP-CLOCK DIGIT</span></p>
+      <h3>空港表示板のようにめくれる数字</h3>
+      <div class="flipclock" id="flipclock"></div>
+      <button class="replay-btn" id="shuffle-flipclock">SHUFFLE</button>
+    </article>
+
+    <article class="demo" id="g84">
+      <p class="tag"><span class="tag-num">84</span><span class="tag-name">3D DOOR OPEN REVEAL</span></p>
+      <h3>両開きの扉が立体的に開く</h3>
+      <div class="door-box" id="door-box" style="background-image:url(../assets/img/look-06-0.webp)">
+        <div class="door-panel left"></div>
+        <div class="door-panel right"></div>
+      </div>
+    </article>
+
+    <article class="demo" id="g85">
+      <p class="tag"><span class="tag-num">85</span><span class="tag-name">3D SPHERE GALLERY</span></p>
+      <h3>球体の表面を回る写真たち</h3>
+      <div class="sphere-stage" id="sphere-stage"><div class="sphere-inner" id="sphere-inner"></div></div>
+    </article>
+
+    <article class="demo" id="g86">
+      <p class="tag"><span class="tag-num">86</span><span class="tag-name">ISOMETRIC HOVER CARD</span></p>
+      <h3>ホバーで浮き上がる等角投影カード</h3>
+      <div class="iso-stage">
+        <div class="iso-card" style="background-image:url(../assets/img/look-09-0-thumb.webp)"></div>
+      </div>
+    </article>
+
+    <article class="demo" id="g87">
+      <p class="tag"><span class="tag-num">87</span><span class="tag-name">3D BOOK PAGE TURN</span></p>
+      <h3>本のページをめくる</h3>
+      <div class="book" id="book">
+        <div class="book-page-static" style="background-image:url(../assets/img/look-17-0-thumb.webp)"></div>
+        <div class="book-page" id="book-page">
+          <div class="book-page-front" style="background-image:url(../assets/img/look-05-0-thumb.webp)"></div>
+          <div class="book-page-back" style="background-image:url(../assets/img/look-12-0-thumb.webp)"></div>
+        </div>
+      </div>
+      <button class="replay-btn" id="turn-page">ページをめくる ›</button>
+    </article>
+
+    <article class="demo" id="g88">
+      <p class="tag"><span class="tag-num">88</span><span class="tag-name">DEPTH-PARALLAX GRID</span></p>
+      <h3>カーソルに近いタイルが浮き上がる</h3>
+      <div class="depth-grid" id="depth-grid"></div>
+    </article>
+
+    <article class="demo" id="g89">
+      <p class="tag"><span class="tag-num">89</span><span class="tag-name">3D ORBIT RING CAROUSEL</span></p>
+      <h3>軌道を描いて回るリング</h3>
+      <div class="orbit-stage" id="orbit-stage"><div class="orbit-inner" id="orbit-inner"></div></div>
+    </article>
+  </section>
+
+  <!-- ============================ GROUP O — MORE CURSOR FUN ============================ -->
+  <section id="group-cursor3" class="group">
+    <h2 class="group-title"><span>O</span>MORE CURSOR FUN</h2>
+
+    <article class="demo" id="g90">
+      <p class="tag"><span class="tag-num">90</span><span class="tag-name">CURSOR-REPEL ICON SWARM</span></p>
+      <h3>カーソルから逃げて跳ね返る絵文字</h3>
+      <div class="swarm-box" id="swarm-box">
+        <span class="swarm-icon">✦</span><span class="swarm-icon">◆</span><span class="swarm-icon">●</span><span class="swarm-icon">▲</span><span class="swarm-icon">✦</span>
+      </div>
+    </article>
+
+    <article class="demo" id="g91">
+      <p class="tag"><span class="tag-num">91</span><span class="tag-name">CURSOR PET FOLLOWER</span></p>
+      <h3>ペットのように追いかけてくる</h3>
+      <div class="pet-box" id="pet-box"><div class="pet-blob" id="pet-blob"></div></div>
+    </article>
+
+    <article class="demo" id="g92">
+      <p class="tag"><span class="tag-num">92</span><span class="tag-name">EYE-TRACKING LETTERS</span></p>
+      <h3>文字がカーソルの方を見る</h3>
+      <h3 class="eye-text" id="eye-text">WATCHING</h3>
+    </article>
+
+    <article class="demo" id="g93">
+      <p class="tag"><span class="tag-num">93</span><span class="tag-name">CURSOR SHOCKWAVE BURST</span></p>
+      <h3>クリックで衝撃波が広がる</h3>
+      <div class="shockwave-box" id="shockwave-box"><p>クリックしてください</p></div>
+    </article>
+
+    <article class="demo" id="g94">
+      <p class="tag"><span class="tag-num">94</span><span class="tag-name">CURSOR MAGNET SNAP</span></p>
+      <h3>近づくとカーソルごと吸着する</h3>
+      <div class="snap-target-box" id="snap-target-box">
+        <button class="snap-target" id="snap-target">SNAP</button>
+      </div>
+    </article>
+
+    <article class="demo" id="g95">
+      <p class="tag"><span class="tag-num">95</span><span class="tag-name">CARD FAN RIFFLE</span></p>
+      <h3>カーソルでトランプの束をめくる</h3>
+      <div class="riffle-box" id="riffle-box"></div>
+    </article>
+  </section>
+
+  <!-- ============================ GROUP P — MORE PHYSICS & DRAG ============================ -->
+  <section id="group-physics" class="group">
+    <h2 class="group-title"><span>P</span>MORE PHYSICS & DRAG</h2>
+
+    <article class="demo" id="g96">
+      <p class="tag"><span class="tag-num">96</span><span class="tag-name">PINBALL DRAG LAUNCH</span></p>
+      <h3>引っ張って弾を発射</h3>
+      <div class="canvas-box"><canvas id="pinball-canvas"></canvas></div>
+    </article>
+
+    <article class="demo" id="g97">
+      <p class="tag"><span class="tag-num">97</span><span class="tag-name">PENDULUM DRAG SWING</span></p>
+      <h3>ドラッグして振り子を揺らす</h3>
+      <div class="pendulum-box" id="pendulum-box">
+        <svg class="pendulum-svg"><line id="pendulum-line" x1="0" y1="0" x2="0" y2="0"/></svg>
+        <div class="pendulum-bob" id="pendulum-bob"></div>
+      </div>
+    </article>
+
+    <article class="demo" id="g98">
+      <p class="tag"><span class="tag-num">98</span><span class="tag-name">TOPPLING BLOCK STACK</span></p>
+      <h3>押すと積み木が崩れる</h3>
+      <div class="jenga-box" id="jenga-box">
+        <div class="jenga-block"></div>
+        <div class="jenga-block"></div>
+        <div class="jenga-block"></div>
+        <div class="jenga-block"></div>
+      </div>
+      <button class="replay-btn" id="jenga-push">押す →</button>
+    </article>
+
+    <article class="demo" id="g99">
+      <p class="tag"><span class="tag-num">99</span><span class="tag-name">WEIGHTED MOMENTUM SLIDER</span></p>
+      <h3>慣性で滑り続けるスライダー</h3>
+      <div class="momentum-track" id="momentum-track"><div class="momentum-handle" id="momentum-handle"></div></div>
+    </article>
+
+    <article class="demo" id="g100">
+      <p class="tag"><span class="tag-num">100</span><span class="tag-name">ELASTIC RUBBER-BAND BUTTON</span></p>
+      <h3>引っ張ると伸びて跳ね返る</h3>
+      <div class="rubber-box" id="rubber-box">
+        <svg class="rubber-svg" id="rubber-svg"><line id="rubber-line" x1="0" y1="0" x2="0" y2="0"/></svg>
+        <button class="rubber-btn" id="rubber-btn">PULL ME</button>
+      </div>
+    </article>
+
+    <article class="demo" id="g101">
+      <p class="tag"><span class="tag-num">101</span><span class="tag-name">ROTARY DIAL KNOB</span></p>
+      <h3>円を描くようにドラッグして回す</h3>
+      <div class="knob-wrap">
+        <div class="knob" id="knob"><span class="knob-mark"></span></div>
+        <span class="knob-value" id="knob-value">0</span>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============================ GROUP Q — MORE SCROLL-LINKED ============================ -->
+  <section id="group-scroll2" class="group">
+    <h2 class="group-title"><span>Q</span>MORE SCROLL-LINKED</h2>
+
+    <article class="demo" id="g102">
+      <p class="tag"><span class="tag-num">102</span><span class="tag-name">SCROLL MAGNETIC SNAP</span></p>
+      <h3>スクロールで要素が引き寄せられる</h3>
+      <div class="magsnap-box" id="magsnap-box">
+        <span class="magsnap-item">A</span><span class="magsnap-item">B</span><span class="magsnap-item">C</span><span class="magsnap-item">D</span>
+        <span class="magsnap-center"></span>
+      </div>
+    </article>
+
+    <article class="demo" id="g103">
+      <p class="tag"><span class="tag-num">103</span><span class="tag-name">SCROLL JIGSAW ASSEMBLY</span></p>
+      <h3>スクロールでパズルが組み上がる</h3>
+      <div class="jigsaw-box" id="jigsaw-box" style="background-image:url(../assets/img/look-04-0.webp)"></div>
+    </article>
+
+    <article class="demo" id="g104">
+      <p class="tag"><span class="tag-num">104</span><span class="tag-name">SCROLL-SCRUBBED 3D ROTATION</span></p>
+      <h3>スクロール量に合わせて回る立方体</h3>
+      <div class="scrub-stage" id="scrub-stage"><div class="scrub-cube" id="scrub-cube">
+        <div class="scrub-face f1"></div><div class="scrub-face f2"></div><div class="scrub-face f3"></div><div class="scrub-face f4"></div>
+      </div></div>
+    </article>
+
+    <article class="demo" id="g105">
+      <p class="tag"><span class="tag-num">105</span><span class="tag-name">SCROLL WAVE TEXT</span></p>
+      <h3>スクロールで文字が波打つ</h3>
+      <h3 class="wave-text" id="wave-text">SS26 COLLECTION</h3>
+    </article>
+
+    <article class="demo" id="g106">
+      <p class="tag"><span class="tag-num">106</span><span class="tag-name">NEWSPAPER PARALLAX COLUMNS</span></p>
+      <h3>段組みごとに違う速さで動く</h3>
+      <div class="news-box" id="news-box">
+        <div class="news-col" data-speed="0.3">SS26</div>
+        <div class="news-col" data-speed="0.6">SCULPTURAL</div>
+        <div class="news-col" data-speed="1">BLENCI</div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============================ GROUP R — MORE ORGANIC / LIQUID ============================ -->
+  <section id="group-organic" class="group">
+    <h2 class="group-title"><span>R</span>MORE ORGANIC & LIQUID</h2>
+
+    <article class="demo" id="g107">
+      <p class="tag"><span class="tag-num">107</span><span class="tag-name">JELLY WOBBLE CARD</span></p>
+      <h3>ぷるぷる揺れるゼリーカード</h3>
+      <div class="jelly-card" id="jelly-card">HOVER ME</div>
+    </article>
+
+    <article class="demo" id="g108">
+      <p class="tag"><span class="tag-num">108</span><span class="tag-name">LIQUID POUR BAR</span></p>
+      <h3>波打ちながら液体が注がれる</h3>
+      <div class="pour-box" id="pour-box">
+        <svg class="pour-svg" id="pour-svg" viewBox="0 0 200 200" preserveAspectRatio="none"><path id="pour-wave"/></svg>
+      </div>
+      <button class="replay-btn" id="pour-fill">注ぐ</button>
+    </article>
+
+    <article class="demo" id="g109">
+      <p class="tag"><span class="tag-num">109</span><span class="tag-name">GOO SLIME BUTTON</span></p>
+      <h3>ぷにっと合体するグミ風ボタン</h3>
+      <svg width="0" height="0"><filter id="goo-filter"><feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur"/><feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 24 -12" result="goo"/></filter></svg>
+      <div class="goo-box" id="goo-box">
+        <div class="goo-blob main"></div>
+        <div class="goo-blob follower" id="goo-follower"></div>
+      </div>
+    </article>
+
+    <article class="demo" id="g110">
+      <p class="tag"><span class="tag-num">110</span><span class="tag-name">WATER DROPLET CURSOR</span></p>
+      <h3>ガラスの上を転がる水滴</h3>
+      <div class="droplet-box" id="droplet-box"><div class="droplet" id="droplet"></div></div>
+    </article>
+  </section>
+
+  <!-- ============================ GROUP S — MORE PLAYFUL / GAME-LIKE ============================ -->
+  <section id="group-play" class="group">
+    <h2 class="group-title"><span>S</span>GENERATIVE & KINETIC</h2>
+
+    <article class="demo" id="g111">
+      <p class="tag"><span class="tag-num">111</span><span class="tag-name">REACTIVE CELL GRID</span></p>
+      <h3>カーソルの気配で波紋のように反応する面</h3>
+      <div class="reactive-grid" id="reactive-grid"></div>
+    </article>
+
+    <article class="demo" id="g112">
+      <p class="tag"><span class="tag-num">112</span><span class="tag-name">DISSOLVING ORBS</span></p>
+      <h3>触れると粒子になって溶ける浮遊体</h3>
+      <div class="bubble-box" id="bubble-box"></div>
+    </article>
+
+    <article class="demo" id="g113">
+      <p class="tag"><span class="tag-num">113</span><span class="tag-name">DRAG-REORDER LIST</span></p>
+      <h3>ドラッグして並び替え</h3>
+      <ul class="reorder-list" id="reorder-list">
+        <li class="reorder-item">LOOK 01</li>
+        <li class="reorder-item">LOOK 02</li>
+        <li class="reorder-item">LOOK 03</li>
+        <li class="reorder-item">LOOK 04</li>
+      </ul>
+    </article>
+
+    <article class="demo" id="g114">
+      <p class="tag"><span class="tag-num">114</span><span class="tag-name">VELOCITY INK BRUSH</span></p>
+      <h3>動く速さで筆致が変わる墨のあと</h3>
+      <div class="canvas-box"><canvas id="ink-brush-canvas"></canvas></div>
+    </article>
+
+    <article class="demo" id="g115">
+      <p class="tag"><span class="tag-num">115</span><span class="tag-name">SCRATCH-TO-REVEAL</span></p>
+      <h3>削って中の写真を見る</h3>
+      <div class="scratch-box" id="scratch-box">
+        <img src="../assets/img/look-08-0.webp" alt="">
+        <canvas id="scratch-canvas"></canvas>
+      </div>
+    </article>
+
+    <article class="demo" id="g116">
+      <p class="tag"><span class="tag-num">116</span><span class="tag-name">BILLIARD BALL COLLISION</span></p>
+      <h3>カーソルで玉を弾く</h3>
+      <div class="canvas-box"><canvas id="billiard-canvas"></canvas></div>
+    </article>
+
+    <article class="demo" id="g117">
+      <p class="tag"><span class="tag-num">117</span><span class="tag-name">KALEIDOSCOPE DRAG</span></p>
+      <h3>ドラッグで対称模様が万華鏡のように変化</h3>
+      <div class="canvas-box"><canvas id="kaleidoscope-canvas"></canvas></div>
+    </article>
+
+    <article class="demo" id="g118">
+      <p class="tag"><span class="tag-num">118</span><span class="tag-name">TONE BARS</span></p>
+      <h3>触れると音と光が生まれる柱（音が出ます）</h3>
+      <div class="piano-row" id="piano-row"></div>
+    </article>
+
+    <article class="demo" id="g119">
+      <p class="tag"><span class="tag-num">119</span><span class="tag-name">ELASTIC LAUNCH</span></p>
+      <h3>引き伸ばした運動エネルギーを放つ</h3>
+      <div class="canvas-box"><canvas id="slingshot-canvas"></canvas></div>
+    </article>
+
+    <article class="demo" id="g120">
+      <p class="tag"><span class="tag-num">120</span><span class="tag-name">NEON CURSOR TRAIL</span></p>
+      <h3>光る軌跡がついてくる</h3>
+      <div class="canvas-box"><canvas id="neon-canvas"></canvas></div>
+    </article>
+  </section>
+
   <footer class="lab-footer">
     <p class="tag"><span class="tag-num">30</span><span class="tag-name">DARK / LIGHT THEME — ヘッダー右上のスイッチで切替できます</span></p>
-    <p class="lab-footer-text">BLENCI LAB — 79 Gimmicks Showcase.<br><a href="../index.html">← v1（BLENCI SS26 本編）を見る</a></p>
+    <p class="lab-footer-text">BLENCI LAB — 120 Gimmicks Showcase.<br><a href="../index.html">← v1（BLENCI SS26 本編）を見る</a></p>
   </footer>
 
 </main>
