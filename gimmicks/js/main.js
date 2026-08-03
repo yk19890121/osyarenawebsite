@@ -952,7 +952,7 @@
     const r = box.querySelector(".chroma-r");
     const b = box.querySelector(".chroma-b");
     let lastY = window.scrollY, target = 0, current = 0;
-    window.addEventListener("scroll", () => { const y = window.scrollY; target = gsap.utils.clamp(-14, 14, (y - lastY) * 0.7); lastY = y; }, { passive: true });
+    window.addEventListener("scroll", () => { const y = window.scrollY; target = gsap.utils.clamp(-26, 26, (y - lastY) * 1.4); lastY = y; }, { passive: true });
     gsap.ticker.add(() => {
       current += (target - current) * 0.15;
       target += (0 - target) * 0.08;
@@ -1459,7 +1459,7 @@
     const inner = document.getElementById("sphere-inner");
     const stage = document.getElementById("sphere-stage");
     if (!inner || REDUCED) return;
-    const order = [2, 5, 7, 9, 12, 14, 16, 18, 3, 10];
+    const order = [2, 5, 13, 17, 12, 14, 16, 18, 3, 10];
     const N = order.length, radius = 120;
     const base = order.map((n, i) => {
       const el = document.createElement("div");
@@ -1502,7 +1502,7 @@
     order.forEach((n) => {
       const el = document.createElement("div");
       el.className = "depth-tile";
-      el.style.backgroundImage = `url(assets/img/${LOOKS[n - 1].variants[0].thumb})`;
+      el.style.backgroundImage = `url(../assets/img/${LOOKS[n - 1].variants[0].thumb})`;
       grid.appendChild(el);
     });
     if (!FINE_POINTER) return;
@@ -1523,7 +1523,7 @@
     const inner = document.getElementById("orbit-inner");
     const stage = document.getElementById("orbit-stage");
     if (!inner || REDUCED) return;
-    const order = [4, 8, 13, 17, 1, 9];
+    const order = [2, 8, 13, 17, 1, 10];
     const N = order.length, radius = 140;
     const items = order.map((n) => {
       const el = document.createElement("div");
@@ -1635,7 +1635,7 @@
     const cards = order.map((n, i) => {
       const el = document.createElement("div");
       el.className = "riffle-card";
-      el.style.backgroundImage = `url(assets/img/${LOOKS[n - 1].variants[0].thumb})`;
+      el.style.backgroundImage = `url(../assets/img/${LOOKS[n - 1].variants[0].thumb})`;
       const angle = (i - (N - 1) / 2) * 8;
       el.style.left = `calc(50% - 35px + ${(i - (N - 1) / 2) * 22}px)`;
       el.dataset.baseAngle = angle;
@@ -1902,7 +1902,7 @@
     if (!cols.length || REDUCED) return;
     cols.forEach((col) => {
       const speed = Number(col.dataset.speed);
-      gsap.to(col, { y: -60 * speed, ease: "none", scrollTrigger: { trigger: box, start: "top bottom", end: "bottom top", scrub: true } });
+      gsap.to(col, { y: -130 * speed, ease: "none", scrollTrigger: { trigger: box, start: "top bottom", end: "bottom top", scrub: true } });
     });
   }
 
