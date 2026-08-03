@@ -163,7 +163,7 @@ code{font-family:var(--ff-mono);background:var(--line);padding:2px 6px;border-ra
 /* ==========================================================================
    Group layout
    ========================================================================== */
-.group{padding:100px var(--container) 40px;max-width:1280px;margin:0 auto;}
+.group{padding:100px var(--container) 40px;max-width:1280px;margin:0 auto;scroll-margin-top:80px;}
 .group-title{
   display:flex;align-items:center;gap:14px;
   font-family:var(--ff-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;
@@ -597,7 +597,7 @@ code{font-family:var(--ff-mono);background:var(--line);padding:2px 6px;border-ra
    ========================================================================== */
 .mask-reveal-text{font-family:var(--ff-jp);font-weight:600;font-size:clamp(17px,2vw,21px);line-height:1.7;}
 .mr-line{display:block;overflow:hidden;}
-.mr-line > span{display:inline-block;transform:translateY(115%);}
+.mr-line > span{display:inline-block;}
 
 /* ==========================================================================
    GIMMICK 36 — split character reveal

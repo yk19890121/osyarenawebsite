@@ -53,7 +53,20 @@
         e.preventDefault();
         const target = targets[i];
         target.scrollIntoView({ behavior: REDUCED ? "auto" : "smooth", block: "start" });
-        setTimeout(() => flashElement(target), REDUCED ? 0 : 400);
+        if (REDUCED) { flashElement(target); return; }
+        let lastY = window.scrollY, stillCount = 0;
+        const maxTicks = 60; // ~3s safety cap
+        let ticks = 0;
+        const poll = setInterval(() => {
+          ticks++;
+          const y = window.scrollY;
+          if (Math.abs(y - lastY) < 1) stillCount++; else stillCount = 0;
+          lastY = y;
+          if (stillCount >= 2 || ticks >= maxTicks) {
+            clearInterval(poll);
+            flashElement(target);
+          }
+        }, 50);
       });
     });
   }
@@ -636,11 +649,15 @@
     const lines = document.querySelectorAll("#mask-reveal-text .mr-line > span");
     const btn = document.getElementById("replay-mask");
     if (!lines.length) return;
+    gsap.set(lines, { yPercent: 115 });
     function play() {
       gsap.set(lines, { yPercent: 115 });
       gsap.to(lines, { yPercent: 0, duration: 0.9, stagger: 0.15, ease: "power4.out" });
     }
-    play();
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { play(); io.disconnect(); } });
+    }, { threshold: 0.4 });
+    io.observe(document.getElementById("mask-reveal-text"));
     if (btn) btn.addEventListener("click", play);
   }
 
