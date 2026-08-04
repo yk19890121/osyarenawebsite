@@ -1325,20 +1325,14 @@
     const box = document.getElementById("glitch-box");
     if (!box) return;
     const bgUrl = box.style.backgroundImage;
-    const urlMatch = bgUrl.match(/url\(["']?(.*?)["']?\)/);
     box.style.backgroundImage = "none";
     const SLICES = 7;
-    let naturalRatio = null;
-    if (urlMatch) {
-      const probe = new Image();
-      probe.onload = () => { naturalRatio = probe.naturalHeight / probe.naturalWidth; build(); };
-      probe.src = urlMatch[1];
-    }
+    const NATURAL_RATIO = 816 / 1456; // all look photos used here are this aspect
     function build() {
       box.querySelectorAll(".glitch-slice").forEach((s) => s.remove());
       const h = box.clientHeight, w = box.clientWidth, sliceH = h / SLICES;
       // cover-fit height at the box's own width, so slices reassemble into an undistorted crop
-      const coverH = naturalRatio ? Math.max(h, w * naturalRatio) : h;
+      const coverH = Math.max(h, w * NATURAL_RATIO);
       const offsetY = (coverH - h) / 2;
       for (let i = 0; i < SLICES; i++) {
         const s = document.createElement("div");
