@@ -71,7 +71,7 @@
     {
       name: "BENTO GRID",
       frame: "lf-bento",
-      blocks: `<div class="lf-block ga-a lf-photo" style="background-image:url(${IMG(4)})"></div><div class="lf-block ga-b"></div><div class="lf-block ga-c lf-photo" style="background-image:url(${IMG(12)})"></div><div class="lf-block ga-d lf-b-accent2"></div><div class="lf-block ga-e"></div><div class="lf-block ga-f"></div>`,
+      blocks: `<div class="lf-block ga-a lf-photo" style="background-image:url(${IMG(5)})"></div><div class="lf-block ga-b"></div><div class="lf-block ga-c lf-photo" style="background-image:url(${IMG(12)})"></div><div class="lf-block ga-d lf-b-accent2"></div><div class="lf-block ga-e"></div><div class="lf-block ga-f"></div>`,
       desc: "大小さまざまなカードを一つの盤面にまとめる。最近よく見る、機能を並列に見せる型。",
       use: "FEATURES / DASHBOARD",
     },
@@ -85,7 +85,7 @@
     {
       name: "STICKY SCROLL STORY",
       frame: "lf-sticky",
-      blocks: `<div class="lf-block ga-img lf-photo" style="background-image:url(${IMG(7)})"></div><div class="lf-block ga-content1 lf-b-accent2"></div><div class="lf-block ga-content2"></div><div class="lf-block ga-content3"></div>`,
+      blocks: `<div class="lf-block ga-img lf-photo" style="background-image:url(${IMG(1)})"></div><div class="lf-block ga-content1 lf-b-accent2"></div><div class="lf-block ga-content2"></div><div class="lf-block ga-content3"></div>`,
       desc: "画像を貼りつけたまま、隣のテキストだけがスクロールで進む。物語を段階的に語る型。",
       use: "PRODUCT STORY / SCROLLYTELLING",
     },
@@ -148,7 +148,7 @@
     {
       name: "STICKY NAV BAR",
       frame: "lf-stickynav",
-      blocks: `<div class="lf-block ga-head lf-b-accent2"></div><div class="lf-block ga-main lf-photo" style="background-image:url(${IMG(4)})"></div>`,
+      blocks: `<div class="lf-block ga-head lf-b-accent2"></div><div class="lf-block ga-main lf-photo" style="background-image:url(${IMG(3)})"></div>`,
       desc: "細いヘッダーだけが常に画面上部に張りつく、もっとも一般的なナビゲーション。",
       use: "ALMOST ANY WEBSITE",
     },
@@ -183,7 +183,7 @@
     {
       name: "THUMBNAIL GRID",
       frame: "lf-thumbgrid",
-      blocks: [1, 2, 4, 7, 10, 16, 13, 15].map((n) => `<div class="lf-block lf-photo" style="background-image:url(${IMG(n)})"></div>`).join(""),
+      blocks: [1, 2, 8, 10, 12, 16, 13, 15].map((n) => `<div class="lf-block lf-photo" style="background-image:url(${IMG(n)})"></div>`).join(""),
       desc: "同じ大きさのサムネイルを規則正しく並べる。写真そのものを主役にする型。",
       use: "PHOTO GALLERY / INSTAGRAM GRID",
     },

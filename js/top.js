@@ -51,7 +51,7 @@
   function initSphereTop() {
     const inner = document.getElementById("sphere-inner-top");
     if (!inner || typeof LOOKS === "undefined") return;
-    const order = [1, 4, 7, 8, 12, 14, 13, 15, 17, 2, 10, 18];
+    const order = [1, 3, 5, 8, 12, 14, 13, 15, 17, 2, 10, 18];
     const N = order.length, radius = 190;
     const base = order.map((n, i) => {
       const el = document.createElement("div");

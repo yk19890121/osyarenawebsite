@@ -7,7 +7,7 @@
   const pad = (n) => String(n).padStart(2, "0");
   // Some looks' variant-0 frame is a wide 2-up shot; unsafe to crop into narrow/square boxes.
   // Maps look number -> index of a single-subject variant, for callers that need a narrow-safe thumb.
-  const NARROW_SAFE_IDX = { 3: 1, 5: 1, 6: 3, 9: 2, 11: 3 };
+  const NARROW_SAFE_IDX = { 4: 1, 6: 3, 7: 3, 9: 2, 11: 3 };
   const narrowSafeVariant = (look) => look.variants[NARROW_SAFE_IDX[look.look] ?? 0];
   const whenReady = (fn) => {
     if (document.readyState === "complete") fn();
@@ -1125,7 +1125,7 @@
     const prevBtn = document.getElementById("coverflow-prev");
     const nextBtn = document.getElementById("coverflow-next");
     if (!track) return;
-    const order = [1, 4, 8, 16, 15, 17];
+    const order = [1, 3, 8, 16, 15, 17];
     track.innerHTML = order.map((n) => `<div class="cf-item"><img src="../assets/img/${LOOKS[n - 1].variants[0].thumb}" alt="LOOK ${pad(n)}"></div>`).join("");
     const items = [...track.querySelectorAll(".cf-item")];
     let active = 0;
@@ -1325,19 +1325,29 @@
     const box = document.getElementById("glitch-box");
     if (!box) return;
     const bgUrl = box.style.backgroundImage;
+    const urlMatch = bgUrl.match(/url\(["']?(.*?)["']?\)/);
     box.style.backgroundImage = "none";
     const SLICES = 7;
+    let naturalRatio = null;
+    if (urlMatch) {
+      const probe = new Image();
+      probe.onload = () => { naturalRatio = probe.naturalHeight / probe.naturalWidth; build(); };
+      probe.src = urlMatch[1];
+    }
     function build() {
       box.querySelectorAll(".glitch-slice").forEach((s) => s.remove());
-      const h = box.clientHeight, sliceH = h / SLICES;
+      const h = box.clientHeight, w = box.clientWidth, sliceH = h / SLICES;
+      // cover-fit height at the box's own width, so slices reassemble into an undistorted crop
+      const coverH = naturalRatio ? Math.max(h, w * naturalRatio) : h;
+      const offsetY = (coverH - h) / 2;
       for (let i = 0; i < SLICES; i++) {
         const s = document.createElement("div");
         s.className = "glitch-slice";
         s.style.height = sliceH + "px";
         s.style.top = i * sliceH + "px";
         s.style.backgroundImage = bgUrl;
-        s.style.backgroundSize = `100% ${h}px`;
-        s.style.backgroundPosition = `center -${i * sliceH}px`;
+        s.style.backgroundSize = `100% ${coverH}px`;
+        s.style.backgroundPosition = `center -${offsetY + i * sliceH}px`;
         box.appendChild(s);
       }
     }
@@ -1480,7 +1490,7 @@
     const inner = document.getElementById("sphere-inner");
     const stage = document.getElementById("sphere-stage");
     if (!inner || REDUCED) return;
-    const order = [2, 4, 13, 17, 12, 14, 16, 18, 8, 10];
+    const order = [2, 5, 13, 17, 12, 14, 16, 18, 8, 10];
     const N = order.length, radius = 120;
     const base = order.map((n, i) => {
       const el = document.createElement("div");
@@ -1519,7 +1529,7 @@
   function initDepthGrid() {
     const grid = document.getElementById("depth-grid");
     if (!grid) return;
-    const order = [1, 2, 4, 7, 8, 10, 12, 13, 14, 15, 16, 17];
+    const order = [1, 2, 3, 5, 8, 10, 12, 13, 14, 15, 16, 17];
     order.forEach((n) => {
       const el = document.createElement("div");
       el.className = "depth-tile";
@@ -1651,7 +1661,7 @@
   function initRiffle() {
     const box = document.getElementById("riffle-box");
     if (!box) return;
-    const order = [1, 4, 8, 12, 15, 18, 2, 7];
+    const order = [1, 3, 8, 12, 15, 18, 2, 10];
     const N = order.length;
     const cards = order.map((n, i) => {
       const el = document.createElement("div");

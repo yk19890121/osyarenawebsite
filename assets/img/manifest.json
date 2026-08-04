@@ -59,7 +59,7 @@
         "w": 1456,
         "h": 816,
         "bg": "#ce3714",
-        "portraitSafe": false
+        "portraitSafe": true
       },
       {
         "idx": 2,
@@ -68,7 +68,7 @@
         "w": 1456,
         "h": 816,
         "bg": "#b76075",
-        "portraitSafe": false
+        "portraitSafe": true
       },
       {
         "idx": 3,
@@ -91,7 +91,7 @@
         "w": 1456,
         "h": 816,
         "bg": "#c96814",
-        "portraitSafe": false
+        "portraitSafe": true
       },
       {
         "idx": 1,
@@ -100,7 +100,7 @@
         "w": 1456,
         "h": 816,
         "bg": "#777c7c",
-        "portraitSafe": true
+        "portraitSafe": false
       },
       {
         "idx": 2,
@@ -118,7 +118,7 @@
         "w": 1456,
         "h": 816,
         "bg": "#be2c22",
-        "portraitSafe": false
+        "portraitSafe": true
       }
     ]
   },
@@ -132,7 +132,7 @@
         "w": 1456,
         "h": 816,
         "bg": "#892f2d",
-        "portraitSafe": true
+        "portraitSafe": false
       },
       {
         "idx": 1,
@@ -141,7 +141,7 @@
         "w": 1456,
         "h": 816,
         "bg": "#ce517f",
-        "portraitSafe": false
+        "portraitSafe": true
       },
       {
         "idx": 2,
@@ -150,7 +150,7 @@
         "w": 1456,
         "h": 816,
         "bg": "#75252c",
-        "portraitSafe": true
+        "portraitSafe": false
       },
       {
         "idx": 3,
@@ -159,7 +159,7 @@
         "w": 1456,
         "h": 816,
         "bg": "#930d20",
-        "portraitSafe": true
+        "portraitSafe": false
       }
     ]
   },
@@ -173,7 +173,7 @@
         "w": 1456,
         "h": 816,
         "bg": "#e1ab0b",
-        "portraitSafe": false
+        "portraitSafe": true
       },
       {
         "idx": 1,
@@ -182,7 +182,7 @@
         "w": 1456,
         "h": 816,
         "bg": "#d4aa30",
-        "portraitSafe": true
+        "portraitSafe": false
       },
       {
         "idx": 2,
@@ -223,7 +223,7 @@
         "w": 1456,
         "h": 816,
         "bg": "#99a15c",
-        "portraitSafe": false
+        "portraitSafe": true
       },
       {
         "idx": 2,
@@ -232,7 +232,7 @@
         "w": 1456,
         "h": 816,
         "bg": "#af7416",
-        "portraitSafe": false
+        "portraitSafe": true
       },
       {
         "idx": 3,
@@ -255,7 +255,7 @@
         "w": 1456,
         "h": 816,
         "bg": "#54432c",
-        "portraitSafe": true
+        "portraitSafe": false
       },
       {
         "idx": 1,
@@ -264,7 +264,7 @@
         "w": 1456,
         "h": 816,
         "bg": "#0e4a98",
-        "portraitSafe": true
+        "portraitSafe": false
       },
       {
         "idx": 2,
