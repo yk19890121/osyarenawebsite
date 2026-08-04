@@ -10,6 +10,26 @@ window.Builder = window.Builder || {};
   let selectedObjectId = null;
   const listeners = new Set();
 
+  // Presets assign gimmicks by object ROLE (e.g. "primary-heading",
+  // "card-visual"), not by object id — this is what lets one preset's
+  // assignments apply across every layout, since roles are shared/reused
+  // (e.g. every card in a grid layout has role "card-heading") while ids
+  // are unique per object. If a preset doesn't mention a role at all, fall
+  // back to a safe generic default per object TYPE so nothing looks inert.
+  const DEFAULT_ASSIGNMENT_BY_TYPE = {
+    heading: { entrance: { id: "fade-up" } },
+    text: { entrance: { id: "fade-up" } },
+    image: { entrance: { id: "fade-in" } },
+    button: { hover: { id: "scale-hover" } },
+    background: {},
+  };
+
+  function resolveAssignment(preset, objMeta) {
+    const byRole = preset.assignments && preset.assignments[objMeta.role];
+    const fallback = DEFAULT_ASSIGNMENT_BY_TYPE[objMeta.type];
+    return clone(byRole || fallback || {});
+  }
+
   function notify(reason) {
     listeners.forEach((fn) => fn(state, reason));
   }
@@ -29,7 +49,8 @@ window.Builder = window.Builder || {};
         source: seed.source || "",
         alt: seed.alt || "",
         style: {},
-        effects: (preset.assignments[obj.id] && clone(preset.assignments[obj.id])) || {},
+        effects: resolveAssignment(preset, obj),
+        catalogGimmicks: [],
       };
     });
     return {
@@ -93,6 +114,16 @@ window.Builder = window.Builder || {};
     notify("motion:" + id);
   }
 
+  function toggleCatalogGimmick(id, entry) {
+    if (!state || !state.objects[id]) return;
+    const list = state.objects[id].catalogGimmicks || (state.objects[id].catalogGimmicks = []);
+    const i = list.findIndex((g) => g.num === entry.num);
+    if (i === -1) list.push(entry);
+    else list.splice(i, 1);
+    state.lastEdited = Date.now();
+    notify("catalog:" + id);
+  }
+
   function setPalette(patch) {
     Object.assign(state.palette, patch);
     state.lastEdited = Date.now();
@@ -152,7 +183,8 @@ window.Builder = window.Builder || {};
       type: objMeta.type, role: objMeta.role, label: objMeta.label,
       content: seed.content || "", url: seed.url || "", source: seed.source || "", alt: seed.alt || "",
       style: {},
-      effects: (preset.assignments[id] && clone(preset.assignments[id])) || {},
+      effects: resolveAssignment(preset, objMeta),
+      catalogGimmicks: [],
     };
     notify("object:" + id);
   }
@@ -165,7 +197,7 @@ window.Builder = window.Builder || {};
 
   window.Builder.state = {
     init, get, getObject, getSelected, select,
-    updateObject, updateObjectStyle, setEffect, updateEffectOptions,
+    updateObject, updateObjectStyle, setEffect, updateEffectOptions, toggleCatalogGimmick,
     setPalette, setFonts, setDevice, setReducedMotion,
     subscribe, save, hasSavedSession, loadSaved, clearSaved,
     resetObject, resetAll,

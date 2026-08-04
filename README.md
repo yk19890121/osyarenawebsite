@@ -31,12 +31,16 @@ scripts/dev_server.py                  — キャッシュを無効化するロ�
 「動くデザイン見本」を作り、EXPORT BLUEPRINTとしてZIPに書き出す機能です。
 外部AI API・有料サービス・サーバーは一切使用せず、GitHub Pages上で完結します。
 
-**現状(Version 1 / Phase 1)の対応範囲:**
-- レイアウト: Editorial Split の1種類(仕様書は5種類を想定)
-- ギミック: 14種類(text-mask-reveal, split-character, fade-up, blur-reveal, clip-path-wipe,
-  fade-in, soft-zoom, slow-parallax, magnetic-hover, underline-slide, fill-slide, scale-hover,
-  noise-overlay, animated-gradient) — いずれも `/gimmicks/js/main.js` の既存実装から移植
-- プリセット: Quiet Luxury の1種類
+**現状(Version 1)の対応範囲:**
+- レイアウト: 6種類(Editorial Split / Fullscreen Hero / Modular Card Grid /
+  Storytelling Landing / Slide Deck Presentation / News Curation)
+- ギミック: プレビューでライブに動くのは14種類(text-mask-reveal, split-character, fade-up,
+  blur-reveal, clip-path-wipe, fade-in, soft-zoom, slow-parallax, magnetic-hover,
+  underline-slide, fill-slide, scale-hover, noise-overlay, animated-gradient)
+  — いずれも `/gimmicks/js/main.js` の既存実装から移植。
+  残り106種類は「GIMMICK カタログ指定」機能でオブジェクトごとに番号指定でき、
+  EXPORT BLUEPRINTの引き継ぎ資料に開発担当への指示として記載される
+- プリセット: 10種類
 - 未対応: モバイルでの詳細編集、スクリーンショット同梱、
   component-map.json / motion-spec.json / content-schema.json の出力
   (README.md と builder-config.json / design-tokens.json で代替)

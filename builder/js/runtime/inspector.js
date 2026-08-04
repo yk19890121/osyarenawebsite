@@ -169,7 +169,13 @@ window.Builder = window.Builder || {};
   // ---------------- MOTION ----------------
   function renderMotion(body, id, obj) {
     const events = EVENTS_BY_TYPE[obj.type] || [];
-    body.innerHTML = events.map((event) => {
+    body.innerHTML = eventBlocksHtml(id, obj, events) + catalogBlockHtml(obj);
+    bindMotionEvents(body, id);
+    bindCatalogEvents(body, id);
+  }
+
+  function eventBlocksHtml(id, obj, events) {
+    return events.map((event) => {
       const options = BUILDER_GIMMICKS.filter((g) => g.applicableTo.includes(obj.type) && g.event === event);
       const current = obj.effects[event];
       return `
@@ -186,7 +192,22 @@ window.Builder = window.Builder || {};
         </div>
       `;
     }).join("");
+  }
 
+  function catalogBlockHtml(obj) {
+    const list = obj.catalogGimmicks || [];
+    return `
+      <div class="bp-motion-block bp-catalog-ref-block">
+        <p class="bp-motion-event">GIMMICK カタログ指定（参考・このプレビューでは再生されません）</p>
+        ${list.length
+          ? `<div class="bp-catalog-selected">${list.map((g) => `<span class="bp-catalog-chip">#${g.num} ${g.name}<button type="button" class="bp-catalog-chip-remove" data-num="${escapeAttr(g.num)}" aria-label="削除">✕</button></span>`).join("")}</div>`
+          : `<p class="bp-hint">未選択</p>`}
+        <p class="bp-hint">画面下部のGIMMICKSドロワーから、120種類のカタログを検索して追加できます。</p>
+      </div>
+    `;
+  }
+
+  function bindMotionEvents(body, id) {
     body.querySelectorAll(".bp-motion-select").forEach((select) => {
       select.addEventListener("change", (e) => {
         const event = e.target.dataset.event;
@@ -211,6 +232,15 @@ window.Builder = window.Builder || {};
         Builder.motion.applyObjectEffects(Builder.renderer.win(), Builder.renderer.doc(), id, Builder.state.getObject(id).effects, Builder.state.get().reducedMotion);
       });
     });
+  }
+
+  function bindCatalogEvents(body, id) {
+    body.querySelectorAll(".bp-catalog-chip-remove").forEach((btn) => btn.addEventListener("click", () => {
+      const obj = Builder.state.getObject(id);
+      const entry = (obj.catalogGimmicks || []).find((g) => g.num === btn.dataset.num);
+      if (entry) Builder.state.toggleCatalogGimmick(id, entry);
+      render(id);
+    }));
   }
 
   function optionInputs(event, effect) {

@@ -18,6 +18,7 @@ window.Builder = window.Builder || {};
         lines.push(`    ${k}: ${v}`);
       });
     });
+    (obj.catalogGimmicks || []).forEach((g) => lines.push(`  CATALOG REF: #${g.num} ${g.name}`));
     return lines;
   }
 
@@ -44,7 +45,8 @@ window.Builder = window.Builder || {};
     Object.keys(state.objects).forEach((id) => {
       const obj = state.objects[id];
       const events = Object.keys(obj.effects || {});
-      if (!events.length) return;
+      const catalogPicks = obj.catalogGimmicks || [];
+      if (!events.length && !catalogPicks.length) return;
       md.push(`### ${obj.label}`);
       events.forEach((event) => {
         const eff = obj.effects[event];
@@ -52,6 +54,7 @@ window.Builder = window.Builder || {};
         if (!meta) return;
         md.push(`- **${event}**: ${meta.name}`);
       });
+      catalogPicks.forEach((g) => md.push(`- **catalog ref**: #${g.num} ${g.name} _(to implement, not live in this preview)_`));
       md.push("");
     });
     return md.join("\n").trim() + "\n";

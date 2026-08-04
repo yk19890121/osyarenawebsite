@@ -43,22 +43,39 @@
       <div class="bp-overlay-step">
         <p class="bp-overlay-eyebrow">STEP 1 / 3 — SELECT A LAYOUT</p>
         <h1 class="bp-overlay-title">まずレイアウトを選んでください</h1>
-        <div class="bp-step-grid">
-          ${BUILDER_LAYOUTS.map((l) => `
-            <div class="bp-step-card" data-id="${l.id}">
-              <div class="bp-step-thumb" style="background-image:url(${l.thumbnail})"></div>
-              <p class="bp-step-card-name">${l.name}</p>
-              <p class="bp-step-card-desc">${l.description}</p>
-              <p class="bp-step-card-meta">${l.sectionCount} section · ${l.objectCount} objects</p>
-              <p class="bp-step-card-meta">Best for: ${l.use}</p>
-              <button type="button" class="bp-btn bp-step-select-btn">SELECT</button>
-            </div>
-          `).join("")}
+        <div class="bp-hgallery" id="bp-step-hgallery">
+          <div class="bp-hgallery-track">
+            ${BUILDER_LAYOUTS.map((l) => `
+              <div class="bp-step-card bp-step-card--portrait" data-id="${l.id}">
+                <div class="bp-step-thumb bp-step-thumb--portrait" data-layout-preview="${l.id}"></div>
+                <p class="bp-step-card-name">${l.name}</p>
+                <p class="bp-step-card-desc">${l.description}</p>
+                <p class="bp-step-card-meta">${l.sectionCount} section · ${l.objectCount} objects</p>
+                <p class="bp-step-card-meta">Best for: ${l.use}</p>
+                <button type="button" class="bp-btn bp-step-select-btn">SELECT</button>
+              </div>
+            `).join("")}
+          </div>
         </div>
       </div>`;
+    overlay.querySelectorAll("[data-layout-preview]").forEach((el) => {
+      Builder.layoutPreview.mountInto(el, el.dataset.layoutPreview, 220, 320);
+    });
+    const stepGallery = document.getElementById("bp-step-hgallery");
+    enableWheelHorizontal(stepGallery);
+    Builder.layoutPreview.enableDepthHover(stepGallery, ".bp-layout-preview");
     overlay.querySelectorAll(".bp-step-card").forEach((card) => {
       card.addEventListener("click", () => { pendingLayout = card.dataset.id; renderStep2(); });
     });
+  }
+
+  function enableWheelHorizontal(el) {
+    if (!el) return;
+    el.addEventListener("wheel", (e) => {
+      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+      e.preventDefault();
+      el.scrollLeft += e.deltaY;
+    }, { passive: false });
   }
 
   function renderStep2() {

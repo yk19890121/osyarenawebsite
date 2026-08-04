@@ -82,7 +82,11 @@ window.Builder = window.Builder || {};
     const objects = {};
     Object.keys(state.objects).forEach((id) => {
       const o = state.objects[id];
-      objects[id] = { type: o.type, role: o.role, motion: Object.fromEntries(Object.keys(o.effects || {}).map((ev) => [ev, o.effects[ev].id])) };
+      objects[id] = {
+        type: o.type, role: o.role,
+        motion: Object.fromEntries(Object.keys(o.effects || {}).map((ev) => [ev, o.effects[ev].id])),
+        catalogGimmicksToImplement: (o.catalogGimmicks || []).map((g) => ({ number: g.num, name: g.name, group: g.group })),
+      };
     });
     return { version: 1, layout: state.layout, preset: state.preset, fonts: state.fonts, palette: state.palette, objects };
   }
@@ -109,6 +113,22 @@ window.Builder = window.Builder || {};
       motionLines.push(`${obj.label}:`);
       events.forEach((ev) => motionLines.push(`  ${ev}: ${BUILDER_GIMMICKS_BY_ID[obj.effects[ev].id].name}`));
     });
+    const catalogLines = [];
+    Object.keys(state.objects).forEach((id) => {
+      const obj = state.objects[id];
+      const picks = obj.catalogGimmicks || [];
+      if (!picks.length) return;
+      catalogLines.push(`${obj.label}:`);
+      picks.forEach((g) => catalogLines.push(`  - #${g.num} ${g.name} (${g.group})`));
+    });
+    const catalogSection = catalogLines.length ? `
+
+## 追加で実装してほしいギミック（カタログ参考指定）
+以下は、このBLUEPRINTのプレビューには含まれていません（このBuilderでは実際に動かせない、
+または今回のBuilder側で未実装のギミックのため）。ただし、本番制作では以下のオブジェクトに
+以下のギミックを実装してください。番号は BLENCI LAB の /gimmicks/ カタログのものです。
+
+${catalogLines.join("\n")}` : "";
     return `# DESIGN BLUEPRINT
 
 ## 基本構成
@@ -122,6 +142,7 @@ window.Builder = window.Builder || {};
 
 ## モーション
 ${motionLines.join("\n")}
+${catalogSection}
 
 ## 本番制作で変更するもの
 - サイト名、タイトル、本文、画像、ロゴ、CTA
@@ -134,14 +155,29 @@ ${motionLines.join("\n")}
 - モーションの速度と強さ
 
 ## Version 1 の制約 (このBLUEPRINTに含まれないもの)
-- レイアウトは Editorial Split の1種類のみ (フル版は5種類を予定)
-- ギミックは14種類のみ (フル版は120種類のカタログから選べる予定)
+- レイアウトは6種類から選択可能 (Editorial Split / Fullscreen Hero / Modular Card Grid /
+  Storytelling Landing / Slide Deck Presentation / News Curation)
+- このプレビューでライブに動くギミックは14種類のみ。残り106種類は実際には動かせないが、
+  「GIMMICK カタログ指定」機能でオブジェクトごとに番号指定でき、上の「追加で実装してほしい
+  ギミック」に記載される
 - component-map.json / motion-spec.json / content-schema.json / スクリーンショットは未生成
   (builder-config.json と design-tokens.json、この README で代替してください)
 `;
   }
 
-  function buildHandoffPrompt() {
+  function buildHandoffPrompt(state) {
+    const catalogPicks = [];
+    Object.keys(state.objects).forEach((id) => {
+      const obj = state.objects[id];
+      (obj.catalogGimmicks || []).forEach((g) => catalogPicks.push(`${obj.label}: #${g.num} ${g.name}`));
+    });
+    const catalogNote = catalogPicks.length ? `
+
+## 追加実装が必要なギミック（重要）
+このプレビューには含まれていませんが、以下のオブジェクトには以下のギミックを追加で
+実装してください（README.md の「追加で実装してほしいギミック」に詳細があります）。
+${catalogPicks.map((l) => `- ${l}`).join("\n")}
+` : "";
     return `添付されたBLENCI LABのサンプルを、今回制作するWebサイトの
 デザインおよびインタラクションの基準として使用してください。
 
@@ -150,8 +186,9 @@ ${motionLines.join("\n")}
 1. preview/index.html を実行し、デスクトップおよびモバイルで確認する
 2. README.md を読み、維持すべきデザイン方針を把握する
 3. blueprint/builder-config.json と design-tokens.json を読み、
-   オブジェクトの役割・配色・タイポグラフィ・モーションを確認する
+   オブジェクトの役割・配色・タイポグラフィ・モーション・追加実装ギミック(catalogGimmicksToImplement)を確認する
 4. 私が追加で渡す原稿、画像、ロゴ、要件を適用する
+${catalogNote}
 
 サンプル内の仮テキストや仮画像を、そのまま使用する必要はありません。
 実際の原稿、画像、ロゴへ置き換えてください。
@@ -227,7 +264,7 @@ ${bodyHtml}
     zip.file("blueprint/builder-config.json", JSON.stringify(buildBuilderConfig(state), null, 2));
     zip.file("blueprint/design-tokens.json", JSON.stringify(buildDesignTokens(state), null, 2));
     zip.file("README.md", buildReadme(state, layout));
-    zip.file("HANDOFF_PROMPT.md", buildHandoffPrompt());
+    zip.file("HANDOFF_PROMPT.md", buildHandoffPrompt(state));
 
     onProgress && onProgress("ZIPを生成しています…");
     const blob = await zip.generateAsync({ type: "blob" });

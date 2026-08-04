@@ -25,11 +25,9 @@ input,select,textarea{font-family:inherit;}
 .bp-topbar-left .bp-logo{font-weight:700;}
 .bp-topbar-left .bp-logo em{font-style:normal;color:var(--accent);}
 .bp-topbar-left .bp-crumb{color:var(--ink-dim);}
-.bp-crumb-nav{display:flex;align-items:center;gap:10px;}
+.bp-crumb-nav{display:flex;align-items:center;gap:10px;color:var(--ink-dim);}
 .bp-crumb-nav .bp-crumb-current{color:var(--ink);}
-.bp-crumb-link{margin-left:4px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;}
-.bp-crumb-link:hover{border-color:var(--ink);}
-@media (max-width:900px){ .bp-crumb-nav .bp-crumb-link{display:none;} }
+.bp-crumb-nav a:hover{color:var(--ink);}
 .bp-topbar-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .bp-btn{
   font-family:var(--ff-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
@@ -110,10 +108,13 @@ input,select,textarea{font-family:inherit;}
 .bp-drawer-btn{font-family:var(--ff-mono);font-size:11px;letter-spacing:.08em;padding:9px 22px;border-radius:999px;color:var(--ink-dim);}
 .bp-drawer-btn.active{background:var(--ink);color:var(--bg);}
 .bp-drawer-panel{
-  position:fixed;left:0;right:0;bottom:0;max-height:0;overflow-y:auto;background:var(--bg-soft);
-  border-top:1px solid var(--line);transition:max-height .35s var(--ease);z-index:40;padding:0 24px;
+  position:fixed;left:0;right:0;bottom:0;max-height:0;overflow:hidden;background:var(--bg-soft);
+  border-top:1px solid var(--line);transition:max-height .35s var(--ease);z-index:40;
 }
-.bp-drawer-panel.open{max-height:46vh;padding:22px 24px;}
+.bp-drawer-panel.open{max-height:56vh;display:flex;flex-direction:column;}
+.bp-drawer-closebar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 24px;border-bottom:1px solid var(--line);flex-shrink:0;}
+.bp-drawer-title{font-family:var(--ff-mono);font-size:11px;letter-spacing:.1em;color:var(--ink-dim);}
+.bp-drawer-content{padding:22px 24px;overflow-y:auto;flex:1;min-height:0;}
 .bp-drawer-context{font-family:var(--ff-mono);font-size:11px;color:var(--ink-dim);margin:0 0 14px;}
 .bp-drawer-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;}
 .bp-drawer-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:6px;}
@@ -124,6 +125,25 @@ input,select,textarea{font-family:inherit;}
 .bp-drawer-empty{padding:20px 0;}
 .bp-font-target-row{display:flex;align-items:center;gap:10px;margin-bottom:16px;max-width:280px;}
 .bp-font-target-row .bp-select{width:auto;flex:1;}
+
+/* ---------------- gimmick catalogue picker (reference-only, 120 items) ---------------- */
+.bp-catalog-section{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);}
+.bp-catalog-heading{font-family:var(--ff-mono);font-size:11px;letter-spacing:.08em;color:var(--accent-2);margin:0 0 6px;}
+.bp-catalog-selected{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;}
+.bp-catalog-chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--ff-mono);font-size:11px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 8px 6px 12px;}
+.bp-catalog-chip-remove{font-size:11px;line-height:1;color:var(--ink-dim);padding:2px;}
+.bp-catalog-chip-remove:hover{color:var(--ink);}
+.bp-catalog-search{margin:10px 0;}
+.bp-catalog-list{max-height:260px;overflow-y:auto;border:1px solid var(--line);border-radius:10px;padding:2px 14px;}
+.bp-catalog-group{font-family:var(--ff-mono);font-size:10px;letter-spacing:.1em;color:var(--ink-dim);margin:14px 0 6px;position:sticky;top:0;background:var(--bg-soft);padding:6px 0 4px;}
+.bp-catalog-group:first-child{margin-top:6px;}
+.bp-catalog-row{display:flex;align-items:center;gap:12px;padding:7px 0;border-bottom:1px solid var(--line);}
+.bp-catalog-row:last-child{border-bottom:0;}
+.bp-catalog-num{font-family:var(--ff-mono);font-size:11px;color:var(--ink-dim);width:44px;flex-shrink:0;}
+.bp-catalog-name{font-size:13px;flex:1;}
+.bp-catalog-toggle{flex-shrink:0;}
+.bp-catalog-toggle.added{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+.bp-catalog-ref-block .bp-catalog-selected{margin:10px 0 6px;}
 
 /* ---------------- first-run overlay ---------------- */
 .bp-overlay{position:fixed;inset:0;background:var(--bg);z-index:100;overflow-y:auto;padding:60px clamp(20px,5vw,72px);}
@@ -139,6 +159,18 @@ input,select,textarea{font-family:inherit;}
 .bp-step-card-desc{font-size:12px;color:var(--ink-dim);line-height:1.6;margin:0;flex:1;}
 .bp-step-card-meta{font-family:var(--ff-mono);font-size:10px;color:var(--ink-dim);margin:0;}
 .bp-step-select-btn{align-self:flex-start;margin-top:6px;}
+
+/* ---------------- horizontal-scrolling layout picker gallery ---------------- */
+/* Vertical wheel input is remapped to horizontal movement (same idea as the
+   PINNED HORIZONTAL GALLERY gimmick) via a wheel listener in JS. */
+.bp-hgallery{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;padding:28px 8px 12px;}
+.bp-hgallery-track{display:flex;gap:20px;width:max-content;perspective:900px;}
+.bp-hgallery--drawer .bp-hgallery-track{gap:14px;}
+.bp-layout-preview{position:relative;overflow:hidden;border-radius:8px;background:var(--bg-soft);border:1px solid var(--line);flex-shrink:0;will-change:transform;transform-origin:50% 100%;}
+.bp-step-card--portrait{width:220px;flex-shrink:0;}
+.bp-step-thumb--portrait{width:220px;height:320px;}
+.bp-drawer-card--portrait{width:150px;flex-shrink:0;}
+.bp-drawer-thumb--portrait{width:150px;height:220px;margin-bottom:6px;}
 
 /* ---------------- SPEC modal ---------------- */
 .bp-modal-backdrop{position:fixed;inset:0;background:rgba(5,4,3,.7);z-index:90;display:flex;align-items:center;justify-content:center;padding:24px;}
