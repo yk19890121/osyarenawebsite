@@ -8,7 +8,8 @@
         "thumb": "look-01-0-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#b95814"
+        "bg": "#b95814",
+        "portraitSafe": true
       },
       {
         "idx": 1,
@@ -16,7 +17,8 @@
         "thumb": "look-01-1-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#902724"
+        "bg": "#902724",
+        "portraitSafe": true
       },
       {
         "idx": 2,
@@ -24,7 +26,8 @@
         "thumb": "look-01-2-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#0b7c9c"
+        "bg": "#0b7c9c",
+        "portraitSafe": true
       },
       {
         "idx": 3,
@@ -32,7 +35,8 @@
         "thumb": "look-01-3-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#473aa2"
+        "bg": "#473aa2",
+        "portraitSafe": true
       }
     ]
   },
@@ -45,7 +49,8 @@
         "thumb": "look-02-0-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#bca9a4"
+        "bg": "#bca9a4",
+        "portraitSafe": true
       },
       {
         "idx": 1,
@@ -53,7 +58,8 @@
         "thumb": "look-02-1-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#ce3714"
+        "bg": "#ce3714",
+        "portraitSafe": true
       },
       {
         "idx": 2,
@@ -61,7 +67,8 @@
         "thumb": "look-02-2-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#b76075"
+        "bg": "#b76075",
+        "portraitSafe": true
       },
       {
         "idx": 3,
@@ -69,7 +76,8 @@
         "thumb": "look-02-3-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#b78008"
+        "bg": "#b78008",
+        "portraitSafe": true
       }
     ]
   },
@@ -82,7 +90,8 @@
         "thumb": "look-03-0-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#c96814"
+        "bg": "#c96814",
+        "portraitSafe": true
       },
       {
         "idx": 1,
@@ -90,7 +99,8 @@
         "thumb": "look-03-1-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#777c7c"
+        "bg": "#777c7c",
+        "portraitSafe": false
       },
       {
         "idx": 2,
@@ -98,7 +108,8 @@
         "thumb": "look-03-2-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#b43d18"
+        "bg": "#b43d18",
+        "portraitSafe": false
       },
       {
         "idx": 3,
@@ -106,7 +117,8 @@
         "thumb": "look-03-3-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#be2c22"
+        "bg": "#be2c22",
+        "portraitSafe": true
       }
     ]
   },
@@ -119,7 +131,8 @@
         "thumb": "look-04-0-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#892f2d"
+        "bg": "#892f2d",
+        "portraitSafe": false
       },
       {
         "idx": 1,
@@ -127,7 +140,8 @@
         "thumb": "look-04-1-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#ce517f"
+        "bg": "#ce517f",
+        "portraitSafe": true
       },
       {
         "idx": 2,
@@ -135,7 +149,8 @@
         "thumb": "look-04-2-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#75252c"
+        "bg": "#75252c",
+        "portraitSafe": false
       },
       {
         "idx": 3,
@@ -143,7 +158,8 @@
         "thumb": "look-04-3-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#930d20"
+        "bg": "#930d20",
+        "portraitSafe": false
       }
     ]
   },
@@ -156,7 +172,8 @@
         "thumb": "look-05-0-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#e1ab0b"
+        "bg": "#e1ab0b",
+        "portraitSafe": true
       },
       {
         "idx": 1,
@@ -164,7 +181,8 @@
         "thumb": "look-05-1-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#d4aa30"
+        "bg": "#d4aa30",
+        "portraitSafe": false
       },
       {
         "idx": 2,
@@ -172,7 +190,8 @@
         "thumb": "look-05-2-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#ae2d3a"
+        "bg": "#ae2d3a",
+        "portraitSafe": true
       },
       {
         "idx": 3,
@@ -180,7 +199,8 @@
         "thumb": "look-05-3-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#912765"
+        "bg": "#912765",
+        "portraitSafe": true
       }
     ]
   },
@@ -193,7 +213,8 @@
         "thumb": "look-06-0-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#834e61"
+        "bg": "#834e61",
+        "portraitSafe": false
       },
       {
         "idx": 1,
@@ -201,7 +222,8 @@
         "thumb": "look-06-1-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#99a15c"
+        "bg": "#99a15c",
+        "portraitSafe": true
       },
       {
         "idx": 2,
@@ -209,7 +231,8 @@
         "thumb": "look-06-2-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#af7416"
+        "bg": "#af7416",
+        "portraitSafe": true
       },
       {
         "idx": 3,
@@ -217,7 +240,8 @@
         "thumb": "look-06-3-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#d0081a"
+        "bg": "#d0081a",
+        "portraitSafe": true
       }
     ]
   },
@@ -230,7 +254,8 @@
         "thumb": "look-07-0-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#54432c"
+        "bg": "#54432c",
+        "portraitSafe": false
       },
       {
         "idx": 1,
@@ -238,7 +263,8 @@
         "thumb": "look-07-1-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#0e4a98"
+        "bg": "#0e4a98",
+        "portraitSafe": false
       },
       {
         "idx": 2,
@@ -246,7 +272,8 @@
         "thumb": "look-07-2-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#4c7992"
+        "bg": "#4c7992",
+        "portraitSafe": false
       },
       {
         "idx": 3,
@@ -254,7 +281,8 @@
         "thumb": "look-07-3-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#9e0514"
+        "bg": "#9e0514",
+        "portraitSafe": true
       }
     ]
   },
@@ -267,7 +295,8 @@
         "thumb": "look-08-0-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#a30f1a"
+        "bg": "#a30f1a",
+        "portraitSafe": true
       },
       {
         "idx": 1,
@@ -275,7 +304,8 @@
         "thumb": "look-08-1-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#1467a5"
+        "bg": "#1467a5",
+        "portraitSafe": true
       },
       {
         "idx": 2,
@@ -283,7 +313,8 @@
         "thumb": "look-08-2-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#4a5aa4"
+        "bg": "#4a5aa4",
+        "portraitSafe": false
       },
       {
         "idx": 3,
@@ -291,7 +322,8 @@
         "thumb": "look-08-3-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#117b88"
+        "bg": "#117b88",
+        "portraitSafe": true
       }
     ]
   },
@@ -304,7 +336,8 @@
         "thumb": "look-09-0-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#8e1424"
+        "bg": "#8e1424",
+        "portraitSafe": false
       },
       {
         "idx": 1,
@@ -312,7 +345,8 @@
         "thumb": "look-09-1-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#5d7277"
+        "bg": "#5d7277",
+        "portraitSafe": false
       },
       {
         "idx": 2,
@@ -320,7 +354,8 @@
         "thumb": "look-09-2-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#cc8003"
+        "bg": "#cc8003",
+        "portraitSafe": true
       },
       {
         "idx": 3,
@@ -328,7 +363,8 @@
         "thumb": "look-09-3-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#098aa4"
+        "bg": "#098aa4",
+        "portraitSafe": true
       }
     ]
   },
@@ -341,7 +377,8 @@
         "thumb": "look-10-0-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#885e27"
+        "bg": "#885e27",
+        "portraitSafe": true
       },
       {
         "idx": 1,
@@ -349,7 +386,8 @@
         "thumb": "look-10-1-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#7e2f1e"
+        "bg": "#7e2f1e",
+        "portraitSafe": false
       },
       {
         "idx": 2,
@@ -357,7 +395,8 @@
         "thumb": "look-10-2-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#a38d53"
+        "bg": "#a38d53",
+        "portraitSafe": true
       },
       {
         "idx": 3,
@@ -365,7 +404,8 @@
         "thumb": "look-10-3-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#705457"
+        "bg": "#705457",
+        "portraitSafe": true
       }
     ]
   },
@@ -378,7 +418,8 @@
         "thumb": "look-11-0-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#027d88"
+        "bg": "#027d88",
+        "portraitSafe": false
       },
       {
         "idx": 1,
@@ -386,7 +427,8 @@
         "thumb": "look-11-1-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#1287b4"
+        "bg": "#1287b4",
+        "portraitSafe": false
       },
       {
         "idx": 2,
@@ -394,7 +436,8 @@
         "thumb": "look-11-2-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#807283"
+        "bg": "#807283",
+        "portraitSafe": false
       },
       {
         "idx": 3,
@@ -402,7 +445,8 @@
         "thumb": "look-11-3-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#367874"
+        "bg": "#367874",
+        "portraitSafe": true
       }
     ]
   },
@@ -415,7 +459,8 @@
         "thumb": "look-12-0-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#d17f1a"
+        "bg": "#d17f1a",
+        "portraitSafe": true
       },
       {
         "idx": 1,
@@ -423,7 +468,8 @@
         "thumb": "look-12-1-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#919ea1"
+        "bg": "#919ea1",
+        "portraitSafe": false
       },
       {
         "idx": 2,
@@ -431,7 +477,8 @@
         "thumb": "look-12-2-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#c79c0d"
+        "bg": "#c79c0d",
+        "portraitSafe": true
       },
       {
         "idx": 3,
@@ -439,7 +486,8 @@
         "thumb": "look-12-3-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#bc4321"
+        "bg": "#bc4321",
+        "portraitSafe": true
       }
     ]
   },
@@ -452,7 +500,8 @@
         "thumb": "look-13-0-thumb.webp",
         "w": 896,
         "h": 1344,
-        "bg": "#ab2d29"
+        "bg": "#ab2d29",
+        "portraitSafe": true
       },
       {
         "idx": 1,
@@ -460,7 +509,8 @@
         "thumb": "look-13-1-thumb.webp",
         "w": 896,
         "h": 1344,
-        "bg": "#dcbf2a"
+        "bg": "#dcbf2a",
+        "portraitSafe": true
       },
       {
         "idx": 2,
@@ -468,7 +518,8 @@
         "thumb": "look-13-2-thumb.webp",
         "w": 896,
         "h": 1344,
-        "bg": "#ba8e04"
+        "bg": "#ba8e04",
+        "portraitSafe": true
       },
       {
         "idx": 3,
@@ -476,7 +527,8 @@
         "thumb": "look-13-3-thumb.webp",
         "w": 896,
         "h": 1344,
-        "bg": "#d05706"
+        "bg": "#d05706",
+        "portraitSafe": true
       }
     ]
   },
@@ -489,7 +541,8 @@
         "thumb": "look-14-0-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#c5111f"
+        "bg": "#c5111f",
+        "portraitSafe": true
       },
       {
         "idx": 1,
@@ -497,7 +550,8 @@
         "thumb": "look-14-1-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#0164d1"
+        "bg": "#0164d1",
+        "portraitSafe": false
       },
       {
         "idx": 2,
@@ -505,7 +559,8 @@
         "thumb": "look-14-2-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#7e6455"
+        "bg": "#7e6455",
+        "portraitSafe": true
       },
       {
         "idx": 3,
@@ -513,7 +568,8 @@
         "thumb": "look-14-3-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#c33e1b"
+        "bg": "#c33e1b",
+        "portraitSafe": true
       }
     ]
   },
@@ -526,7 +582,8 @@
         "thumb": "look-15-0-thumb.webp",
         "w": 896,
         "h": 1344,
-        "bg": "#ba0d2c"
+        "bg": "#ba0d2c",
+        "portraitSafe": true
       },
       {
         "idx": 1,
@@ -534,7 +591,8 @@
         "thumb": "look-15-1-thumb.webp",
         "w": 896,
         "h": 1344,
-        "bg": "#c2202f"
+        "bg": "#c2202f",
+        "portraitSafe": true
       },
       {
         "idx": 2,
@@ -542,7 +600,8 @@
         "thumb": "look-15-2-thumb.webp",
         "w": 896,
         "h": 1344,
-        "bg": "#8e6941"
+        "bg": "#8e6941",
+        "portraitSafe": true
       },
       {
         "idx": 3,
@@ -550,7 +609,8 @@
         "thumb": "look-15-3-thumb.webp",
         "w": 896,
         "h": 1344,
-        "bg": "#900f19"
+        "bg": "#900f19",
+        "portraitSafe": true
       }
     ]
   },
@@ -563,7 +623,8 @@
         "thumb": "look-16-0-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#313131"
+        "bg": "#313131",
+        "portraitSafe": true
       },
       {
         "idx": 1,
@@ -571,7 +632,8 @@
         "thumb": "look-16-1-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#961477"
+        "bg": "#961477",
+        "portraitSafe": true
       },
       {
         "idx": 2,
@@ -579,7 +641,8 @@
         "thumb": "look-16-2-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#ce8616"
+        "bg": "#ce8616",
+        "portraitSafe": true
       },
       {
         "idx": 3,
@@ -587,7 +650,8 @@
         "thumb": "look-16-3-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#9a330f"
+        "bg": "#9a330f",
+        "portraitSafe": true
       }
     ]
   },
@@ -600,7 +664,8 @@
         "thumb": "look-17-0-thumb.webp",
         "w": 896,
         "h": 1344,
-        "bg": "#bd7d1d"
+        "bg": "#bd7d1d",
+        "portraitSafe": true
       },
       {
         "idx": 1,
@@ -608,7 +673,8 @@
         "thumb": "look-17-1-thumb.webp",
         "w": 896,
         "h": 1344,
-        "bg": "#a32130"
+        "bg": "#a32130",
+        "portraitSafe": true
       },
       {
         "idx": 2,
@@ -616,7 +682,8 @@
         "thumb": "look-17-2-thumb.webp",
         "w": 896,
         "h": 1344,
-        "bg": "#615e43"
+        "bg": "#615e43",
+        "portraitSafe": true
       },
       {
         "idx": 3,
@@ -624,7 +691,8 @@
         "thumb": "look-17-3-thumb.webp",
         "w": 896,
         "h": 1344,
-        "bg": "#4a555a"
+        "bg": "#4a555a",
+        "portraitSafe": true
       }
     ]
   },
@@ -637,7 +705,8 @@
         "thumb": "look-18-0-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#6e311d"
+        "bg": "#6e311d",
+        "portraitSafe": true
       },
       {
         "idx": 1,
@@ -645,7 +714,8 @@
         "thumb": "look-18-1-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#873216"
+        "bg": "#873216",
+        "portraitSafe": true
       },
       {
         "idx": 2,
@@ -653,7 +723,8 @@
         "thumb": "look-18-2-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#820c1a"
+        "bg": "#820c1a",
+        "portraitSafe": true
       },
       {
         "idx": 3,
@@ -661,7 +732,8 @@
         "thumb": "look-18-3-thumb.webp",
         "w": 1456,
         "h": 816,
-        "bg": "#42281a"
+        "bg": "#42281a",
+        "portraitSafe": true
       }
     ]
   }

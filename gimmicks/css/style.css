@@ -991,8 +991,8 @@ code{font-family:var(--ff-mono);background:var(--line);padding:2px 6px;border-ra
 .cube3d:active{cursor:grabbing;}
 .cube3d-face{position:absolute;inset:0;background-size:cover;background-position:center;border:1px solid var(--line);background-color:var(--card);}
 .cube3d-face.front{transform:translateZ(75px);background-image:url(../../assets/img/look-01-0-thumb.webp);}
-.cube3d-face.back{transform:translateZ(-75px) rotateY(180deg);background-image:url(../../assets/img/look-06-0-thumb.webp);}
-.cube3d-face.right{transform:rotateY(90deg) translateZ(75px);background-image:url(../../assets/img/look-11-0-thumb.webp);}
+.cube3d-face.back{transform:translateZ(-75px) rotateY(180deg);background-image:url(../../assets/img/look-06-3-thumb.webp);}
+.cube3d-face.right{transform:rotateY(90deg) translateZ(75px);background-image:url(../../assets/img/look-11-3-thumb.webp);}
 .cube3d-face.left{transform:rotateY(-90deg) translateZ(75px);background-image:url(../../assets/img/look-16-0-thumb.webp);}
 
 /* ==========================================================================
