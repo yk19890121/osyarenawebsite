@@ -220,6 +220,48 @@
       desc: "画像とテキストを50/50ではなく、あえて非対称な比率で組む。動きのある印象に。",
       use: "MAGAZINE-STYLE LANDING",
     },
+    {
+      name: "SLIDE DECK VIEWER",
+      frame: "lf-slidedeck",
+      blocks: `<div class="lf-block ga-main lf-photo" style="background-image:url(${IMG(2)})"></div><div class="slide-strip ga-strip"><div class="lf-block lf-b-accent"></div><div class="lf-block"></div><div class="lf-block"></div><div class="lf-block"></div></div>`,
+      desc: "大きなメインスライドの下に、サムネイルのフィルムストリップを並べる。今どこを見ているかを常に示す型。",
+      use: "SLIDE DECK / PRESENTATION VIEWER",
+    },
+    {
+      name: "FULLSCREEN SLIDE CAROUSEL",
+      frame: "lf-slidefull",
+      blocks: `<div class="lf-block lf-photo" style="background-image:url(${IMG(15)})"><span class="slide-counter">03 / 12</span></div><div class="slide-progress"></div>`,
+      desc: "1枚のスライドを画面いっぱいに映し、下端の進行バーだけで枚数を示す。発表そのものに集中させる型。",
+      use: "KEYNOTE / PITCH DECK",
+    },
+    {
+      name: "SPLIT SLIDE + OUTLINE",
+      frame: "lf-slideoutline",
+      blocks: `<div class="lf-block ga-main lf-photo" style="background-image:url(${IMG(17)})"></div><div class="outline-list ga-outline"><div class="lf-block lf-b-accent"></div><div class="lf-block"></div><div class="lf-block"></div><div class="lf-block"></div><div class="lf-block"></div></div>`,
+      desc: "メインスライドの横に、全体の構成が一覧できるアウトラインを添える。編集画面のような使い方もできる型。",
+      use: "SLIDE EDITOR / TRAINING MATERIAL",
+    },
+    {
+      name: "HEADLINE + RANKING LIST",
+      frame: "lf-newsheadline",
+      blocks: `<div class="lf-block ga-headline lf-photo" style="background-image:url(${IMG(1)})"></div><div class="ga-rank1"><div class="lf-block lf-b-accent"></div></div><div class="ga-rank2"><div class="lf-block"></div></div><div class="ga-rank3"><div class="lf-block"></div></div>`,
+      desc: "一番大きなニュースを写真ごと主役にして、横に順位つきのランキングリストを添える。ポータルサイトの定番トップ。",
+      use: "NEWS PORTAL / CURATION TOP",
+    },
+    {
+      name: "CATEGORY TABS NEWS GRID",
+      frame: "lf-newsgrid",
+      blocks: `<div class="news-tabs"><div class="lf-block lf-b-accent"></div><div class="lf-block"></div><div class="lf-block"></div><div class="lf-block"></div></div><div class="news-cards"><div class="lf-block lf-photo" style="background-image:url(${IMG(3)})"></div><div class="lf-block lf-photo" style="background-image:url(${IMG(13)})"></div><div class="lf-block lf-b-accent2"></div><div class="lf-block"></div></div>`,
+      desc: "カテゴリのタブで絞り込んでから、記事カードを格子状に並べる。ジャンルの多いキュレーションサイト向け。",
+      use: "NEWS CURATION / TOPIC GRID",
+    },
+    {
+      name: "TICKER + MULTI-COLUMN NEWS",
+      frame: "lf-newsticker",
+      blocks: `<div class="lf-block ticker-bar lf-b-accent"></div><div class="news-columns"><div class="news-col"><div class="lf-block"></div><div class="lf-block"></div><div class="lf-block"></div></div><div class="news-col"><div class="lf-block"></div><div class="lf-block"></div><div class="lf-block"></div></div><div class="news-col"><div class="lf-block"></div><div class="lf-block"></div><div class="lf-block"></div></div></div>`,
+      desc: "速報ティッカーの下に、見出しだけの記事を3段組みで詰め込む。情報密度を優先した古典的なポータル型。",
+      use: "NEWS AGGREGATOR / WIRE SERVICE",
+    },
   ];
 
   function buildCoverflow() {

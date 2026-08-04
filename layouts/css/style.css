@@ -195,6 +195,53 @@ button{font-family:inherit;background:none;border:0;color:inherit;cursor:pointer
 /* 28. Asymmetric hero */
 .lf-asymhero{grid-template-areas:"img text1" "img text2";grid-template-columns:1.5fr 1fr;grid-template-rows:1fr 1fr;}
 
+/* ---- extra area helpers for slide / news layouts (29-34) ---- */
+.ga-strip{grid-area:strip;} .ga-outline{grid-area:outline;}
+.ga-headline{grid-area:headline;} .ga-rank1{grid-area:rank1;} .ga-rank2{grid-area:rank2;} .ga-rank3{grid-area:rank3;}
+
+/* 29. Slide deck viewer */
+.lf-slidedeck{grid-template-areas:"main" "strip";grid-template-rows:1.7fr .55fr;}
+.lf-slidedeck .slide-strip{display:flex;gap:4px;}
+.lf-slidedeck .slide-strip .lf-block{flex:1;}
+
+/* 30. Fullscreen slide carousel */
+.lf-slidefull{grid-template-rows:1fr auto;}
+.lf-slidefull .lf-block.lf-photo{position:relative;}
+.lf-slidefull .slide-counter{
+  position:absolute;left:10px;top:10px;font-family:var(--ff-mono);font-size:9px;letter-spacing:.08em;
+  color:#fff;background:rgba(10,9,8,.55);padding:2px 6px;border-radius:3px;
+}
+.lf-slidefull .slide-progress{align-self:end;justify-self:stretch;height:3px;background:rgba(243,239,230,.2);position:relative;}
+.lf-slidefull .slide-progress::after{content:"";position:absolute;left:0;top:0;bottom:0;width:38%;background:var(--accent);}
+
+/* 31. Split slide + outline */
+.lf-slideoutline{grid-template-areas:"main outline";grid-template-columns:2.2fr 1fr;}
+.lf-slideoutline .outline-list{display:flex;flex-direction:column;gap:6px;}
+.lf-slideoutline .outline-list .lf-block{height:17%;}
+.lf-slideoutline .outline-list .lf-block:first-child{opacity:1;}
+.lf-slideoutline .outline-list .lf-block:not(:first-child){opacity:.5;}
+
+/* 32. Headline + ranking list */
+.lf-newsheadline{grid-template-areas:"headline rank1" "headline rank2" "headline rank3";grid-template-columns:1.8fr 1fr;grid-template-rows:repeat(3,1fr);}
+.lf-newsheadline [class^="ga-rank"]{display:flex;align-items:center;gap:6px;}
+.lf-newsheadline [class^="ga-rank"]::before{
+  content:"";width:16px;height:16px;border-radius:50%;background:var(--line);flex-shrink:0;
+}
+.lf-newsheadline [class^="ga-rank"] .lf-block{flex:1;height:60%;}
+
+/* 33. Category tabs news grid */
+.lf-newsgrid{display:flex;flex-direction:column;gap:6px;}
+.lf-newsgrid .news-tabs{display:flex;gap:4px;height:9%;}
+.lf-newsgrid .news-tabs .lf-block{flex:1;}
+.lf-newsgrid .news-cards{flex:1;display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);gap:6px;}
+
+/* 34. Ticker + multi-column news */
+.lf-newsticker{display:flex;flex-direction:column;gap:6px;}
+.lf-newsticker .ticker-bar{height:6%;}
+.lf-newsticker .news-columns{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.lf-newsticker .news-col{display:flex;flex-direction:column;gap:5px;}
+.lf-newsticker .news-col .lf-block{height:16%;}
+
 /* detail */
 .detail-section{padding:20px var(--container) 40px;display:flex;justify-content:center;}
 .detail-card{max-width:640px;text-align:center;}
