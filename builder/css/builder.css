@@ -25,6 +25,11 @@ input,select,textarea{font-family:inherit;}
 .bp-topbar-left .bp-logo{font-weight:700;}
 .bp-topbar-left .bp-logo em{font-style:normal;color:var(--accent);}
 .bp-topbar-left .bp-crumb{color:var(--ink-dim);}
+.bp-crumb-nav{display:flex;align-items:center;gap:10px;}
+.bp-crumb-nav .bp-crumb-current{color:var(--ink);}
+.bp-crumb-link{margin-left:4px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;}
+.bp-crumb-link:hover{border-color:var(--ink);}
+@media (max-width:900px){ .bp-crumb-nav .bp-crumb-link{display:none;} }
 .bp-topbar-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .bp-btn{
   font-family:var(--ff-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
