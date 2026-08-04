@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLENCI LAB — Builder</title>
+<meta name="description" content="レイアウト・ギミック・フォントを組み合わせて、実際に動くWebサイトのサンプルを作る実験室。">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/cursor.css">
+<link rel="stylesheet" href="css/builder.css">
+</head>
+<body>
+
+<canvas id="rope-cursor-canvas" aria-hidden="true"></canvas>
+<div id="shockwave-layer" aria-hidden="true"></div>
+
+<div class="bp-app" id="bp-app" hidden>
+  <header class="bp-topbar">
+    <div class="bp-topbar-left">
+      <a href="../" class="bp-logo">BLENCI <em>LAB</em></a>
+      <span class="bp-crumb">/ BUILDER</span>
+    </div>
+    <div class="bp-topbar-right">
+      <div class="bp-device-group" id="bp-device-group">
+        <button type="button" class="bp-device-btn active" data-device="desktop">DESKTOP</button>
+        <button type="button" class="bp-device-btn" data-device="tablet">TABLET</button>
+        <button type="button" class="bp-device-btn" data-device="mobile">MOBILE</button>
+      </div>
+      <button type="button" class="bp-btn" id="bp-btn-play">PLAY</button>
+      <button type="button" class="bp-btn" id="bp-btn-save">SAVE</button>
+      <button type="button" class="bp-btn" id="bp-btn-reset">RESET</button>
+      <button type="button" class="bp-btn" id="bp-btn-spec">SPEC</button>
+      <button type="button" class="bp-btn bp-btn-primary" id="bp-btn-export">EXPORT BLUEPRINT</button>
+    </div>
+  </header>
+
+  <div class="bp-main">
+    <aside class="bp-panel bp-panel-structure" id="bp-structure-panel"></aside>
+    <section class="bp-stage" id="bp-stage">
+      <div class="bp-stage-frame" id="bp-stage-frame">
+        <iframe id="bp-preview" title="Live preview"></iframe>
+      </div>
+    </section>
+    <aside class="bp-panel bp-panel-inspector" id="bp-inspector-panel"></aside>
+  </div>
+
+  <nav class="bp-bottombar" id="bp-bottombar">
+    <button type="button" class="bp-drawer-btn" data-drawer="layouts">LAYOUTS</button>
+    <button type="button" class="bp-drawer-btn" data-drawer="gimmicks">GIMMICKS</button>
+    <button type="button" class="bp-drawer-btn" data-drawer="fonts">FONTS</button>
+    <button type="button" class="bp-drawer-btn" data-drawer="presets">PRESETS</button>
+  </nav>
+  <div class="bp-drawer-panel" id="bp-drawer-panel"></div>
+</div>
+
+<div class="bp-overlay" id="bp-overlay"></div>
+<div class="bp-toast" id="bp-toast"></div>
+
+<script src="../js/vendor/jszip.min.js"></script>
+<script src="../js/cursor.js"></script>
+
+<script src="js/data/layouts.js"></script>
+<script src="js/data/gimmicks.js"></script>
+<script src="js/data/fonts.js"></script>
+<script src="js/data/presets.js"></script>
+<script src="js/layouts/editorial-split.js"></script>
+
+<script src="js/runtime/state.js"></script>
+<script src="js/runtime/motion-engine.js"></script>
+<script src="js/runtime/renderer.js"></script>
+<script src="js/runtime/structure-panel.js"></script>
+<script src="js/runtime/inspector.js"></script>
+<script src="js/runtime/library-drawer.js"></script>
+
+<script src="js/export/spec-generator.js"></script>
+<script src="js/export/blueprint-exporter.js"></script>
+
+<script src="js/main.js"></script>
+</body>
+</html>
