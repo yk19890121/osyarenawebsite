@@ -66,7 +66,7 @@ input,select,textarea{font-family:inherit;}
 
 /* ---------------- preview stage ---------------- */
 .bp-stage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#050403;position:relative;padding:24px;min-width:0;}
-.bp-stage-frame{background:#000;box-shadow:0 30px 80px rgba(0,0,0,.5);height:100%;max-height:100%;transition:width .3s var(--ease);}
+.bp-stage-frame{background:#000;box-shadow:0 30px 80px rgba(0,0,0,.5);width:100%;height:100%;max-height:100%;transition:width .3s var(--ease);}
 .bp-stage iframe{width:100%;height:100%;border:0;display:block;background:#fff;}
 
 /* ---------------- inspector ---------------- */

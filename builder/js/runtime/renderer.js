@@ -135,7 +135,15 @@ window.Builder = window.Builder || {};
   }
 
   function setDevice(device) {
-    iframe.style.width = DEVICE_WIDTH[device] || "100%";
+    // Sizing the FRAME (not the iframe itself) matters: the iframe's own
+    // width:100% (see .bp-stage iframe in builder.css) resolves against
+    // its containing block, which is this frame div. The frame is a flex
+    // item with no width of its own (shrink-to-fit), so previously
+    // "desktop" (iframe width:100%) had nothing concrete to resolve
+    // against and collapsed to a narrow, wrong-looking box -- narrower
+    // than "tablet"'s explicit 768px. Giving the frame itself an explicit
+    // width fixes that for every device size, desktop included.
+    iframe.parentElement.style.width = DEVICE_WIDTH[device] || "100%";
   }
 
   function isReady() { return ready; }
