@@ -50,7 +50,7 @@
     {
       name: "MASONRY GRID",
       frame: "lf-masonry",
-      blocks: `<div class="lf-block lf-photo" style="height:70px;background-image:url(${IMG(2)})"></div><div class="lf-block" style="height:44px"></div><div class="lf-block lf-photo" style="height:90px;background-image:url(${IMG(5)})"></div><div class="lf-block" style="height:56px"></div><div class="lf-block lf-photo" style="height:64px;background-image:url(${IMG(10)})"></div><div class="lf-block" style="height:40px"></div>`,
+      blocks: `<div class="lf-block lf-photo" style="height:70px;background-image:url(${IMG(2)})"></div><div class="lf-block" style="height:44px"></div><div class="lf-block lf-photo" style="height:90px;background-image:url(${IMG(14)})"></div><div class="lf-block" style="height:56px"></div><div class="lf-block lf-photo" style="height:64px;background-image:url(${IMG(10)})"></div><div class="lf-block" style="height:40px"></div>`,
       desc: "高さの異なるカードを隙間なく敷き詰める。量の多さそのものが説得力になる型。",
       use: "GALLERY / PORTFOLIO",
     },
@@ -64,7 +64,7 @@
     {
       name: "Z-PATTERN LANDING",
       frame: "lf-zpattern",
-      blocks: `<div class="lf-block ga-img1 lf-photo" style="background-image:url(${IMG(3)})"></div><div class="lf-block ga-txt1"></div><div class="lf-block ga-txt2"></div><div class="lf-block ga-img2 lf-photo" style="background-image:url(${IMG(8)})"></div><div class="lf-block ga-img3 lf-photo" style="background-image:url(${IMG(17)})"></div><div class="lf-block ga-txt3"></div>`,
+      blocks: `<div class="lf-block ga-img1 lf-photo" style="background-image:url(${IMG(1)})"></div><div class="lf-block ga-txt1"></div><div class="lf-block ga-txt2"></div><div class="lf-block ga-img2 lf-photo" style="background-image:url(${IMG(8)})"></div><div class="lf-block ga-img3 lf-photo" style="background-image:url(${IMG(17)})"></div><div class="lf-block ga-txt3"></div>`,
       desc: "視線の自然な動き(Z型)に沿って、画像とテキストを交互に配置していく型。",
       use: "STORYTELLING LP",
     },
@@ -99,7 +99,7 @@
     {
       name: "HOLY GRAIL",
       frame: "lf-holygrail",
-      blocks: `<div class="lf-block ga-head lf-b-accent2"></div><div class="lf-block ga-nav"></div><div class="lf-block ga-main lf-photo" style="background-image:url(${IMG(11)})"></div><div class="lf-block ga-aside"></div><div class="lf-block ga-foot lf-b-accent3"></div>`,
+      blocks: `<div class="lf-block ga-head lf-b-accent2"></div><div class="lf-block ga-nav"></div><div class="lf-block ga-main lf-photo" style="background-image:url(${IMG(16)})"></div><div class="lf-block ga-aside"></div><div class="lf-block ga-foot lf-b-accent3"></div>`,
       desc: "ヘッダー・フッター・ナビ・本文・補足の5領域を持つ、Webの原点とも言える定番構成。",
       use: "PORTAL SITE / FORUM",
     },
@@ -155,7 +155,7 @@
     {
       name: "TEXT OVER IMAGE",
       frame: "lf-textoverimage",
-      blocks: `<div class="lf-block lf-photo" style="background-image:url(${IMG(9)})"></div><div class="lf-overlay-bar"></div>`,
+      blocks: `<div class="lf-block lf-photo" style="background-image:url(${IMG(18)})"></div><div class="lf-overlay-bar"></div>`,
       desc: "画像の上に直接テキストを重ねる。余白で区切らず、写真とコピーを一体化させる型。",
       use: "CAMPAIGN BANNER / POSTER",
     },
@@ -183,14 +183,14 @@
     {
       name: "THUMBNAIL GRID",
       frame: "lf-thumbgrid",
-      blocks: [1, 3, 5, 7, 9, 11, 13, 15].map((n) => `<div class="lf-block lf-photo" style="background-image:url(${IMG(n)})"></div>`).join(""),
+      blocks: [1, 2, 4, 7, 10, 16, 13, 15].map((n) => `<div class="lf-block lf-photo" style="background-image:url(${IMG(n)})"></div>`).join(""),
       desc: "同じ大きさのサムネイルを規則正しく並べる。写真そのものを主役にする型。",
       use: "PHOTO GALLERY / INSTAGRAM GRID",
     },
     {
       name: "VIDEO HERO",
       frame: "lf-videohero",
-      blocks: `<div class="lf-block lf-photo" style="background-image:url(${IMG(6)})"></div><div class="play-btn"></div>`,
+      blocks: `<div class="lf-block lf-photo" style="background-image:url(${IMG(12)})"></div><div class="play-btn"></div>`,
       desc: "全画面の背景に再生ボタンを添えるだけの、削ぎ落とされたヒーロー。",
       use: "BRAND FILM / SHOWREEL",
     },
