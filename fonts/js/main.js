@@ -119,17 +119,42 @@
   function initColorMorph() {
     if (REDUCED || typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
     gsap.registerPlugin(ScrollTrigger);
-    document.querySelectorAll(".font-group[data-color]").forEach((section) => {
+    const root = document.getElementById("font-groups");
+    const sections = [...document.querySelectorAll(".font-group[data-color]")];
+    if (!root || !sections.length) return;
+
+    // Each category section is much taller than the viewport (up to 10
+    // cards), so a per-section onLeave that reset the background to ""
+    // left a gap between "this section's trigger ends" and "the next
+    // section's trigger starts" -- during that gap the background fell
+    // back to the near-black page default, reading as a flash to black
+    // between every color instead of a clean handoff. Fix: sections only
+    // ever SET the color on enter (no reset), so whichever category was
+    // entered most recently just stays until the next one overwrites it.
+    // A single separate trigger spanning all sections handles reverting
+    // to the default once you've scrolled above the first one or below
+    // the last one (hero / footer).
+    sections.forEach((section) => {
       const color = section.dataset.color;
       if (!color) return;
       ScrollTrigger.create({
-        trigger: section, start: "top 60%", end: "bottom 40%",
+        trigger: section, start: "top center", end: "bottom center",
         onEnter: () => (document.body.style.backgroundColor = color),
         onEnterBack: () => (document.body.style.backgroundColor = color),
-        onLeave: () => (document.body.style.backgroundColor = ""),
-        onLeaveBack: () => (document.body.style.backgroundColor = ""),
       });
     });
+    ScrollTrigger.create({
+      trigger: root, start: "top bottom", end: "bottom top",
+      onLeave: () => (document.body.style.backgroundColor = ""),
+      onLeaveBack: () => (document.body.style.backgroundColor = ""),
+    });
+
+    // Web fonts finishing to load after the initial layout pass can shift
+    // section heights enough to make the trigger boundaries computed above
+    // stale; recompute them once everything has settled.
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => ScrollTrigger.refresh());
+    }
   }
 
   function initEyeTracking() {
