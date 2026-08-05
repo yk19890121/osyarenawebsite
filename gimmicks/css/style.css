@@ -110,7 +110,7 @@ code{font-family:var(--ff-mono);background:var(--line);padding:2px 6px;border-ra
 }
 .lab-logo{font-family:var(--ff-mono);font-weight:700;font-size:16px;letter-spacing:.02em;}
 .lab-logo em{font-style:normal;color:var(--accent);}
-.crumb-nav{display:flex;align-items:center;gap:10px;font-family:var(--ff-mono);font-size:11px;letter-spacing:.08em;color:var(--ink-dim);}
+.crumb-nav{display:flex;align-items:center;flex-wrap:wrap;row-gap:8px;gap:10px;font-family:var(--ff-mono);font-size:11px;letter-spacing:.08em;color:var(--ink-dim);}
 .crumb-nav .current{color:var(--ink);}
 .crumb-link{margin-left:14px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;transition:border-color .3s;}
 .crumb-link:hover{border-color:var(--ink);}

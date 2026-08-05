@@ -281,7 +281,7 @@
 
     function renderDetail() {
       const l = LAYOUTS[active];
-      document.getElementById("detail-index").textContent = `${pad(active + 1)} / ${pad(LAYOUTS.length)}`;
+      document.getElementById("detail-index").innerHTML = `<span class="tag-num">${pad(active + 1)}</span> / ${pad(LAYOUTS.length)}`;
       document.getElementById("detail-name").textContent = l.name;
       document.getElementById("detail-desc").textContent = l.desc;
       document.getElementById("detail-use").textContent = l.use;

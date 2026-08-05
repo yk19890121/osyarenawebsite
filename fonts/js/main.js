@@ -5,6 +5,8 @@
   const FINE_POINTER = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  const pad = (n) => String(n).padStart(2, "0");
+
   function initBgCrossfade() {
     const slides = document.querySelectorAll(".bg-slide");
     if (slides.length < 2 || REDUCED) return;
@@ -86,6 +88,7 @@
             .map(
               (f) => `<div class="font-card">
                 <div class="font-meta">
+                  <p class="font-num-row"><span class="tag-num">${pad(FONTS.indexOf(f) + 1)}</span></p>
                   <span class="font-name">${f.name}</span>
                   <span class="font-desc">${f.desc}</span>
                 </div>

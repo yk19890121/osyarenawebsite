@@ -22,9 +22,18 @@
     const wrap = document.querySelector(".tunnel-menu");
     const items = [...document.querySelectorAll(".tunnel-item")];
     if (!wrap || !items.length) return;
+    // Below 900px, top.css switches the tunnel to a plain stacked list
+    // (position:relative/transform:none/opacity:1/filter:none, all
+    // !important) so it stays tappable. But CSS !important can't reach
+    // the inline `top` offset this function sets for the desktop 3D
+    // layout, and `position:relative` still honors `top` -- so without
+    // this guard, items 3-4 (FONTS/BUILD, anchored at 225px/315px) got
+    // shoved down by that leftover offset, landing on top of the sphere
+    // gallery below and becoming untappable. Skip the desktop
+    // positioning/depth-effect entirely on mobile instead of fighting it.
+    const mobileQuery = window.matchMedia("(max-width:900px)");
     const H = 360;
     const anchors = items.map((_, i) => ((i + 0.5) / items.length) * H);
-    items.forEach((el, i) => (el.style.top = anchors[i] + "px"));
 
     function update(my) {
       items.forEach((el, i) => {
@@ -40,11 +49,30 @@
         });
       });
     }
-    if (FINE_POINTER) {
-      wrap.addEventListener("mousemove", (e) => { const r = wrap.getBoundingClientRect(); update(e.clientY - r.top); });
-      wrap.addEventListener("mouseleave", () => update(H / 2));
+    function onMove(e) { const r = wrap.getBoundingClientRect(); update(e.clientY - r.top); }
+    function onLeave() { update(H / 2); }
+
+    function enableDesktopMode() {
+      items.forEach((el, i) => (el.style.top = anchors[i] + "px"));
+      if (FINE_POINTER) {
+        wrap.addEventListener("mousemove", onMove);
+        wrap.addEventListener("mouseleave", onLeave);
+      }
+      update(H / 2);
     }
-    update(H / 2);
+    function disableDesktopMode() {
+      wrap.removeEventListener("mousemove", onMove);
+      wrap.removeEventListener("mouseleave", onLeave);
+      items.forEach((el) => {
+        gsap.killTweensOf(el);
+        gsap.set(el, { clearProps: "transform,opacity,filter,z,scale" });
+        el.style.top = "";
+      });
+    }
+    function applyForViewport(mql) { if (mql.matches) disableDesktopMode(); else enableDesktopMode(); }
+
+    applyForViewport(mobileQuery);
+    mobileQuery.addEventListener("change", applyForViewport);
   }
 
   /* ---------------- 3D sphere gallery (right) ---------------- */
