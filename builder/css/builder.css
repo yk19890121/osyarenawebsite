@@ -18,17 +18,18 @@ input,select,textarea{font-family:inherit;}
 
 /* ---------------- top bar ---------------- */
 .bp-topbar{
-  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  display:flex;align-items:center;flex-wrap:wrap;gap:16px;
   padding:12px 20px;border-bottom:1px solid var(--line);flex-shrink:0;
 }
-.bp-topbar-left{display:flex;align-items:center;gap:14px;font-family:var(--ff-mono);font-size:12px;letter-spacing:.06em;}
+.bp-topbar-left{margin-right:auto;display:flex;align-items:center;gap:14px;font-family:var(--ff-mono);font-size:12px;letter-spacing:.06em;}
 .bp-topbar-left .bp-logo{font-weight:700;}
 .bp-topbar-left .bp-logo em{font-style:normal;color:var(--accent);}
 .bp-topbar-left .bp-crumb{color:var(--ink-dim);}
 .bp-crumb-nav{display:flex;align-items:center;gap:10px;color:var(--ink-dim);}
 .bp-crumb-nav .bp-crumb-current{color:var(--ink);}
 .bp-crumb-nav a:hover{color:var(--ink);}
-.bp-topbar-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.bp-topbar-right{position:relative;display:flex;align-items:center;gap:8px;}
+.bp-topbar-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .bp-btn{
   font-family:var(--ff-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
   padding:8px 14px;border:1px solid var(--line);border-radius:999px;transition:border-color .2s,background .2s;
@@ -40,6 +41,32 @@ input,select,textarea{font-family:inherit;}
 .bp-device-group{display:flex;gap:2px;border:1px solid var(--line);border-radius:999px;padding:2px;}
 .bp-device-btn{padding:6px 12px;border-radius:999px;font-family:var(--ff-mono);font-size:10px;letter-spacing:.06em;}
 .bp-device-btn.active{background:var(--ink);color:var(--bg);}
+.bp-menu-toggle{display:none;}
+
+/* Mobile: DESKTOP/TABLET/MOBILE + PLAY/SAVE/RESET/SPEC/EXPORT BLUEPRINT
+   overflowed the screen at 375-430px when kept inline. Below 768px, the
+   device switcher drops to its own full-width row and the action buttons
+   collapse into a "..." dropdown instead of being shrunk to fit. */
+@media (max-width:767px){
+  .bp-topbar{padding:14px 16px;}
+  .bp-device-group{order:3;flex:1 1 100%;display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:3px;}
+  .bp-device-btn{padding:10px 6px;text-align:center;}
+  .bp-menu-toggle{
+    display:flex;align-items:center;justify-content:center;
+    width:44px;height:44px;flex-shrink:0;border:1px solid var(--line);border-radius:999px;
+    font-size:16px;letter-spacing:1px;color:var(--ink-dim);
+  }
+  .bp-menu-toggle:hover,.bp-menu-toggle[aria-expanded="true"]{border-color:var(--ink);color:var(--ink);}
+  .bp-topbar-actions{
+    display:none;position:absolute;top:calc(100% + 10px);right:0;z-index:60;
+    flex-direction:column;align-items:stretch;gap:8px;
+    background:var(--bg-soft);border:1px solid var(--line);border-radius:12px;
+    padding:14px;width:min(280px, calc(100vw - 32px));
+    box-shadow:0 24px 48px rgba(0,0,0,.45);
+  }
+  .bp-topbar-actions.is-open{display:flex;}
+  .bp-topbar-actions .bp-btn{width:100%;justify-content:center;min-height:44px;}
+}
 
 /* ---------------- main 3-panel body ---------------- */
 .bp-main{flex:1;display:flex;min-height:0;}
@@ -106,6 +133,10 @@ input,select,textarea{font-family:inherit;}
 /* ---------------- bottom library drawer ---------------- */
 .bp-bottombar{display:flex;justify-content:center;gap:6px;padding:10px;border-top:1px solid var(--line);background:var(--bg-soft);flex-shrink:0;position:relative;}
 .bp-drawer-btn{font-family:var(--ff-mono);font-size:11px;letter-spacing:.08em;padding:9px 22px;border-radius:999px;color:var(--ink-dim);}
+@media (max-width:400px){
+  .bp-bottombar{gap:2px;padding:8px 4px;}
+  .bp-drawer-btn{padding:9px 10px;font-size:10px;letter-spacing:.04em;flex:1;text-align:center;}
+}
 .bp-drawer-btn.active{background:var(--ink);color:var(--bg);}
 .bp-drawer-panel{
   position:fixed;left:0;right:0;bottom:0;max-height:0;overflow:hidden;background:var(--bg-soft);
@@ -166,11 +197,24 @@ input,select,textarea{font-family:inherit;}
 .bp-hgallery{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;padding:28px 8px 12px;}
 .bp-hgallery-track{display:flex;gap:20px;width:max-content;perspective:900px;}
 .bp-hgallery--drawer .bp-hgallery-track{gap:14px;}
-.bp-layout-preview{position:relative;overflow:hidden;border-radius:8px;background:var(--bg-soft);border:1px solid var(--line);flex-shrink:0;will-change:transform;transform-origin:50% 100%;}
+/* contain:paint (standard, well-supported) forces this box to clip its own
+   contents -- needed because the transformed <iframe> inside can otherwise
+   bleed past overflow:hidden + border-radius in some browsers. */
+.bp-layout-preview{position:relative;overflow:hidden;contain:paint;border-radius:8px;background:var(--bg-soft);border:1px solid var(--line);flex-shrink:0;will-change:transform;transform-origin:50% 100%;}
 .bp-step-card--portrait{width:220px;flex-shrink:0;}
-.bp-step-thumb--portrait{width:220px;height:320px;}
+.bp-step-thumb--portrait{width:220px;aspect-ratio:220/320;}
 .bp-drawer-card--portrait{width:150px;flex-shrink:0;}
-.bp-drawer-thumb--portrait{width:150px;height:220px;margin-bottom:6px;}
+.bp-drawer-thumb--portrait{width:150px;aspect-ratio:150/220;margin-bottom:6px;}
+
+/* ---------------- mobile: vertical stack instead of horizontal scroll ---------------- */
+@media (max-width:767px){
+  .bp-overlay{padding:48px 20px calc(48px + env(safe-area-inset-bottom, 0px));}
+  .bp-overlay-title{font-size:clamp(24px,7vw,32px);margin-bottom:24px;}
+  .bp-hgallery{overflow-x:visible;padding:4px 0;}
+  .bp-hgallery-track{display:grid;grid-template-columns:1fr;width:100%;perspective:none;}
+  .bp-step-card--portrait,.bp-drawer-card--portrait{width:100%;}
+  .bp-step-thumb--portrait,.bp-drawer-thumb--portrait{width:100%;aspect-ratio:16/10;margin-bottom:0;}
+}
 
 /* ---------------- SPEC modal ---------------- */
 .bp-modal-backdrop{position:fixed;inset:0;background:rgba(5,4,3,.7);z-index:90;display:flex;align-items:center;justify-content:center;padding:24px;}

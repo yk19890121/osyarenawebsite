@@ -77,7 +77,7 @@ window.Builder = window.Builder || {};
       </div>
     </div>`;
     contentEl.querySelectorAll("[data-layout-preview]").forEach((el) => {
-      Builder.layoutPreview.mountInto(el, el.dataset.layoutPreview, 150, 220);
+      Builder.layoutPreview.mountInto(el, el.dataset.layoutPreview);
     });
     const gallery = contentEl.querySelector("#bp-drawer-hgallery");
     gallery.addEventListener("wheel", (e) => {

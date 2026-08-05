@@ -59,7 +59,7 @@
         </div>
       </div>`;
     overlay.querySelectorAll("[data-layout-preview]").forEach((el) => {
-      Builder.layoutPreview.mountInto(el, el.dataset.layoutPreview, 220, 320);
+      Builder.layoutPreview.mountInto(el, el.dataset.layoutPreview);
     });
     const stepGallery = document.getElementById("bp-step-hgallery");
     enableWheelHorizontal(stepGallery);
@@ -184,6 +184,26 @@
     });
     document.getElementById("bp-btn-spec").addEventListener("click", openSpecModal);
     document.getElementById("bp-btn-export").addEventListener("click", runExport);
+
+    // mobile actions menu ("...") — PLAY/SAVE/RESET/SPEC/EXPORT collapse
+    // into this below 768px instead of overflowing the top bar (see
+    // .bp-topbar-actions in builder.css).
+    const menuToggle = document.getElementById("bp-menu-toggle");
+    const topbarActions = document.getElementById("bp-topbar-actions");
+    if (menuToggle && topbarActions) {
+      const closeMenu = () => { topbarActions.classList.remove("is-open"); menuToggle.setAttribute("aria-expanded", "false"); };
+      const openMenu = () => { topbarActions.classList.add("is-open"); menuToggle.setAttribute("aria-expanded", "true"); };
+      menuToggle.addEventListener("click", () => {
+        if (topbarActions.classList.contains("is-open")) closeMenu(); else openMenu();
+      });
+      document.addEventListener("click", (e) => {
+        if (!topbarActions.classList.contains("is-open")) return;
+        if (topbarActions.contains(e.target) || menuToggle.contains(e.target)) return;
+        closeMenu();
+      }, true);
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeMenu(); });
+      topbarActions.querySelectorAll(".bp-btn").forEach((btn) => btn.addEventListener("click", closeMenu));
+    }
   }
 
   function applyFontTarget(fontId, target) {

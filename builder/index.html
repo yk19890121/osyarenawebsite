@@ -25,17 +25,22 @@
         <a href="../index.html">TOP</a><span class="bp-crumb">/</span><span class="bp-crumb-current">BUILDER</span>
       </nav>
     </div>
+    <div class="bp-device-group" id="bp-device-group">
+      <button type="button" class="bp-device-btn active" data-device="desktop">DESKTOP</button>
+      <button type="button" class="bp-device-btn" data-device="tablet">TABLET</button>
+      <button type="button" class="bp-device-btn" data-device="mobile">MOBILE</button>
+    </div>
     <div class="bp-topbar-right">
-      <div class="bp-device-group" id="bp-device-group">
-        <button type="button" class="bp-device-btn active" data-device="desktop">DESKTOP</button>
-        <button type="button" class="bp-device-btn" data-device="tablet">TABLET</button>
-        <button type="button" class="bp-device-btn" data-device="mobile">MOBILE</button>
+      <div class="bp-topbar-actions" id="bp-topbar-actions">
+        <button type="button" class="bp-btn" id="bp-btn-play">PLAY</button>
+        <button type="button" class="bp-btn" id="bp-btn-save">SAVE</button>
+        <button type="button" class="bp-btn" id="bp-btn-reset">RESET</button>
+        <button type="button" class="bp-btn" id="bp-btn-spec">SPEC</button>
+        <button type="button" class="bp-btn bp-btn-primary" id="bp-btn-export">EXPORT BLUEPRINT</button>
       </div>
-      <button type="button" class="bp-btn" id="bp-btn-play">PLAY</button>
-      <button type="button" class="bp-btn" id="bp-btn-save">SAVE</button>
-      <button type="button" class="bp-btn" id="bp-btn-reset">RESET</button>
-      <button type="button" class="bp-btn" id="bp-btn-spec">SPEC</button>
-      <button type="button" class="bp-btn bp-btn-primary" id="bp-btn-export">EXPORT BLUEPRINT</button>
+      <button type="button" class="bp-menu-toggle" id="bp-menu-toggle" aria-label="メニュー" aria-expanded="false" aria-controls="bp-topbar-actions">
+        <span aria-hidden="true">•••</span>
+      </button>
     </div>
   </header>
 

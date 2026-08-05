@@ -3,13 +3,23 @@
    content baked in) instead of an abstract mockup, so the picker thumbnail
    genuinely matches what you get after selecting it. No motion/JS runs
    inside — it's a static same-origin iframe, scaled down and cropped by
-   the container's overflow:hidden (a portrait "window" onto the top of the
-   real, wider desktop layout).
-   Deliberately uses CSS `zoom` rather than `transform:scale` to shrink the
-   iframe: Chromium composites a transformed <iframe> on its own GPU layer,
-   which can bleed a sliver of content past an ancestor's overflow:hidden +
-   border-radius clip. `zoom` rescales at the layout level instead, so the
-   ancestor's rounded clip is respected with no edge bleed. */
+   the container's overflow:hidden.
+
+   Scaling uses `transform:scale`, not CSS `zoom`: zoom is non-standard and
+   its behavior on <iframe> elements specifically is unreliable on WebKit/
+   Safari (mobile in particular), where it was leaving the iframe rendered
+   at full, unscaled size -- only the top-left corner showed through the
+   small clipped container, with the rest reading as blank space. Chromium
+   has a separate quirk where a *transformed* iframe composites on its own
+   GPU layer and can bleed past an ancestor's overflow:hidden + border-
+   radius clip; `contain:paint` on the container (see builder.css
+   .bp-layout-preview) forces proper clipping there without relying on zoom.
+
+   The container's box size is driven entirely by CSS (fixed portrait card
+   on desktop, full-width on mobile via media queries) -- this module just
+   reads that size back and computes the iframe's scale/source-height to
+   exactly fill it, re-measuring via ResizeObserver whenever it changes
+   (viewport resize, orientation change, or a drawer/card layout shift). */
 window.Builder = window.Builder || {};
 
 (() => {
@@ -47,23 +57,35 @@ window.Builder = window.Builder || {};
       </style></head><body>${html}</body></html>`;
   }
 
-  function mountInto(containerEl, layoutId, widthPx, heightPx) {
+  function mountInto(containerEl, layoutId) {
     containerEl.classList.add("bp-layout-preview");
-    containerEl.style.width = widthPx + "px";
-    containerEl.style.height = heightPx + "px";
-    containerEl.style.overflow = "hidden";
-    const scale = widthPx / BASE_WIDTH;
     const iframe = document.createElement("iframe");
     iframe.tabIndex = -1;
     iframe.setAttribute("aria-hidden", "true");
-    iframe.style.display = "block";
+    iframe.style.position = "absolute";
+    iframe.style.top = "0";
+    iframe.style.left = "0";
     iframe.style.width = BASE_WIDTH + "px";
-    iframe.style.height = Math.ceil(heightPx / scale) + "px";
     iframe.style.border = "0";
     iframe.style.pointerEvents = "none";
-    iframe.style.zoom = String(scale);
+    iframe.style.transformOrigin = "top left";
     containerEl.appendChild(iframe);
     iframe.srcdoc = buildSrcdoc(layoutId);
+
+    function applyScale() {
+      const w = containerEl.clientWidth;
+      const h = containerEl.clientHeight;
+      if (!w || !h) return;
+      const scale = w / BASE_WIDTH;
+      iframe.style.height = Math.ceil(h / scale) + "px";
+      iframe.style.transform = `scale(${scale})`;
+    }
+    applyScale();
+    if (window.ResizeObserver) {
+      new ResizeObserver(applyScale).observe(containerEl);
+    } else {
+      window.addEventListener("resize", applyScale);
+    }
   }
 
   // Depth-parallax hover — ported from gimmicks #88 "DEPTH-PARALLAX GRID"
