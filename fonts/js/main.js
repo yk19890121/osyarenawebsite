@@ -7,6 +7,19 @@
 
   const pad = (n) => String(n).padStart(2, "0");
 
+  // GIMMICK 43 — SCROLL COLOR MORPH: one muted tone per font category,
+  // ported from gimmicks/js/main.js initColorMorphV1 (same ScrollTrigger
+  // enter/leave pattern, applied to the page background instead of a
+  // small demo box).
+  const CAT_COLORS = {
+    "SANS-SERIF": "#151f2b",
+    "SERIF": "#241615",
+    "DISPLAY": "#241a0c",
+    "MONOSPACE": "#0e211c",
+    "HANDWRITING": "#20141f",
+    "日本語": "#1c1210",
+  };
+
   function initBgCrossfade() {
     const slides = document.querySelectorAll(".bg-slide");
     if (slides.length < 2 || REDUCED) return;
@@ -82,7 +95,7 @@
     root.innerHTML = cats
       .map((cat) => {
         const items = FONTS.filter((f) => f.cat === cat);
-        return `<section class="font-group">
+        return `<section class="font-group" data-color="${CAT_COLORS[cat] || ""}">
           <h2 class="font-group-title">${cat}</h2>
           ${items
             .map(
@@ -101,6 +114,22 @@
         </section>`;
       })
       .join("");
+  }
+
+  function initColorMorph() {
+    if (REDUCED || typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
+    gsap.registerPlugin(ScrollTrigger);
+    document.querySelectorAll(".font-group[data-color]").forEach((section) => {
+      const color = section.dataset.color;
+      if (!color) return;
+      ScrollTrigger.create({
+        trigger: section, start: "top 60%", end: "bottom 40%",
+        onEnter: () => (document.body.style.backgroundColor = color),
+        onEnterBack: () => (document.body.style.backgroundColor = color),
+        onLeave: () => (document.body.style.backgroundColor = ""),
+        onLeaveBack: () => (document.body.style.backgroundColor = ""),
+      });
+    });
   }
 
   function initEyeTracking() {
@@ -138,6 +167,7 @@
   function boot() {
     initBgCrossfade();
     buildGroups();
+    initColorMorph();
     initEyeTracking();
   }
 
