@@ -79,40 +79,62 @@
     });
   }
 
-  /* ---- dot-nav tooltip labels type/delete on hover (reuses gimmick #13 TYPEWRITER EFFECT's technique) ---- */
+  /* ---- dot-nav tooltip labels type/delete on hover (reuses gimmick #13 TYPEWRITER EFFECT's technique) ----
+     A single shared tooltip is appended to <body> (fixed position, JS-driven
+     coordinates) rather than living inside #dot-nav: that element has
+     overflow-y:auto, which per spec forces overflow-x to clip too, so a
+     tooltip positioned outside #dot-nav's own ~17px-wide box would be
+     invisible if nested inside it. */
   function initDotTooltipTypewriter() {
     const dots = [...document.querySelectorAll("#dot-nav .dot")];
-    dots.forEach((dot) => {
-      const tooltip = dot.querySelector(".dot-tooltip");
-      const textEl = dot.querySelector(".dot-tooltip-text");
+    if (!dots.length) return;
+    const float = document.createElement("div");
+    float.id = "dot-tooltip-float";
+    float.innerHTML = `<span class="dot-tooltip-text"></span><span class="caret">|</span>`;
+    document.body.appendChild(float);
+    const textEl = float.querySelector(".dot-tooltip-text");
+
+    function position(dot) {
+      const r = dot.getBoundingClientRect();
+      float.style.left = (r.left - 22) + "px";
+      float.style.top = (r.top + r.height / 2) + "px";
+    }
+
+    let timer = null, chIndex = 0, currentLabel = "";
+    function clearTimer() { if (timer) clearTimeout(timer); timer = null; }
+    function typeTick() {
+      if (chIndex >= currentLabel.length) return;
+      chIndex++;
+      textEl.textContent = currentLabel.slice(0, chIndex);
+      timer = setTimeout(typeTick, 28);
+    }
+    function deleteTick() {
+      if (chIndex <= 0) { float.classList.remove("visible"); return; }
+      chIndex--;
+      textEl.textContent = currentLabel.slice(0, chIndex);
+      timer = setTimeout(deleteTick, 18);
+    }
+    function show(dot) {
       const label = dot.dataset.label || "";
-      if (!tooltip || !textEl || !label) return;
-      if (REDUCED) {
-        dot.addEventListener("mouseenter", () => { textEl.textContent = label; tooltip.classList.add("visible"); });
-        dot.addEventListener("mouseleave", () => tooltip.classList.remove("visible"));
-        dot.addEventListener("focus", () => { textEl.textContent = label; tooltip.classList.add("visible"); });
-        dot.addEventListener("blur", () => tooltip.classList.remove("visible"));
-        return;
-      }
-      let chIndex = 0, timer = null;
-      function clear() { if (timer) clearTimeout(timer); timer = null; }
-      function typeTick() {
-        if (chIndex >= label.length) return;
-        chIndex++;
-        textEl.textContent = label.slice(0, chIndex);
-        timer = setTimeout(typeTick, 28);
-      }
-      function deleteTick() {
-        if (chIndex <= 0) { tooltip.classList.remove("visible"); return; }
-        chIndex--;
-        textEl.textContent = label.slice(0, chIndex);
-        timer = setTimeout(deleteTick, 18);
-      }
-      function show() { clear(); tooltip.classList.add("visible"); typeTick(); }
-      function hide() { clear(); deleteTick(); }
-      dot.addEventListener("mouseenter", show);
+      if (!label) return;
+      clearTimer();
+      position(dot);
+      if (REDUCED) { currentLabel = label; chIndex = label.length; textEl.textContent = label; float.classList.add("visible"); return; }
+      currentLabel = label;
+      chIndex = 0;
+      textEl.textContent = "";
+      float.classList.add("visible");
+      typeTick();
+    }
+    function hide() {
+      clearTimer();
+      if (REDUCED) { float.classList.remove("visible"); return; }
+      deleteTick();
+    }
+    dots.forEach((dot) => {
+      dot.addEventListener("mouseenter", () => show(dot));
       dot.addEventListener("mouseleave", hide);
-      dot.addEventListener("focus", show);
+      dot.addEventListener("focus", () => show(dot));
       dot.addEventListener("blur", hide);
     });
   }

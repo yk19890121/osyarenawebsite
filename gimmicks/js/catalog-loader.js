@@ -100,12 +100,15 @@
   //    navigation instead of the old flat 19-group list.
   const dotNav = document.getElementById("dot-nav");
   if (dotNav) {
-    // Tooltip label is real markup (not a CSS ::after) so main.js's
-    // initDotTypewriterTooltip() can type/delete it character by character
-    // on hover/focus -- reusing gimmick #13 TYPEWRITER EFFECT's own
-    // technique for the nav that gimmick #02 already demonstrates.
+    // data-label is read by main.js's initDotTooltipTypewriter(), which
+    // types/deletes it character by character in a single shared floating
+    // tooltip appended to <body> (not a child of #dot-nav -- #dot-nav has
+    // overflow-y:auto, which per spec forces overflow-x to clip too, so a
+    // per-dot tooltip positioned outside its ~17px-wide box would be
+    // invisible). Reuses gimmick #13 TYPEWRITER EFFECT's own technique for
+    // the nav that gimmick #02 already demonstrates.
     const dotHtml = (href, label, extraClass) =>
-      `<a href="${href}" class="dot${extraClass || ""}" data-label="${label}" aria-label="${label}"><i></i><span class="dot-tooltip"><span class="dot-tooltip-text"></span><span class="caret">|</span></span></a>`;
+      `<a href="${href}" class="dot${extraClass || ""}" data-label="${label}" aria-label="${label}"><i></i></a>`;
     const heroDot = dotHtml("#hero", "TOP", " active");
     const catDots = sortedCats.map((cat) => {
       const count = window.GIMMICK_CATALOG.filter((g) => g.category === cat.id).length;
