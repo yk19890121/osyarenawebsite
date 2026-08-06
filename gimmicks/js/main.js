@@ -79,6 +79,44 @@
     });
   }
 
+  /* ---- dot-nav tooltip labels type/delete on hover (reuses gimmick #13 TYPEWRITER EFFECT's technique) ---- */
+  function initDotTooltipTypewriter() {
+    const dots = [...document.querySelectorAll("#dot-nav .dot")];
+    dots.forEach((dot) => {
+      const tooltip = dot.querySelector(".dot-tooltip");
+      const textEl = dot.querySelector(".dot-tooltip-text");
+      const label = dot.dataset.label || "";
+      if (!tooltip || !textEl || !label) return;
+      if (REDUCED) {
+        dot.addEventListener("mouseenter", () => { textEl.textContent = label; tooltip.classList.add("visible"); });
+        dot.addEventListener("mouseleave", () => tooltip.classList.remove("visible"));
+        dot.addEventListener("focus", () => { textEl.textContent = label; tooltip.classList.add("visible"); });
+        dot.addEventListener("blur", () => tooltip.classList.remove("visible"));
+        return;
+      }
+      let chIndex = 0, timer = null;
+      function clear() { if (timer) clearTimeout(timer); timer = null; }
+      function typeTick() {
+        if (chIndex >= label.length) return;
+        chIndex++;
+        textEl.textContent = label.slice(0, chIndex);
+        timer = setTimeout(typeTick, 28);
+      }
+      function deleteTick() {
+        if (chIndex <= 0) { tooltip.classList.remove("visible"); return; }
+        chIndex--;
+        textEl.textContent = label.slice(0, chIndex);
+        timer = setTimeout(deleteTick, 18);
+      }
+      function show() { clear(); tooltip.classList.add("visible"); typeTick(); }
+      function hide() { clear(); deleteTick(); }
+      dot.addEventListener("mouseenter", show);
+      dot.addEventListener("mouseleave", hide);
+      dot.addEventListener("focus", show);
+      dot.addEventListener("blur", hide);
+    });
+  }
+
   /* ============================ 04 — scroll velocity skew ============================ */
   function initSkew() {
     const strip = document.getElementById("skew-strip");
@@ -2320,6 +2358,7 @@
   function boot() {
     initScrollProgress();
     initDotNav();
+    initDotTooltipTypewriter();
     initSkew();
     initSpotlight();
     initParallax();
