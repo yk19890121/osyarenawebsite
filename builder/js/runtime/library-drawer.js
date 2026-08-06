@@ -112,7 +112,7 @@ window.Builder = window.Builder || {};
     </div>
     <div class="bp-catalog-section">
       <p class="bp-catalog-heading">GIMMICK カタログから指定（参考・このプレビューでは再生されません）</p>
-      <p class="bp-hint">120種類のカタログから、このオブジェクトに使ってほしいギミックを選んでおけます。選んだ内容はEXPORT BLUEPRINTの引き継ぎ資料に、開発担当への指示として記載されます。</p>
+      <p class="bp-hint">11カテゴリー・${BUILDER_GIMMICK_CATALOG.length}種類のカタログから、このオブジェクトに使ってほしいギミックを選んでおけます（例: T01 / GRADIENT SWEEP TEXT）。選んだ内容はEXPORT BLUEPRINTの引き継ぎ資料に、開発担当への指示として記載されます。</p>
       <div class="bp-catalog-selected" id="bp-catalog-selected"></div>
       <input type="text" class="bp-input bp-catalog-search" id="bp-catalog-search" placeholder="番号または名前で検索…" value="${escapeAttr(catalogFilter)}">
       <div class="bp-catalog-list" id="bp-catalog-list"></div>

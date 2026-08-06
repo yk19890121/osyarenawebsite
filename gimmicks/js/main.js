@@ -47,7 +47,11 @@
       const scrollPos = window.scrollY + window.innerHeight * 0.4;
       let current = targets[0];
       targets.forEach((t) => { if (t && t.offsetTop <= scrollPos) current = t; });
-      dots.forEach((d, i) => d.classList.toggle("active", targets[i] === current));
+      dots.forEach((d, i) => {
+        const isActive = targets[i] === current;
+        d.classList.toggle("active", isActive);
+        if (isActive) d.setAttribute("aria-current", "true"); else d.removeAttribute("aria-current");
+      });
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
