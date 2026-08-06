@@ -74,6 +74,10 @@
     articleEl.dataset.gimmickCategory = entry.category;
     const tagEl = articleEl.querySelector(".tag");
     if (!tagEl) return;
+    // Old flat numbering is superseded by displayCode -- drop it from
+    // display (still searchable via entry.legacyNumber, see step 6).
+    const oldNum = tagEl.querySelector(".tag-num");
+    if (oldNum) oldNum.remove();
     const codeSpan = document.createElement("span");
     codeSpan.className = "tag-code";
     codeSpan.textContent = entry.displayCode;
@@ -154,7 +158,7 @@
     let shown = 0;
     allArticles.forEach((el) => {
       const entry = window.GIMMICK_CATALOG_BY_CODE[el.dataset.gimmickCode];
-      const haystack = [entry.displayCode, entry.name, entry.nameJa, entry.category].join(" ").toLowerCase();
+      const haystack = [entry.displayCode, entry.name, entry.nameJa, entry.category, entry.legacyNumber || ""].join(" ").toLowerCase();
       const match = !q || haystack.includes(q);
       el.classList.toggle("search-hidden", !match);
       if (match) shown++;

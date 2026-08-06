@@ -4,7 +4,7 @@
 
 - **TOP** (`/`) — LAYOUTS / GIMMICKS / FONTS / BUILD への入口
 - **LAYOUTS** (`/layouts/`) — 代表的なWebレイアウトパターン34種を3Dカバーフローで見比べるカタログ
-- **GIMMICKS** (`/gimmicks/`) — Webでよく使う演出・ギミック130種を11カテゴリーに分類した実験カタログ
+- **GIMMICKS** (`/gimmicks/`) — Webでよく使う演出・ギミック141種を11カテゴリーに分類した実験カタログ
 - **FONTS** (`/fonts/`) — 書体50種のプレビューカタログ
 - **BUILDER** (`/builder/`) — 上記のレイアウト・ギミック・フォントを組み合わせて、実際に動くサンプルを作り、別の開発者/AIへ引き継げる「BLUEPRINT」として書き出す実験室
 
@@ -32,8 +32,8 @@ scripts/dev_server.py                  — キャッシュを無効化するロ�
 ## GIMMICKS カタログ構成
 `/gimmicks/` は OriginKit (https://www.originkit.dev/) 等の高品質モーションUIライブラリから
 着想を得つつ、コード・コンポーネント名・説明文・見た目は一切流用せず独自実装したギミック集です。
-120種の旧カタログ（#08と#09は1デモに統合のため実質119エントリ）に、新規11種を追加した
-計130種を、11カテゴリーに再編しています。
+120種の旧カタログ（#08と#09は1デモに統合のため実質119エントリ）に、新規22種を追加した
+計141種を、11カテゴリーに再編しています。
 
 **カテゴリー一覧**（`gimmicks/js/data/catalog.js` の `GIMMICK_CATEGORIES` が正）:
 
@@ -90,7 +90,7 @@ scripts/dev_server.py                  — キャッシュを無効化するロ�
   blur-reveal, clip-path-wipe, fade-in, soft-zoom, slow-parallax, magnetic-hover,
   underline-slide, fill-slide, scale-hover, noise-overlay, animated-gradient)
   — いずれも `/gimmicks/js/main.js` の既存実装から移植。
-  残り116種類（130種 − ライブ14種）は「GIMMICK カタログ指定」機能でオブジェクトごとに
+  残り127種類（141種 − ライブ14種）は「GIMMICK カタログ指定」機能でオブジェクトごとに
   表示コード指定でき（`builder/js/data/gimmick-catalog.js` が `/gimmicks/js/data/catalog.js` を
   そのまま参照する単一ソース構成）、EXPORT BLUEPRINTの引き継ぎ資料に開発担当への指示として記載される
 - プリセット: 10種類

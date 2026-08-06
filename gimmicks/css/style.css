@@ -1441,6 +1441,108 @@ code{font-family:var(--ff-mono);background:var(--line);padding:2px 6px;border-ra
   will-change:transform;
 }
 
+/* ---- new gimmick T15 — STICKER POP TEXT ---- */
+.spt-heading{
+  display:inline-block;font-family:var(--ff-jp);font-weight:900;font-size:clamp(24px,4vw,40px);
+  text-shadow:0 0 var(--accent);transform:translate(0,0);
+  transition:text-shadow .5s var(--ease),transform .5s var(--ease);
+}
+.spt-heading.pop{text-shadow:6px 6px 0 var(--accent);transform:translate(-3px,-3px);}
+
+/* ---- new gimmick I15 — PARALLAX TILT IMAGE ---- */
+.pti-box{
+  position:relative;border-radius:14px;overflow:hidden;aspect-ratio:16/10;
+  transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
+  transition:transform .3s var(--ease);transform-style:preserve-3d;
+}
+.pti-img{width:100%;height:100%;object-fit:cover;display:block;}
+.pti-glare{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.35),transparent 45%);
+}
+
+/* ---- new gimmick G14 — MASONRY HOVER SPREAD ---- */
+.mhs-row{display:flex;gap:6px;height:200px;}
+.mhs-item{flex:1;background-size:cover;background-position:center;border-radius:8px;transition:flex .5s var(--ease);}
+@media (max-width:760px){ .mhs-row{height:140px;} }
+
+/* ---- new gimmick C11 — CARD STACK PEEK ---- */
+.csp-stack{position:relative;height:180px;max-width:260px;cursor:pointer;}
+.csp-card{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  border-radius:12px;border:1px solid var(--line);background:var(--card);
+  font-family:var(--ff-mono);font-size:13px;letter-spacing:.06em;color:var(--ink-dim);
+  transition:transform .4s var(--ease);box-shadow:var(--shadow);
+}
+.csp-card-2{transform:translate(10px,10px);}
+.csp-card-3{transform:translate(20px,20px);}
+.csp-card-1{color:var(--ink);}
+.csp-stack.open .csp-card-1{transform:translate(-40px,-16px) rotate(-6deg);}
+.csp-stack.open .csp-card-2{transform:translate(-14px,-4px) rotate(-2deg);}
+
+/* ---- new gimmick S16 — SCROLL PIN LABEL ---- */
+.spl-box{position:relative;height:220px;border-radius:12px;border:1px solid var(--line);overflow:hidden;}
+.spl-label{
+  position:sticky;top:0;z-index:2;padding:14px 18px;background:var(--bg-soft);
+  border-bottom:1px solid var(--line);font-family:var(--ff-mono);font-size:12px;letter-spacing:.06em;
+}
+.spl-items{height:520px;overflow-y:auto;}
+.spl-item{height:130px;display:flex;align-items:center;padding:0 18px;border-bottom:1px solid var(--line);font-family:var(--ff-jp);color:var(--ink-dim);}
+
+/* ---- new gimmick U19 — CURSOR TRAIL RIBBON ---- */
+.trb-box{position:relative;height:220px;border-radius:12px;background:var(--bg-soft);border:1px solid var(--line);overflow:hidden;}
+.trb-box canvas{position:absolute;inset:0;width:100%;height:100%;}
+.trb-hint{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--ff-mono);font-size:11px;letter-spacing:.08em;color:var(--ink-dim);pointer-events:none;}
+
+/* ---- new gimmick B13 — NOISE GRAIN DRIFT ---- */
+.ngd-box{
+  height:200px;border-radius:12px;background-color:var(--bg-soft);background-size:96px 96px;
+  opacity:.85;animation:noiseDrift 12s linear infinite;
+}
+@keyframes noiseDrift{ from{background-position:0 0;} to{background-position:960px 480px;} }
+
+/* ---- new gimmick A09 — SPLIT FILL BUTTON ---- */
+.sfb-btn{
+  position:relative;overflow:hidden;padding:16px 30px;border:1px solid var(--ink);border-radius:4px;
+  font-family:var(--ff-mono);font-size:13px;letter-spacing:.08em;
+}
+.sfb-fill{
+  position:absolute;inset:0;background:var(--accent);
+  clip-path:polygon(100% 100%,100% 100%,100% 100%);
+  transition:clip-path .45s var(--ease);
+}
+.sfb-btn:hover .sfb-fill{clip-path:polygon(0 100%,100% 0,100% 100%);}
+.sfb-label{position:relative;mix-blend-mode:difference;color:#fff;}
+
+/* ---- new gimmick N11 — UNDERLINE FOLLOW NAV ---- */
+.ufn-nav{position:relative;display:flex;gap:24px;font-family:var(--ff-mono);font-size:13px;letter-spacing:.06em;padding-bottom:10px;}
+.ufn-link{color:var(--ink-dim);transition:color .3s;}
+.ufn-link:hover,.ufn-link.active{color:var(--ink);}
+.ufn-indicator{position:absolute;bottom:0;left:0;height:2px;width:0;background:var(--accent);transition:left .35s var(--ease),width .35s var(--ease);}
+
+/* ---- new gimmick R09 — SHUTTER SLICE TRANSITION ---- */
+.sst-box{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:16/10;}
+.sst-box img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.sst-slices{position:absolute;inset:0;display:flex;}
+.sst-slices span{flex:1;background:var(--bg);transition:transform .5s var(--ease);}
+.sst-slices.open span.sst-up{transform:translateY(-100%);}
+.sst-slices.open span.sst-down{transform:translateY(100%);}
+.sst-trigger{
+  position:absolute;left:50%;bottom:20px;transform:translateX(-50%);z-index:2;
+  font-family:var(--ff-mono);font-size:11px;letter-spacing:.08em;color:#fff;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(6px);padding:10px 20px;border-radius:999px;
+}
+
+/* ---- new gimmick P09 — SPRING DRAG CARD ---- */
+.sdc-box{height:200px;display:flex;align-items:center;justify-content:center;}
+.sdc-card{
+  width:140px;height:140px;border-radius:16px;background:var(--accent);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--ff-mono);font-size:12px;letter-spacing:.08em;cursor:grab;
+  touch-action:none;user-select:none;box-shadow:var(--shadow);
+}
+.sdc-card:active{cursor:grabbing;}
+
 @media (prefers-reduced-motion: reduce){
   *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
 }

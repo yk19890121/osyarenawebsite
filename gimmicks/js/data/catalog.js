@@ -57,6 +57,10 @@ window.GIMMICK_CATALOG = [
     description: "見出しテキストにグラデーションのハイライトが左から右へ一度だけ流れ、注目を集めながらも静かな印象を保つ。",
     mood: ["premium", "clean", "modern"], impact: "medium",
     parameters: { duration: { type: "number", default: 1.4, min: 0.6, max: 3 }, width: { type: "number", default: 35, min: 10, max: 80 }, angle: { type: "number", default: 20, min: -45, max: 45 } } },
+  { isNew: true, category: "text", name: "STICKER POP TEXT", nameJa: "ステッカーポップ文字", shortDescription: "画面に入ると、見出しに硬いオフセット影がポンと飛び出す", motionLevel: "low", performanceCost: "low", mobileSupport: true,
+    description: "通常はフラットな見出しが、スクロールで画面に入ると硬いオフセットシャドウがついてステッカーのように飛び出す。ポップな印象を一瞬で与える。",
+    mood: ["playful", "bold", "modern"], impact: "medium",
+    parameters: { offset: { type: "number", default: 6, min: 2, max: 14 }, duration: { type: "number", default: 0.5, min: 0.2, max: 1.2 } } },
 
   // ---------------- IMAGE ----------------
   { legacyNumber: "11", category: "image", name: "BEFORE / AFTER SLIDER", nameJa: "ビフォーアフタースライダー", shortDescription: "境界線をドラッグして2枚の写真を比較する", motionLevel: "low", performanceCost: "low", mobileSupport: true },
@@ -76,6 +80,10 @@ window.GIMMICK_CATALOG = [
     description: "通常時はブランドカラーの2色調で表示し、ホバー（タッチ端末はタップ）すると滑らかにフルカラー写真へ切り替わる。一覧性と高級感を両立する。",
     mood: ["premium", "editorial", "minimal"], impact: "medium",
     parameters: { duration: { type: "number", default: 0.6, min: 0.2, max: 1.5 }, colorA: { type: "color", default: "#1c1a17" }, colorB: { type: "color", default: "#ff7847" } } },
+  { isNew: true, category: "image", name: "PARALLAX TILT IMAGE", nameJa: "パララックスチルト画像", shortDescription: "カーソルに合わせて画像がわずかに傾き、ガラスのような光沢が動く", motionLevel: "medium", performanceCost: "low", mobileSupport: false,
+    description: "画像単体にカーソル追従の3D傾きを付け、表面を横切るハイライト（グレア）が連動して動く。単体画像を主役にしたいキービジュアル向け。",
+    mood: ["premium", "technology", "clean"], impact: "medium",
+    parameters: { maxTilt: { type: "number", default: 10, min: 2, max: 25 } } },
 
   // ---------------- GALLERY ----------------
   { legacyNumber: "10", category: "gallery", name: "DRAG-SCROLL GALLERY", nameJa: "ドラッグスクロールギャラリー", shortDescription: "掴んで引っ張る横スクロールギャラリー", motionLevel: "low", performanceCost: "low", mobileSupport: true },
@@ -94,6 +102,10 @@ window.GIMMICK_CATALOG = [
     description: "雑誌のようなベント―ボックス配置（大小混在のグリッド）で作品を並べ、スクロールで画面に入るごとに升目単位でフェード＋わずかな拡大で現れる。",
     mood: ["editorial", "modern", "bold"], impact: "medium",
     parameters: { stagger: { type: "number", default: 0.08, min: 0, max: 0.3 }, distance: { type: "number", default: 24, min: 0, max: 80 } } },
+  { isNew: true, category: "gallery", name: "MASONRY HOVER SPREAD", nameJa: "メイソンリーホバースプレッド", shortDescription: "ホバーした画像だけが横に広がり、隣が押しやられる", motionLevel: "medium", performanceCost: "low", mobileSupport: false,
+    description: "横並びの画像列で、カーソルを乗せた1枚だけが幅を広げて主役になり、両隣は押しやられるように縮む。一覧性と一点集中を両立するギャラリー演出。",
+    mood: ["editorial", "modern", "bold"], impact: "medium",
+    parameters: { growFlex: { type: "number", default: 3, min: 1.5, max: 5 }, duration: { type: "number", default: 0.5, min: 0.2, max: 1 } } },
 
   // ---------------- CARD ----------------
   { legacyNumber: "g8g9", category: "card", name: "3D TILT CARD / SHINE SWEEP", nameJa: "3Dチルト＆シャインスイープ", shortDescription: "マウス位置でカードが傾き、光が一度だけ走る", motionLevel: "medium", performanceCost: "low", mobileSupport: false },
@@ -109,6 +121,10 @@ window.GIMMICK_CATALOG = [
     description: "カード内でカーソルを動かすと、その位置に応じてカードの外周（ボーダー）だけが柔らかく発光する。中身の写真やテキストを邪魔しない控えめな存在感の演出。",
     mood: ["premium", "technology", "clean"], impact: "low",
     parameters: { radius: { type: "number", default: 160, min: 60, max: 320 }, intensity: { type: "number", default: 0.6, min: 0.1, max: 1 } } },
+  { isNew: true, category: "card", name: "CARD STACK PEEK", nameJa: "カードスタックピーク", shortDescription: "重なったカードにホバーすると、一番上がずれて下のカードが覗く", motionLevel: "low", performanceCost: "low", mobileSupport: true,
+    description: "少しずつずらして重ねたカードの束。ホバー（タップ）すると一番上のカードが斜めにずれて、下に隠れていたカードが覗く。関連コンテンツの束を仄めかす演出。",
+    mood: ["editorial", "playful", "minimal"], impact: "low",
+    parameters: { peekAngle: { type: "number", default: 6, min: 2, max: 14 } } },
 
   // ---------------- SCROLL ----------------
   { legacyNumber: "01", category: "scroll", name: "SCROLL PROGRESS BAR", nameJa: "スクロールプログレスバー", shortDescription: "ページ全体に対する現在位置を上部バーで可視化する", motionLevel: "low", performanceCost: "low", mobileSupport: true },
@@ -129,6 +145,10 @@ window.GIMMICK_CATALOG = [
     description: "既存のCOUNT-UP NUMBERは一度だけ0から目標値へカウントするのに対し、こちらはスクロール位置に直接スクラブ連動し、上下スクロールで数字が増減する。実績数値や統計セクション向け。",
     mood: ["modern", "technology", "corporate"], impact: "low",
     parameters: { target: { type: "number", default: 100, min: 1, max: 100000 }, decimals: { type: "number", default: 0, min: 0, max: 2 } } },
+  { isNew: true, category: "scroll", name: "SCROLL PIN LABEL", nameJa: "スクロールピンラベル", shortDescription: "枠内をスクロールすると、いま見ている項目名がラベルに表示され続ける", motionLevel: "low", performanceCost: "low", mobileSupport: true,
+    description: "縦スクロールの枠内で、現在ビューポート内にある項目の名前を上部のラベルが常に表示し続ける。長いリストの現在地表示に使える。",
+    mood: ["modern", "corporate", "clean"], impact: "low",
+    parameters: {} },
 
   // ---------------- CURSOR ----------------
   { legacyNumber: "06", category: "cursor", name: "SPOTLIGHT CURSOR", nameJa: "スポットライトカーソル", shortDescription: "カーソルの光で暗闇を照らす", motionLevel: "low", performanceCost: "low", mobileSupport: false },
@@ -152,6 +172,10 @@ window.GIMMICK_CATALOG = [
     description: "カーソル移動中、数個の小さなドットが少し遅れて追従しながら、カーソルを中心に緩やかに公転する。停止中は静かに漂う。",
     mood: ["playful", "futuristic", "clean"], impact: "low",
     parameters: { count: { type: "number", default: 4, min: 2, max: 10 }, radius: { type: "number", default: 22, min: 10, max: 60 }, speed: { type: "number", default: 1, min: 0.3, max: 3 } } },
+  { isNew: true, category: "cursor", name: "CURSOR TRAIL RIBBON", nameJa: "カーソルトレイルリボン", shortDescription: "カーソルの軌跡が滑らかなリボン状の帯として尾を引く", motionLevel: "medium", performanceCost: "medium", mobileSupport: false,
+    description: "直近のカーソル位置を曲線でつなぎ、幅が先端に向かって細くなるリボン状の軌跡をcanvasで描く。ロープ状の#52とは異なり、絹のような滑らかな帯として表現する。",
+    mood: ["premium", "cinematic", "futuristic"], impact: "medium",
+    parameters: { trailLength: { type: "number", default: 18, min: 6, max: 40 } } },
 
   // ---------------- BACKGROUND ----------------
   { legacyNumber: "26", category: "background", name: "PARTICLE NETWORK", nameJa: "パーティクルネットワーク", shortDescription: "点が線で繋がって漂うcanvas演出", motionLevel: "medium", performanceCost: "high", mobileSupport: false },
@@ -169,6 +193,10 @@ window.GIMMICK_CATALOG = [
     description: "CSSのグラデーション＋ブラーだけで実装した、オーロラのような淡い光の帯が緩やかに漂う背景演出。canvasを使わないため軽量で、`prefers-reduced-motion`環境では静止状態になる。",
     mood: ["premium", "cinematic", "organic"], impact: "low",
     parameters: { speed: { type: "number", default: 18, min: 8, max: 40 }, hue: { type: "number", default: 220, min: 0, max: 360 } } },
+  { isNew: true, category: "background", name: "NOISE GRAIN DRIFT", nameJa: "ノイズグレインドリフト", shortDescription: "細かい粒状ノイズがゆっくり流れ続けるフィルム質感の背景", motionLevel: "low", performanceCost: "low", mobileSupport: true,
+    description: "canvasで生成した細かい粒状ノイズのタイル画像を、CSSのbackground-positionでゆっくり流し続ける。静止画のGRAIN OVERLAY(#48)と異なり、常時わずかに動き続ける背景専用の演出。",
+    mood: ["cinematic", "organic", "minimal"], impact: "low",
+    parameters: { opacity: { type: "number", default: 0.12, min: 0.02, max: 0.3 }, speed: { type: "number", default: 12, min: 4, max: 30 } } },
 
   // ---------------- BUTTON ----------------
   { legacyNumber: "14", category: "button", name: "SVG UNDERLINE DRAW", nameJa: "SVGアンダーライン描画", shortDescription: "ホバーで下線が手描きのように伸びる", motionLevel: "low", performanceCost: "low", mobileSupport: true },
@@ -182,6 +210,10 @@ window.GIMMICK_CATALOG = [
     description: "通常時は枠線なしのテキストボタン。ホバー（タッチはフォーカス）すると、四辺の枠線がSVGのstroke-dashoffsetで一筆書きのように描かれる。",
     mood: ["minimal", "clean", "premium"], impact: "low",
     parameters: { duration: { type: "number", default: 0.5, min: 0.2, max: 1.2 }, thickness: { type: "number", default: 1, min: 1, max: 3 } } },
+  { isNew: true, category: "button", name: "SPLIT FILL BUTTON", nameJa: "スプリットフィルボタン", shortDescription: "ホバーで斜めに切れた塗りが右下から広がって埋まる", motionLevel: "low", performanceCost: "low", mobileSupport: true,
+    description: "ホバーすると、右下の角から斜めにカットされた塗りがボタン全体へ広がる。文字はmix-blend-modeで自動的に反転し、塗りとの境界でも読みやすさを保つ。",
+    mood: ["bold", "modern", "premium"], impact: "medium",
+    parameters: { duration: { type: "number", default: 0.45, min: 0.2, max: 1 }, angle: { type: "number", default: 30, min: 0, max: 60 } } },
 
   // ---------------- NAVIGATION ----------------
   { legacyNumber: "02", category: "navigation", name: "SIDE DOT NAVIGATION", nameJa: "サイドドットナビゲーション", shortDescription: "現在地がひと目でわかるドット、クリックでジャンプ", motionLevel: "low", performanceCost: "low", mobileSupport: false },
@@ -197,6 +229,10 @@ window.GIMMICK_CATALOG = [
     description: "メニュー項目のラベルを同じテキストで上下2段用意し、ホバー時に上段が上へ抜け、下段が下から上がって重なる。控えめだが確実に伝わるホバーフィードバック。",
     mood: ["modern", "corporate", "clean"], impact: "low",
     parameters: { duration: { type: "number", default: 0.4, min: 0.15, max: 1 } } },
+  { isNew: true, category: "navigation", name: "UNDERLINE FOLLOW NAV", nameJa: "アンダーライン追従ナビ", shortDescription: "ホバーした項目の下へ、共有の下線インジケーターが滑らかに移動する", motionLevel: "low", performanceCost: "low", mobileSupport: false,
+    description: "ナビ全体で1本の下線インジケーターを共有し、どの項目にホバーしてもその項目の幅・位置へ滑らかにスライドする。個別下線の点滅よりも連続性のある高級感を演出。",
+    mood: ["premium", "clean", "corporate"], impact: "low",
+    parameters: { duration: { type: "number", default: 0.35, min: 0.15, max: 0.8 } } },
 
   // ---------------- TRANSITION ----------------
   { legacyNumber: "23", category: "transition", name: "SKELETON LOADING", nameJa: "スケルトンローディング", shortDescription: "読み込み中はシマーでプレースホルダー表示する", motionLevel: "low", performanceCost: "low", mobileSupport: true },
@@ -210,6 +246,10 @@ window.GIMMICK_CATALOG = [
     description: "clip-pathのcircle()を使い、クリック位置を中心に円形の絞り（アイリス）が広がって遷移する。既存のクリップワイプ（直線）とは異なる、カメラの絞りのような演出。",
     mood: ["cinematic", "bold", "modern"], impact: "high",
     parameters: { duration: { type: "number", default: 0.9, min: 0.4, max: 2 } } },
+  { isNew: true, category: "transition", name: "SHUTTER SLICE TRANSITION", nameJa: "シャッタースライス遷移", shortDescription: "縦のスライスが交互に上下へ開き、シャッターのように次の状態を見せる", motionLevel: "medium", performanceCost: "low", mobileSupport: true,
+    description: "画像の上に等間隔の縦スライスを重ね、クリックすると各スライスが交互に上下方向へずれてスタガード表示で開く。単一カーテンのワイプ(#42)より視覚的な密度が高い遷移。",
+    mood: ["bold", "cinematic", "modern"], impact: "high",
+    parameters: { slices: { type: "number", default: 6, min: 4, max: 10 }, stagger: { type: "number", default: 0.05, min: 0, max: 0.15 } } },
 
   // ---------------- PHYSICS ----------------
   { legacyNumber: "54", category: "physics", name: "GRAVITY DROP TEXT", nameJa: "グラビティドロップテキスト", shortDescription: "文字が重力で落ちて弾む", motionLevel: "high", performanceCost: "low", mobileSupport: true },
@@ -223,6 +263,10 @@ window.GIMMICK_CATALOG = [
     description: "既存のMAGNETIC BUTTONSが単体ボタンの吸着なのに対し、こちらは複数ボタンが並ぶグループ全体がひとつの磁場のように反応し、カーソルに近いものほど強く、遠いものほど弱く引き寄せられる。",
     mood: ["playful", "futuristic", "bold"], impact: "medium",
     parameters: { intensity: { type: "number", default: 0.3, min: 0.05, max: 0.6 }, radius: { type: "number", default: 220, min: 80, max: 400 } } },
+  { isNew: true, category: "physics", name: "SPRING DRAG CARD", nameJa: "スプリングドラッグカード", shortDescription: "自由にドラッグでき、離すとバネのように弾んで元の位置へ戻る", motionLevel: "high", performanceCost: "low", mobileSupport: true,
+    description: "カードを好きな方向にドラッグでき、指を離すとオーバーシュートを伴うバネの動きで元の位置に戻る。GSAP Draggable + elasticイージングで実装。",
+    mood: ["playful", "bold", "futuristic"], impact: "medium",
+    parameters: { elasticity: { type: "number", default: 0.4, min: 0.1, max: 0.8 }, duration: { type: "number", default: 1, min: 0.4, max: 2 } } },
 ];
 
 /* Derive displayCode + stable internal id for every entry, in array order

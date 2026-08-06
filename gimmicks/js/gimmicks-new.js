@@ -258,5 +258,256 @@
     },
   };
 
+  /* ---------------- T — STICKER POP TEXT ---------------- */
+  NEW_GIMMICKS["STICKER POP TEXT"] = {
+    render: () => demoShell("n-sticker-pop", "STICKER POP TEXT",
+      "見出しにステッカーのような影がポンと飛び出す",
+      "画面に入ると、フラットだった見出しに硬いオフセット影がついて飛び出します。",
+      `<h4 class="spt-heading">MADE TO STAND OUT.</h4>`),
+    init(articleEl) {
+      const heading = articleEl.querySelector(".spt-heading");
+      if (!heading) return;
+      if (REDUCED) { heading.classList.add("pop"); return; }
+      new IntersectionObserver((entries, obs) => {
+        entries.forEach((e) => { if (e.isIntersecting) { heading.classList.add("pop"); obs.disconnect(); } });
+      }, { threshold: 0.6 }).observe(heading);
+    },
+  };
+
+  /* ---------------- I — PARALLAX TILT IMAGE ---------------- */
+  NEW_GIMMICKS["PARALLAX TILT IMAGE"] = {
+    render: () => demoShell("n-tilt-image", "PARALLAX TILT IMAGE",
+      "カーソルに合わせて画像が傾き、光沢が動く",
+      "下の画像にカーソルを乗せて動かしてみてください。わずかに傾き、ガラスのような光沢が追従します。",
+      `<div class="pti-box" id="n-pti-box">
+        <img class="pti-img" src="../assets/img/look-07-0.webp" alt="">
+        <div class="pti-glare"></div>
+      </div>`),
+    init(articleEl) {
+      const box = articleEl.querySelector("#n-pti-box");
+      if (!box || !FINE_POINTER) return;
+      box.style.perspective = "800px";
+      box.addEventListener("mousemove", (e) => {
+        const r = box.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+        box.style.setProperty("--rx", ((0.5 - py) * 10).toFixed(2) + "deg");
+        box.style.setProperty("--ry", ((px - 0.5) * 10).toFixed(2) + "deg");
+        box.style.setProperty("--mx", (px * 100) + "%");
+        box.style.setProperty("--my", (py * 100) + "%");
+      });
+      box.addEventListener("mouseleave", () => {
+        box.style.setProperty("--rx", "0deg");
+        box.style.setProperty("--ry", "0deg");
+      });
+    },
+  };
+
+  /* ---------------- G — MASONRY HOVER SPREAD ---------------- */
+  NEW_GIMMICKS["MASONRY HOVER SPREAD"] = {
+    render: () => {
+      const looks = ["look-03-0", "look-08-1", "look-11-0", "look-15-2", "look-17-0"];
+      const items = looks.map((l) => `<div class="mhs-item" style="background-image:url(../assets/img/${l}-thumb.webp)"></div>`).join("");
+      return demoShell("n-masonry-spread", "MASONRY HOVER SPREAD",
+        "ホバーした画像だけが広がる横並びギャラリー",
+        "下の画像のどれかにカーソルを乗せてみてください。その1枚だけが広がり、両隣が押しやられます。",
+        `<div class="mhs-row" id="n-mhs-row">${items}</div>`);
+    },
+    init(articleEl) {
+      const row = articleEl.querySelector("#n-mhs-row");
+      const items = [...articleEl.querySelectorAll(".mhs-item")];
+      if (!row || !FINE_POINTER) return;
+      items.forEach((el) => {
+        el.addEventListener("mouseenter", () => {
+          items.forEach((other) => (other.style.flex = other === el ? "3" : "0.6"));
+        });
+      });
+      row.addEventListener("mouseleave", () => items.forEach((el) => (el.style.flex = "1")));
+    },
+  };
+
+  /* ---------------- C — CARD STACK PEEK ---------------- */
+  NEW_GIMMICKS["CARD STACK PEEK"] = {
+    render: () => demoShell("n-card-stack", "CARD STACK PEEK",
+      "重なったカードをホバーでずらして下を覗く",
+      "カードの束にカーソルを乗せる（タッチはタップ）と、一番上がずれて下のカードが覗きます。",
+      `<div class="csp-stack" id="n-csp-stack">
+        <div class="csp-card csp-card-3">LOOK 03</div>
+        <div class="csp-card csp-card-2">LOOK 02</div>
+        <div class="csp-card csp-card-1">LOOK 01</div>
+      </div>`),
+    init(articleEl) {
+      const stack = articleEl.querySelector("#n-csp-stack");
+      if (!stack) return;
+      stack.addEventListener("click", () => stack.classList.toggle("open"));
+    },
+  };
+
+  /* ---------------- S — SCROLL PIN LABEL ---------------- */
+  NEW_GIMMICKS["SCROLL PIN LABEL"] = {
+    render: () => {
+      const names = ["LOOK 01 — OUTERWEAR", "LOOK 02 — KNITWEAR", "LOOK 03 — DENIM", "LOOK 04 — ACCESSORIES"];
+      const items = names.map((n) => `<div class="spl-item" data-name="${n}"><span>${n}</span></div>`).join("");
+      return demoShell("n-scroll-pin-label", "SCROLL PIN LABEL",
+        "スクロール中の項目名がラベルに表示され続ける",
+        "下の枠内をスクロールしてください。上のラベルが、いま見えている項目の名前に切り替わります。",
+        `<div class="spl-box" id="n-spl-box">
+          <div class="spl-label" id="n-spl-label">${names[0]}</div>
+          <div class="spl-items">${items}</div>
+        </div>`);
+    },
+    init(articleEl) {
+      const box = articleEl.querySelector("#n-spl-box");
+      const label = articleEl.querySelector("#n-spl-label");
+      const items = [...articleEl.querySelectorAll(".spl-item")];
+      if (!box || !label || !items.length) return;
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting && e.intersectionRatio > 0.5) label.textContent = e.target.dataset.name; });
+      }, { root: box, threshold: [0.5] });
+      items.forEach((el) => io.observe(el));
+    },
+  };
+
+  /* ---------------- U — CURSOR TRAIL RIBBON ---------------- */
+  NEW_GIMMICKS["CURSOR TRAIL RIBBON"] = {
+    render: () => demoShell("n-trail-ribbon", "CURSOR TRAIL RIBBON",
+      "カーソルの軌跡が絹のようなリボンになって尾を引く",
+      "下の枠にマウスを入れて動かしてみてください。軌跡が滑らかなリボン状の帯として残ります。",
+      `<div class="trb-box local-cursor" id="n-trb-box"><canvas id="n-trb-canvas"></canvas><p class="trb-hint">MOVE CURSOR HERE</p></div>`),
+    init(articleEl) {
+      const box = articleEl.querySelector("#n-trb-box");
+      const canvas = articleEl.querySelector("#n-trb-canvas");
+      if (!box || !canvas || !FINE_POINTER || REDUCED) return;
+      const ctx = canvas.getContext("2d");
+      let points = [];
+      function resize() { canvas.width = box.clientWidth; canvas.height = box.clientHeight; }
+      resize();
+      window.addEventListener("resize", resize);
+      box.addEventListener("mousemove", (e) => {
+        const r = box.getBoundingClientRect();
+        points.push({ x: e.clientX - r.left, y: e.clientY - r.top, t: performance.now() });
+        if (points.length > 18) points.shift();
+      });
+      function tick() {
+        const now = performance.now();
+        points = points.filter((p) => now - p.t < 500);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (points.length > 1) {
+          ctx.beginPath();
+          ctx.moveTo(points[0].x, points[0].y);
+          for (let i = 1; i < points.length; i++) ctx.lineTo(points[i].x, points[i].y);
+          ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue("--accent") || "#ff7847";
+          ctx.lineCap = "round";
+          ctx.lineJoin = "round";
+          ctx.lineWidth = 10;
+          ctx.globalAlpha = 0.55;
+          ctx.stroke();
+        }
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    },
+  };
+
+  /* ---------------- B — NOISE GRAIN DRIFT ---------------- */
+  NEW_GIMMICKS["NOISE GRAIN DRIFT"] = {
+    render: () => demoShell("n-noise-drift", "NOISE GRAIN DRIFT",
+      "細かい粒状ノイズがゆっくり流れ続ける",
+      "静止したノイズ模様ではなく、常にわずかに流れ続けるフィルム質感の背景です。",
+      `<div class="ngd-box" id="n-ngd-box"></div>`),
+    init(articleEl) {
+      const box = articleEl.querySelector("#n-ngd-box");
+      if (!box) return;
+      const tile = document.createElement("canvas");
+      tile.width = 96; tile.height = 96;
+      const tctx = tile.getContext("2d");
+      const imgData = tctx.createImageData(96, 96);
+      for (let i = 0; i < imgData.data.length; i += 4) {
+        const v = Math.random() * 255;
+        imgData.data[i] = imgData.data[i + 1] = imgData.data[i + 2] = v;
+        imgData.data[i + 3] = 255;
+      }
+      tctx.putImageData(imgData, 0, 0);
+      box.style.backgroundImage = `url(${tile.toDataURL()})`;
+    },
+  };
+
+  /* ---------------- A — SPLIT FILL BUTTON ---------------- */
+  NEW_GIMMICKS["SPLIT FILL BUTTON"] = {
+    render: () => demoShell("n-split-fill", "SPLIT FILL BUTTON",
+      "右下から斜めの塗りが広がって埋まる",
+      "下のボタンにホバーすると、右下の角から斜めに切れた塗りがボタン全体へ広がります。",
+      `<button type="button" class="sfb-btn"><span class="sfb-fill"></span><span class="sfb-label">GET STARTED</span></button>`),
+    init() {},
+  };
+
+  /* ---------------- N — UNDERLINE FOLLOW NAV ---------------- */
+  NEW_GIMMICKS["UNDERLINE FOLLOW NAV"] = {
+    render: () => {
+      const labels = ["HOME", "COLLECTION", "JOURNAL", "STORES"];
+      const items = labels.map((l, i) => `<a href="#" class="ufn-link${i === 0 ? " active" : ""}">${l}</a>`).join("");
+      return demoShell("n-underline-nav", "UNDERLINE FOLLOW NAV",
+        "共有の下線がホバーした項目へ滑らかに移動する",
+        "ナビ項目にホバーしてみてください。下線が個別にではなく、1本のインジケーターとして滑らかに移動します。",
+        `<nav class="ufn-nav" id="n-ufn-nav">${items}<span class="ufn-indicator" id="n-ufn-indicator"></span></nav>`);
+    },
+    init(articleEl) {
+      const nav = articleEl.querySelector("#n-ufn-nav");
+      const indicator = articleEl.querySelector("#n-ufn-indicator");
+      const links = [...articleEl.querySelectorAll(".ufn-link")];
+      if (!nav || !indicator || !links.length) return;
+      function moveTo(el) {
+        indicator.style.left = el.offsetLeft + "px";
+        indicator.style.width = el.offsetWidth + "px";
+      }
+      requestAnimationFrame(() => moveTo(links[0]));
+      links.forEach((link) => link.addEventListener("mouseenter", () => moveTo(link)));
+      nav.addEventListener("mouseleave", () => moveTo(nav.querySelector(".ufn-link.active") || links[0]));
+    },
+  };
+
+  /* ---------------- R — SHUTTER SLICE TRANSITION ---------------- */
+  NEW_GIMMICKS["SHUTTER SLICE TRANSITION"] = {
+    render: () => {
+      const slices = Array.from({ length: 6 }, () => `<span></span>`).join("");
+      return demoShell("n-shutter-slice", "SHUTTER SLICE TRANSITION",
+        "縦のスライスが交互に開いて次を見せる",
+        "下のボタンをクリックすると、縦のスライスが交互に上下へ開いて画像を切り替えます。",
+        `<div class="sst-box" id="n-sst-box">
+          <img src="../assets/img/look-16-0.webp" alt="">
+          <div class="sst-slices" id="n-sst-slices">${slices}</div>
+          <button type="button" class="sst-trigger">OPEN SHUTTER</button>
+        </div>`);
+    },
+    init(articleEl) {
+      const slicesEl = articleEl.querySelector("#n-sst-slices");
+      const btn = articleEl.querySelector(".sst-trigger");
+      if (!slicesEl || !btn) return;
+      const spans = [...slicesEl.children];
+      spans.forEach((s, i) => {
+        s.style.transitionDelay = (i * 0.05) + "s";
+        s.classList.add(i % 2 === 0 ? "sst-up" : "sst-down");
+      });
+      btn.addEventListener("click", () => slicesEl.classList.toggle("open"));
+    },
+  };
+
+  /* ---------------- P — SPRING DRAG CARD ---------------- */
+  NEW_GIMMICKS["SPRING DRAG CARD"] = {
+    render: () => demoShell("n-spring-drag", "SPRING DRAG CARD",
+      "ドラッグして離すとバネのように弾んで戻る",
+      "下のカードを好きな方向にドラッグして離してみてください。バネのように弾んで元の位置に戻ります。",
+      `<div class="sdc-box"><div class="sdc-card" id="n-sdc-card">DRAG ME</div></div>`),
+    init(articleEl) {
+      const card = articleEl.querySelector("#n-sdc-card");
+      if (!card || typeof Draggable === "undefined" || REDUCED) return;
+      Draggable.create(card, {
+        type: "x,y",
+        onDragEnd() {
+          gsap.to(this.target, { x: 0, y: 0, duration: 1, ease: "elastic.out(1, 0.4)" });
+        },
+      });
+    },
+  };
+
   window.NEW_GIMMICKS = NEW_GIMMICKS;
 })();
