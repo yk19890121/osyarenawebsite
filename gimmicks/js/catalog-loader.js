@@ -59,7 +59,7 @@
     let articleEl;
     if (entry.isNew) {
       const factory = window.NEW_GIMMICKS && window.NEW_GIMMICKS[entry.name];
-      if (!factory) return;
+      if (!factory) { console.error("[catalog] no NEW_GIMMICKS entry for", entry.name, "-- add one in gimmicks-new.js"); return; }
       const wrap = document.createElement("div");
       wrap.innerHTML = factory.render().trim();
       articleEl = wrap.firstElementChild;
@@ -67,7 +67,7 @@
       try { factory.init(articleEl); } catch (err) { console.error("[catalog] init failed:", entry.name, err); }
     } else {
       articleEl = document.getElementById(legacyDomId(entry.legacyNumber));
-      if (!articleEl) return;
+      if (!articleEl) { console.error("[catalog] no DOM element for legacy #" + entry.legacyNumber, entry.name); return; }
       section.appendChild(articleEl);
     }
     articleEl.dataset.gimmickCode = entry.displayCode;

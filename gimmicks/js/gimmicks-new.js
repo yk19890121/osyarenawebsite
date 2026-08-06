@@ -509,5 +509,362 @@
     },
   };
 
+  /* ---------------- T — WORD SWAP CYCLER ---------------- */
+  NEW_GIMMICKS["WORD SWAP CYCLER"] = {
+    render: () => demoShell("n-word-swap", "WORD SWAP CYCLER",
+      "文中の1単語だけが一定間隔で入れ替わる",
+      "見出しの一部分だけが数秒おきに別の単語へクロスフェードで切り替わり続けます。",
+      `<p class="wsc-line">WE MAKE <span class="wsc-cycler" id="n-wsc-cycler">CLOTHES</span></p>`),
+    init(articleEl) {
+      const el = articleEl.querySelector("#n-wsc-cycler");
+      if (!el || REDUCED) return;
+      const words = ["CLOTHES", "STORIES", "STATEMENTS", "ARCHIVES"];
+      let i = 0;
+      setInterval(() => {
+        el.classList.add("out");
+        setTimeout(() => {
+          i = (i + 1) % words.length;
+          el.textContent = words[i];
+          el.classList.remove("out");
+        }, 300);
+      }, 1800);
+    },
+  };
+
+  /* ---------------- T — HIGHLIGHT MARKER SWEEP ---------------- */
+  NEW_GIMMICKS["HIGHLIGHT MARKER SWEEP"] = {
+    render: () => demoShell("n-highlight-marker", "HIGHLIGHT MARKER SWEEP",
+      "蛍光マーカーで線を引くように背景色が伸びる",
+      "画面に入ると、蛍光マーカーで下線を引くように色帯が左から右へ伸びます。",
+      `<h4 class="hms-heading"><span class="hms-mark">DESIGNED TO LAST</span></h4>`),
+    init(articleEl) {
+      const mark = articleEl.querySelector(".hms-mark");
+      if (!mark) return;
+      if (REDUCED) { mark.classList.add("run"); return; }
+      new IntersectionObserver((entries, obs) => {
+        entries.forEach((e) => { if (e.isIntersecting) { mark.classList.add("run"); obs.disconnect(); } });
+      }, { threshold: 0.6 }).observe(mark);
+    },
+  };
+
+  /* ---------------- I — FOCUS BLUR REVEAL ---------------- */
+  NEW_GIMMICKS["FOCUS BLUR REVEAL"] = {
+    render: () => demoShell("n-focus-blur", "FOCUS BLUR REVEAL",
+      "ぼやけた画像がピントを合わせて現れる",
+      "画面に入ると、最初はぼやけていた画像が滑らかにピントを合わせて鮮明になります。",
+      `<div class="fbr-box"><img class="fbr-img" src="../assets/img/look-09-0.webp" alt=""></div>`),
+    init(articleEl) {
+      const img = articleEl.querySelector(".fbr-img");
+      if (!img) return;
+      if (REDUCED) { img.classList.add("in"); return; }
+      new IntersectionObserver((entries, obs) => {
+        entries.forEach((e) => { if (e.isIntersecting) { img.classList.add("in"); obs.disconnect(); } });
+      }, { threshold: 0.4 }).observe(img);
+    },
+  };
+
+  /* ---------------- I — COLOR WASH REVEAL ---------------- */
+  NEW_GIMMICKS["COLOR WASH REVEAL"] = {
+    render: () => demoShell("n-color-wash", "COLOR WASH REVEAL",
+      "単色の塗りが消えて写真が現れる",
+      "画面に入ると、画像を覆う単色の塗りが左から右へ消えていき、下の写真が現れます。",
+      `<div class="cwr-box"><img class="cwr-img" src="../assets/img/look-13-0.webp" alt=""><div class="cwr-wash"></div></div>`),
+    init(articleEl) {
+      const wash = articleEl.querySelector(".cwr-wash");
+      if (!wash) return;
+      if (REDUCED) { wash.classList.add("done"); return; }
+      new IntersectionObserver((entries, obs) => {
+        entries.forEach((e) => { if (e.isIntersecting) { setTimeout(() => wash.classList.add("done"), 200); obs.disconnect(); } });
+      }, { threshold: 0.4 }).observe(wash);
+    },
+  };
+
+  /* ---------------- G — INFINITE LOOP CAROUSEL ---------------- */
+  NEW_GIMMICKS["INFINITE LOOP CAROUSEL"] = {
+    render: () => {
+      const looks = ["look-01-0", "look-04-1", "look-07-0", "look-10-2", "look-14-1", "look-17-0"];
+      const set = looks.map((l) => `<img src="../assets/img/${l}-thumb.webp" alt="">`).join("");
+      return demoShell("n-infinite-carousel", "INFINITE LOOP CAROUSEL",
+        "画像列が途切れなく流れ続ける",
+        "画像列が継ぎ目なく横へ流れ続けます。ホバーすると流れが止まります。",
+        `<div class="ilc-viewport"><div class="ilc-track">${set}${set}</div></div>`);
+    },
+    init() {},
+  };
+
+  /* ---------------- G — GRID TO FULLSCREEN MORPH ---------------- */
+  NEW_GIMMICKS["GRID TO FULLSCREEN MORPH"] = {
+    render: () => {
+      const looks = ["look-02-1", "look-05-0", "look-08-2", "look-11-0"];
+      const items = looks.map((l, i) => `<img class="gfm-item" src="../assets/img/${l}-thumb.webp" alt="" data-i="${i}">`).join("");
+      return demoShell("n-grid-morph", "GRID TO FULLSCREEN MORPH",
+        "同じ要素のまま全画面へ拡大する",
+        "グリッドの画像をクリックすると、複製ではなく同じ要素のまま全画面へ拡大します。もう一度クリックで戻ります。",
+        `<div class="gfm-grid" id="n-gfm-grid">${items}</div><div class="gfm-overlay" id="n-gfm-overlay"></div>`);
+    },
+    init(articleEl) {
+      const grid = articleEl.querySelector("#n-gfm-grid");
+      const overlay = articleEl.querySelector("#n-gfm-overlay");
+      if (!grid || !overlay || typeof Flip === "undefined") return;
+      grid.querySelectorAll(".gfm-item").forEach((img) => {
+        img.addEventListener("click", () => {
+          if (img.classList.contains("is-full")) {
+            const state = Flip.getState(img);
+            grid.appendChild(img);
+            img.classList.remove("is-full");
+            overlay.classList.remove("open");
+            Flip.from(state, { duration: REDUCED ? 0 : 0.6, ease: "power3.inOut" });
+          } else {
+            const state = Flip.getState(img);
+            overlay.appendChild(img);
+            img.classList.add("is-full");
+            overlay.classList.add("open");
+            Flip.from(state, { duration: REDUCED ? 0 : 0.6, ease: "power3.inOut" });
+          }
+        });
+      });
+      overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) overlay.querySelector(".gfm-item.is-full")?.dispatchEvent(new Event("click"));
+      });
+    },
+  };
+
+  /* ---------------- C — PROGRESS RING CARD ---------------- */
+  NEW_GIMMICKS["PROGRESS RING CARD"] = {
+    render: () => demoShell("n-progress-ring", "PROGRESS RING CARD",
+      "円形プログレスリングが目標値まで伸びる",
+      "画面に入ると、カードを囲む円形のリングが0から72%まで伸びます。",
+      `<div class="prc-card">
+        <svg class="prc-ring" viewBox="0 0 100 100" aria-hidden="true">
+          <circle class="prc-track" cx="50" cy="50" r="45"></circle>
+          <circle class="prc-fill" id="n-prc-fill" cx="50" cy="50" r="45"></circle>
+        </svg>
+        <div class="prc-inner"><p>LIMITED STOCK</p><span>72%</span></div>
+      </div>`),
+    init(articleEl) {
+      const fill = articleEl.querySelector("#n-prc-fill");
+      if (!fill) return;
+      const circumference = 2 * Math.PI * 45;
+      fill.style.strokeDasharray = String(circumference);
+      fill.style.strokeDashoffset = String(circumference);
+      function run() { fill.style.strokeDashoffset = String(circumference * (1 - 0.72)); }
+      if (REDUCED) { run(); return; }
+      new IntersectionObserver((entries, obs) => {
+        entries.forEach((e) => { if (e.isIntersecting) { run(); obs.disconnect(); } });
+      }, { threshold: 0.4 }).observe(fill);
+    },
+  };
+
+  /* ---------------- C — CARD CONTENT SLIDE SWAP ---------------- */
+  NEW_GIMMICKS["CARD CONTENT SLIDE SWAP"] = {
+    render: () => demoShell("n-content-swap", "CARD CONTENT SLIDE SWAP",
+      "ホバーで内容が上下に入れ替わる",
+      "カードにホバーすると、表示中の内容が上へ抜け、別の内容が下から入れ替わりに現れます。",
+      `<div class="css-card">
+        <div class="css-face css-face-a"><p>SPRING 2026</p><span>VIEW COLLECTION →</span></div>
+        <div class="css-face css-face-b"><p>NEW ARRIVALS WEEKLY</p><span>SHOP NOW →</span></div>
+      </div>`),
+    init() {},
+  };
+
+  /* ---------------- S — SCROLL ROTATE REVEAL ---------------- */
+  NEW_GIMMICKS["SCROLL ROTATE REVEAL"] = {
+    render: () => demoShell("n-scroll-rotate", "SCROLL ROTATE REVEAL",
+      "寝た状態から起き上がるように現れる",
+      "見出しが手前に倒れた状態から、画面に入ると起き上がるように回転しながら現れます。",
+      `<div class="srr-wrap"><h4 class="srr-heading">TAILORED PRECISION</h4></div>`),
+    init(articleEl) {
+      const heading = articleEl.querySelector(".srr-heading");
+      if (!heading) return;
+      if (REDUCED) { heading.classList.add("in"); return; }
+      new IntersectionObserver((entries, obs) => {
+        entries.forEach((e) => { if (e.isIntersecting) { heading.classList.add("in"); obs.disconnect(); } });
+      }, { threshold: 0.5 }).observe(heading);
+    },
+  };
+
+  /* ---------------- S — SCROLL LINE DRAW PROGRESS ---------------- */
+  NEW_GIMMICKS["SCROLL LINE DRAW PROGRESS"] = {
+    render: () => demoShell("n-scroll-line-draw", "SCROLL LINE DRAW PROGRESS",
+      "スクロール量に応じて曲線が描かれる",
+      "このセクションをスクロールする量に応じて、下の曲線が少しずつ描かれていきます。",
+      `<div class="sld-box"><svg class="sld-svg" viewBox="0 0 300 80" aria-hidden="true"><path id="n-sld-path" d="M10,40 C80,10 120,70 150,40 S250,10 290,40" fill="none"></path></svg></div>`),
+    init(articleEl) {
+      const path = articleEl.querySelector("#n-sld-path");
+      const box = articleEl.querySelector(".sld-box");
+      if (!path || !box) return;
+      const len = path.getTotalLength();
+      path.style.strokeDasharray = String(len);
+      if (REDUCED) { path.style.strokeDashoffset = "0"; return; }
+      path.style.strokeDashoffset = String(len);
+      function update() {
+        const r = box.getBoundingClientRect();
+        const progress = Math.min(1, Math.max(0, (window.innerHeight - r.top) / (window.innerHeight + r.height)));
+        path.style.strokeDashoffset = String(len * (1 - progress));
+      }
+      window.addEventListener("scroll", update, { passive: true });
+      update();
+    },
+  };
+
+  /* ---------------- B — FLOATING SHAPES DRIFT ---------------- */
+  NEW_GIMMICKS["FLOATING SHAPES DRIFT"] = {
+    render: () => demoShell("n-floating-shapes", "FLOATING SHAPES DRIFT",
+      "輪郭図形がゆっくり漂う背景",
+      "円や三角形の輪郭図形が、それぞれ違う速さでゆっくり漂い回転し続けます。",
+      `<div class="fsd-box">
+        <span class="fsd-shape fsd-1"></span>
+        <span class="fsd-shape fsd-2 fsd-triangle"></span>
+        <span class="fsd-shape fsd-3"></span>
+        <span class="fsd-shape fsd-4 fsd-triangle"></span>
+      </div>`),
+    init() {},
+  };
+
+  /* ---------------- B — SPOTLIGHT SCROLL FOLLOW ---------------- */
+  NEW_GIMMICKS["SPOTLIGHT SCROLL FOLLOW"] = {
+    render: () => demoShell("n-spotlight-scroll", "SPOTLIGHT SCROLL FOLLOW",
+      "光の玉がスクロール位置に追従する",
+      "下の枠内をスクロールしてください。柔らかい光の玉がスクロール位置に合わせて縦方向に移動します。",
+      `<div class="ssf-box" id="n-ssf-box"><div class="ssf-spot" id="n-ssf-spot"></div><div class="ssf-track"></div></div>`),
+    init(articleEl) {
+      const box = articleEl.querySelector("#n-ssf-box");
+      const spot = articleEl.querySelector("#n-ssf-spot");
+      if (!box || !spot) return;
+      function update() {
+        const max = box.scrollHeight - box.clientHeight;
+        const progress = max > 0 ? box.scrollTop / max : 0;
+        spot.style.transform = `translateY(${progress * (box.clientHeight - 60)}px)`;
+      }
+      box.addEventListener("scroll", update, { passive: true });
+      update();
+    },
+  };
+
+  /* ---------------- U — CURSOR LABEL FOLLOW ---------------- */
+  NEW_GIMMICKS["CURSOR LABEL FOLLOW"] = {
+    render: () => demoShell("n-cursor-label", "CURSOR LABEL FOLLOW",
+      "エリア内でラベルがカーソルに追従する",
+      "下の枠にカーソルを乗せて動かしてみてください。「VIEW」というラベルがカーソルに追従します。",
+      `<div class="clf-box local-cursor" id="n-clf-box"><div class="clf-label" id="n-clf-label">VIEW</div><p>HOVER THIS AREA</p></div>`),
+    init(articleEl) {
+      const box = articleEl.querySelector("#n-clf-box");
+      const label = articleEl.querySelector("#n-clf-label");
+      if (!box || !label || !FINE_POINTER) return;
+      box.addEventListener("mousemove", (e) => {
+        const r = box.getBoundingClientRect();
+        label.style.left = (e.clientX - r.left) + "px";
+        label.style.top = (e.clientY - r.top) + "px";
+      });
+    },
+  };
+
+  /* ---------------- A — ICON SWAP BUTTON ---------------- */
+  NEW_GIMMICKS["ICON SWAP BUTTON"] = {
+    render: () => demoShell("n-icon-swap", "ICON SWAP BUTTON",
+      "ホバーでアイコンが回転しながら入れ替わる",
+      "ボタンにホバーすると、矢印アイコンが回転しながらチェックマークに入れ替わります。",
+      `<button type="button" class="isb-btn"><span class="isb-icons"><span class="isb-icon isb-icon-a">→</span><span class="isb-icon isb-icon-b">✓</span></span><span>ADD TO BAG</span></button>`),
+    init() {},
+  };
+
+  /* ---------------- A — PRESS DEPTH BUTTON ---------------- */
+  NEW_GIMMICKS["PRESS DEPTH BUTTON"] = {
+    render: () => demoShell("n-press-depth", "PRESS DEPTH BUTTON",
+      "押すと沈み込む物理ボタン",
+      "下のボタンを押している間、影が縮んでボタンが沈み込みます。",
+      `<button type="button" class="pdb-btn">PLACE ORDER</button>`),
+    init() {},
+  };
+
+  /* ---------------- N — MEGA MENU DROP REVEAL ---------------- */
+  NEW_GIMMICKS["MEGA MENU DROP REVEAL"] = {
+    render: () => demoShell("n-mega-menu", "MEGA MENU DROP REVEAL",
+      "ホバーでリンク一覧のパネルが下へ展開する",
+      "「SHOP」にホバーしてみてください。リンク一覧を含むパネルが下方向に展開します。",
+      `<div class="mmd-wrap">
+        <button type="button" class="mmd-trigger">SHOP ▾</button>
+        <div class="mmd-panel"><a href="#">Outerwear</a><a href="#">Knitwear</a><a href="#">Accessories</a><a href="#">Footwear</a></div>
+      </div>`),
+    init() {},
+  };
+
+  /* ---------------- N — BREADCRUMB TRAIL FADE ---------------- */
+  NEW_GIMMICKS["BREADCRUMB TRAIL FADE"] = {
+    render: () => demoShell("n-breadcrumb-fade", "BREADCRUMB TRAIL FADE",
+      "パンくずの各項目が順番に現れる",
+      "画面に入ると、パンくずリストの各項目が左から順番にフェード＋スライドインします。",
+      `<nav class="btf-crumbs" id="n-btf-crumbs"><a href="#">HOME</a><span>/</span><a href="#">WOMEN</a><span>/</span><a href="#">OUTERWEAR</a><span>/</span><span class="current">WOOL COAT</span></nav>`),
+    init(articleEl) {
+      const crumbs = articleEl.querySelector("#n-btf-crumbs");
+      if (!crumbs) return;
+      const parts = [...crumbs.children];
+      if (REDUCED) { parts.forEach((p) => p.classList.add("in")); return; }
+      parts.forEach((p, i) => (p.style.transitionDelay = (i * 0.08) + "s"));
+      new IntersectionObserver((entries, obs) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          parts.forEach((p) => p.classList.add("in"));
+          obs.disconnect();
+        });
+      }, { threshold: 0.6 }).observe(crumbs);
+    },
+  };
+
+  /* ---------------- R — CROSSFADE ZOOM TRANSITION ---------------- */
+  NEW_GIMMICKS["CROSSFADE ZOOM TRANSITION"] = {
+    render: () => demoShell("n-crossfade-zoom", "CROSSFADE ZOOM TRANSITION",
+      "次の状態がズームしながらクロスフェードする",
+      "下のボタンをクリックすると、次の画像がわずかに拡大した状態からクロスフェードで重なります。",
+      `<div class="czt-box" id="n-czt-box">
+        <img class="czt-a" src="../assets/img/look-06-0.webp" alt="">
+        <img class="czt-b" src="../assets/img/look-15-1.webp" alt="">
+        <button type="button" class="czt-trigger">NEXT LOOK</button>
+      </div>`),
+    init(articleEl) {
+      const b = articleEl.querySelector(".czt-b");
+      const btn = articleEl.querySelector(".czt-trigger");
+      if (!b || !btn) return;
+      btn.addEventListener("click", () => b.classList.toggle("show"));
+    },
+  };
+
+  /* ---------------- P — BOUNCY LIST REORDER ---------------- */
+  NEW_GIMMICKS["BOUNCY LIST REORDER"] = {
+    render: () => {
+      const names = ["LOOK 01", "LOOK 02", "LOOK 03", "LOOK 04"];
+      const items = names.map((n) => `<li class="blr-item">${n}</li>`).join("");
+      return demoShell("n-bouncy-reorder", "BOUNCY LIST REORDER",
+        "ドラッグすると他の項目がバネで席を譲る",
+        "項目をドラッグして別の位置へ動かしてみてください。押しのけられた項目がバネのように弾んで新しい位置へ移動します。",
+        `<ul class="blr-list" id="n-blr-list">${items}</ul>`);
+    },
+    init(articleEl) {
+      const list = articleEl.querySelector("#n-blr-list");
+      if (!list || typeof Draggable === "undefined" || REDUCED) return;
+      const ROW = 50;
+      let order = [...list.children];
+      order.forEach((el, i) => gsap.set(el, { y: i * ROW }));
+      order.forEach((el) => {
+        Draggable.create(el, {
+          type: "y",
+          bounds: { minY: 0, maxY: ROW * (order.length - 1) },
+          onDrag() {
+            const fromIndex = order.indexOf(el);
+            const toIndex = Math.min(order.length - 1, Math.max(0, Math.round(this.y / ROW)));
+            if (toIndex !== fromIndex) {
+              order.splice(fromIndex, 1);
+              order.splice(toIndex, 0, el);
+              order.forEach((item) => { if (item !== el) gsap.to(item, { y: order.indexOf(item) * ROW, duration: 0.4, ease: "elastic.out(1, 0.6)" }); });
+            }
+          },
+          onDragEnd() {
+            gsap.to(el, { y: order.indexOf(el) * ROW, duration: 0.5, ease: "elastic.out(1, 0.5)" });
+          },
+        });
+      });
+    },
+  };
+
   window.NEW_GIMMICKS = NEW_GIMMICKS;
 })();

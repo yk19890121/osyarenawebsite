@@ -61,6 +61,14 @@ window.GIMMICK_CATALOG = [
     description: "通常はフラットな見出しが、スクロールで画面に入ると硬いオフセットシャドウがついてステッカーのように飛び出す。ポップな印象を一瞬で与える。",
     mood: ["playful", "bold", "modern"], impact: "medium",
     parameters: { offset: { type: "number", default: 6, min: 2, max: 14 }, duration: { type: "number", default: 0.5, min: 0.2, max: 1.2 } } },
+  { isNew: true, category: "text", name: "WORD SWAP CYCLER", nameJa: "ワードスワップサイクラー", shortDescription: "文中の1単語だけが一定間隔で別の単語に入れ替わり続ける", motionLevel: "low", performanceCost: "low", mobileSupport: true,
+    description: "見出しの一部分だけが数秒おきにクロスフェードで別の単語に切り替わり続ける。ブランドの多面性を1行で伝える見出しに向く。",
+    mood: ["modern", "playful", "corporate"], impact: "low",
+    parameters: { interval: { type: "number", default: 1800, min: 800, max: 4000 } } },
+  { isNew: true, category: "text", name: "HIGHLIGHT MARKER SWEEP", nameJa: "ハイライトマーカースイープ", shortDescription: "画面に入ると、蛍光マーカーで線を引くように背景色が伸びる", motionLevel: "low", performanceCost: "low", mobileSupport: true,
+    description: "テキストの下から、蛍光マーカーで線を引くように色帯が左から右へ伸びる。見出しの中でも特に強調したい一部分に使う。",
+    mood: ["playful", "bold", "editorial"], impact: "medium",
+    parameters: { duration: { type: "number", default: 0.6, min: 0.3, max: 1.4 } } },
 
   // ---------------- IMAGE ----------------
   { legacyNumber: "11", category: "image", name: "BEFORE / AFTER SLIDER", nameJa: "ビフォーアフタースライダー", shortDescription: "境界線をドラッグして2枚の写真を比較する", motionLevel: "low", performanceCost: "low", mobileSupport: true },
@@ -84,6 +92,14 @@ window.GIMMICK_CATALOG = [
     description: "画像単体にカーソル追従の3D傾きを付け、表面を横切るハイライト（グレア）が連動して動く。単体画像を主役にしたいキービジュアル向け。",
     mood: ["premium", "technology", "clean"], impact: "medium",
     parameters: { maxTilt: { type: "number", default: 10, min: 2, max: 25 } } },
+  { isNew: true, category: "image", name: "FOCUS BLUR REVEAL", nameJa: "フォーカスブラーリベール", shortDescription: "ぼやけた画像が、画面に入ると滑らかにピントを合わせて現れる", motionLevel: "low", performanceCost: "low", mobileSupport: true,
+    description: "最初はカメラのピンボケのようにぼやけた画像が、スクロールで画面に入ると滑らかにフォーカスが合って鮮明になる。写真そのものの登場演出。",
+    mood: ["cinematic", "premium", "editorial"], impact: "medium",
+    parameters: { blur: { type: "number", default: 18, min: 6, max: 32 }, duration: { type: "number", default: 1, min: 0.4, max: 2 } } },
+  { isNew: true, category: "image", name: "COLOR WASH REVEAL", nameJa: "カラーウォッシュリベール", shortDescription: "単色の塗りが左から消えていき、下から写真が現れる", motionLevel: "low", performanceCost: "low", mobileSupport: true,
+    description: "画像の上に重なった単色の塗りが、画面に入ると左から右へ消えていき、下の写真を現す。カーテン状のクリップワイプとは異なり、面全体が均一な塗りとして消えていく。",
+    mood: ["bold", "editorial", "modern"], impact: "medium",
+    parameters: { color: { type: "color", default: "#ff7847" }, duration: { type: "number", default: 0.9, min: 0.4, max: 1.8 } } },
 
   // ---------------- GALLERY ----------------
   { legacyNumber: "10", category: "gallery", name: "DRAG-SCROLL GALLERY", nameJa: "ドラッグスクロールギャラリー", shortDescription: "掴んで引っ張る横スクロールギャラリー", motionLevel: "low", performanceCost: "low", mobileSupport: true },
@@ -106,6 +122,14 @@ window.GIMMICK_CATALOG = [
     description: "横並びの画像列で、カーソルを乗せた1枚だけが幅を広げて主役になり、両隣は押しやられるように縮む。一覧性と一点集中を両立するギャラリー演出。",
     mood: ["editorial", "modern", "bold"], impact: "medium",
     parameters: { growFlex: { type: "number", default: 3, min: 1.5, max: 5 }, duration: { type: "number", default: 0.5, min: 0.2, max: 1 } } },
+  { isNew: true, category: "gallery", name: "INFINITE LOOP CAROUSEL", nameJa: "インフィニットループカルーセル", shortDescription: "画像列が途切れなく横へ流れ続け、ホバーで止まる", motionLevel: "low", performanceCost: "low", mobileSupport: true,
+    description: "画像列を複製して繋げ、継ぎ目なく横へ流れ続けるループカルーセル。ホバーすると流れが止まり、個々の画像を見られる。",
+    mood: ["modern", "editorial", "clean"], impact: "low",
+    parameters: { speed: { type: "number", default: 22, min: 10, max: 45 } } },
+  { isNew: true, category: "gallery", name: "GRID TO FULLSCREEN MORPH", nameJa: "グリッド全画面モーフ", shortDescription: "グリッドの1枚をクリックすると同じ要素のまま全画面へ滑らかに拡大する", motionLevel: "medium", performanceCost: "low", mobileSupport: true,
+    description: "グリッド内の画像をクリックすると、複製ではなく同じDOM要素がそのまま全画面へFLIPアニメーションで拡大する。再クリックで元のグリッド位置へ滑らかに戻る。",
+    mood: ["premium", "modern", "bold"], impact: "high",
+    parameters: { duration: { type: "number", default: 0.6, min: 0.3, max: 1.2 } } },
 
   // ---------------- CARD ----------------
   { legacyNumber: "g8g9", category: "card", name: "3D TILT CARD / SHINE SWEEP", nameJa: "3Dチルト＆シャインスイープ", shortDescription: "マウス位置でカードが傾き、光が一度だけ走る", motionLevel: "medium", performanceCost: "low", mobileSupport: false },
@@ -125,6 +149,14 @@ window.GIMMICK_CATALOG = [
     description: "少しずつずらして重ねたカードの束。ホバー（タップ）すると一番上のカードが斜めにずれて、下に隠れていたカードが覗く。関連コンテンツの束を仄めかす演出。",
     mood: ["editorial", "playful", "minimal"], impact: "low",
     parameters: { peekAngle: { type: "number", default: 6, min: 2, max: 14 } } },
+  { isNew: true, category: "card", name: "PROGRESS RING CARD", nameJa: "プログレスリングカード", shortDescription: "カードの縁を囲む円形プログレスリングが、画面に入ると目標値まで伸びる", motionLevel: "low", performanceCost: "low", mobileSupport: true,
+    description: "カード内のSVG円形リングが、画面に入ると0から指定した割合までstroke-dashoffsetでアニメーションする。在庫状況や達成率の表示に向く。",
+    mood: ["modern", "technology", "corporate"], impact: "medium",
+    parameters: { value: { type: "number", default: 72, min: 0, max: 100 }, duration: { type: "number", default: 1.2, min: 0.5, max: 2.5 } } },
+  { isNew: true, category: "card", name: "CARD CONTENT SLIDE SWAP", nameJa: "カードコンテンツスライドスワップ", shortDescription: "ホバーで現在の内容が上へ抜け、次の内容が下から入れ替わる", motionLevel: "low", performanceCost: "low", mobileSupport: false,
+    description: "カードにホバーすると、表示中の内容が上へスライドして消え、別の内容が下から入れ替わりに現れる。1枚のカードで2つの訴求を伝える。",
+    mood: ["modern", "corporate", "clean"], impact: "low",
+    parameters: { duration: { type: "number", default: 0.5, min: 0.2, max: 1 } } },
 
   // ---------------- SCROLL ----------------
   { legacyNumber: "01", category: "scroll", name: "SCROLL PROGRESS BAR", nameJa: "スクロールプログレスバー", shortDescription: "ページ全体に対する現在位置を上部バーで可視化する", motionLevel: "low", performanceCost: "low", mobileSupport: true },
@@ -148,6 +180,14 @@ window.GIMMICK_CATALOG = [
   { isNew: true, category: "scroll", name: "SCROLL PIN LABEL", nameJa: "スクロールピンラベル", shortDescription: "枠内をスクロールすると、いま見ている項目名がラベルに表示され続ける", motionLevel: "low", performanceCost: "low", mobileSupport: true,
     description: "縦スクロールの枠内で、現在ビューポート内にある項目の名前を上部のラベルが常に表示し続ける。長いリストの現在地表示に使える。",
     mood: ["modern", "corporate", "clean"], impact: "low",
+    parameters: {} },
+  { isNew: true, category: "scroll", name: "SCROLL ROTATE REVEAL", nameJa: "スクロール回転リベール", shortDescription: "見出しが寝た状態から起き上がるように回転しながら現れる", motionLevel: "medium", performanceCost: "low", mobileSupport: true,
+    description: "見出しがrotateXで手前に倒れた状態から、画面に入ると起き上がるように回転しながら現れる。奥行きのある登場演出。",
+    mood: ["bold", "modern", "cinematic"], impact: "medium",
+    parameters: { angle: { type: "number", default: 60, min: 20, max: 90 }, duration: { type: "number", default: 1, min: 0.4, max: 2 } } },
+  { isNew: true, category: "scroll", name: "SCROLL LINE DRAW PROGRESS", nameJa: "スクロールライン描画プログレス", shortDescription: "曲線のSVGパスが、そのセクションのスクロール量に応じて描かれていく", motionLevel: "low", performanceCost: "low", mobileSupport: true,
+    description: "SVGの曲線パスが最初は非表示で、そのセクションを通過するスクロール量に応じてstroke-dashoffsetが減っていき、線が描かれる。読了進捗などの指標に使える。",
+    mood: ["modern", "technology", "clean"], impact: "low",
     parameters: {} },
 
   // ---------------- CURSOR ----------------
@@ -176,6 +216,10 @@ window.GIMMICK_CATALOG = [
     description: "直近のカーソル位置を曲線でつなぎ、幅が先端に向かって細くなるリボン状の軌跡をcanvasで描く。ロープ状の#52とは異なり、絹のような滑らかな帯として表現する。",
     mood: ["premium", "cinematic", "futuristic"], impact: "medium",
     parameters: { trailLength: { type: "number", default: 18, min: 6, max: 40 } } },
+  { isNew: true, category: "cursor", name: "CURSOR LABEL FOLLOW", nameJa: "カーソルラベルフォロー", shortDescription: "特定のエリアにカーソルを乗せると、小さなラベルが追従して現れる", motionLevel: "low", performanceCost: "low", mobileSupport: false,
+    description: "「VIEW」「DRAG」のような短いラベルが、対象エリア内でカーソルにわずかに遅れて追従する。カーソル自体を変えずにヒントを伝えられる。",
+    mood: ["minimal", "modern", "clean"], impact: "low",
+    parameters: { label: { type: "string", default: "VIEW" }, delay: { type: "number", default: 0.15, min: 0, max: 0.4 } } },
 
   // ---------------- BACKGROUND ----------------
   { legacyNumber: "26", category: "background", name: "PARTICLE NETWORK", nameJa: "パーティクルネットワーク", shortDescription: "点が線で繋がって漂うcanvas演出", motionLevel: "medium", performanceCost: "high", mobileSupport: false },
@@ -197,6 +241,14 @@ window.GIMMICK_CATALOG = [
     description: "canvasで生成した細かい粒状ノイズのタイル画像を、CSSのbackground-positionでゆっくり流し続ける。静止画のGRAIN OVERLAY(#48)と異なり、常時わずかに動き続ける背景専用の演出。",
     mood: ["cinematic", "organic", "minimal"], impact: "low",
     parameters: { opacity: { type: "number", default: 0.12, min: 0.02, max: 0.3 }, speed: { type: "number", default: 12, min: 4, max: 30 } } },
+  { isNew: true, category: "background", name: "FLOATING SHAPES DRIFT", nameJa: "フローティングシェイプドリフト", shortDescription: "円や三角形の輪郭図形がゆっくり漂い、回転する背景装飾", motionLevel: "low", performanceCost: "low", mobileSupport: true,
+    description: "円・三角形・四角形などシンプルな輪郭図形が、それぞれ異なる速度でゆっくり漂い回転し続ける、主張しすぎない背景装飾。",
+    mood: ["minimal", "modern", "clean"], impact: "low",
+    parameters: { count: { type: "number", default: 4, min: 2, max: 8 } } },
+  { isNew: true, category: "background", name: "SPOTLIGHT SCROLL FOLLOW", nameJa: "スポットライトスクロールフォロー", shortDescription: "枠内をスクロールすると、柔らかい光の玉が縦方向についてくる", motionLevel: "low", performanceCost: "low", mobileSupport: true,
+    description: "カーソルではなくスクロール位置に連動して、柔らかい光の玉が枠内を縦方向に移動する。長いセクションの現在地を光で示す背景演出。",
+    mood: ["premium", "cinematic", "minimal"], impact: "low",
+    parameters: {} },
 
   // ---------------- BUTTON ----------------
   { legacyNumber: "14", category: "button", name: "SVG UNDERLINE DRAW", nameJa: "SVGアンダーライン描画", shortDescription: "ホバーで下線が手描きのように伸びる", motionLevel: "low", performanceCost: "low", mobileSupport: true },
@@ -214,6 +266,14 @@ window.GIMMICK_CATALOG = [
     description: "ホバーすると、右下の角から斜めにカットされた塗りがボタン全体へ広がる。文字はmix-blend-modeで自動的に反転し、塗りとの境界でも読みやすさを保つ。",
     mood: ["bold", "modern", "premium"], impact: "medium",
     parameters: { duration: { type: "number", default: 0.45, min: 0.2, max: 1 }, angle: { type: "number", default: 30, min: 0, max: 60 } } },
+  { isNew: true, category: "button", name: "ICON SWAP BUTTON", nameJa: "アイコンスワップボタン", shortDescription: "ホバーでアイコンが回転しながら別のアイコンに入れ替わる", motionLevel: "low", performanceCost: "low", mobileSupport: true,
+    description: "ボタン内のアイコンが、ホバーすると回転しながらフェードアウトし、別のアイコンが逆方向の回転でフェードインする。矢印→チェックマークのような状態変化に向く。",
+    mood: ["modern", "playful", "clean"], impact: "low",
+    parameters: { duration: { type: "number", default: 0.35, min: 0.15, max: 0.8 } } },
+  { isNew: true, category: "button", name: "PRESS DEPTH BUTTON", nameJa: "プレスデプスボタン", shortDescription: "押すと物理的なボタンのように沈み込み、離すと戻る", motionLevel: "low", performanceCost: "low", mobileSupport: true,
+    description: "通常時は下に厚みのある立体的なボタン。クリック（タップ）している間だけ影が縮み、ボタン自体が沈み込んで物理ボタンのような手応えを演出する。",
+    mood: ["bold", "playful", "technology"], impact: "low",
+    parameters: { depth: { type: "number", default: 4, min: 2, max: 10 } } },
 
   // ---------------- NAVIGATION ----------------
   { legacyNumber: "02", category: "navigation", name: "SIDE DOT NAVIGATION", nameJa: "サイドドットナビゲーション", shortDescription: "現在地がひと目でわかるドット、クリックでジャンプ", motionLevel: "low", performanceCost: "low", mobileSupport: false },
@@ -233,6 +293,14 @@ window.GIMMICK_CATALOG = [
     description: "ナビ全体で1本の下線インジケーターを共有し、どの項目にホバーしてもその項目の幅・位置へ滑らかにスライドする。個別下線の点滅よりも連続性のある高級感を演出。",
     mood: ["premium", "clean", "corporate"], impact: "low",
     parameters: { duration: { type: "number", default: 0.35, min: 0.15, max: 0.8 } } },
+  { isNew: true, category: "navigation", name: "MEGA MENU DROP REVEAL", nameJa: "メガメニュードロップリベール", shortDescription: "ホバーすると、リンク一覧を含むパネルが下へ滑らかに展開する", motionLevel: "low", performanceCost: "low", mobileSupport: false,
+    description: "ナビ項目にホバーすると、複数のリンクを含むパネルが下方向に高さとフェードで展開する。カテゴリー数が多いサイトのグローバルナビ向け。",
+    mood: ["corporate", "modern", "clean"], impact: "medium",
+    parameters: { duration: { type: "number", default: 0.4, min: 0.2, max: 0.9 } } },
+  { isNew: true, category: "navigation", name: "BREADCRUMB TRAIL FADE", nameJa: "パンくずトレイルフェード", shortDescription: "パンくずリストの各項目が、順番にフェード＋スライドして現れる", motionLevel: "low", performanceCost: "low", mobileSupport: true,
+    description: "パンくずナビの各項目が、ページ読み込み時に左から順番にわずかな間隔でフェード＋スライドインする。現在地までの道のりを演出的に見せる。",
+    mood: ["minimal", "corporate", "clean"], impact: "low",
+    parameters: { stagger: { type: "number", default: 0.08, min: 0.02, max: 0.2 } } },
 
   // ---------------- TRANSITION ----------------
   { legacyNumber: "23", category: "transition", name: "SKELETON LOADING", nameJa: "スケルトンローディング", shortDescription: "読み込み中はシマーでプレースホルダー表示する", motionLevel: "low", performanceCost: "low", mobileSupport: true },
@@ -250,6 +318,10 @@ window.GIMMICK_CATALOG = [
     description: "画像の上に等間隔の縦スライスを重ね、クリックすると各スライスが交互に上下方向へずれてスタガード表示で開く。単一カーテンのワイプ(#42)より視覚的な密度が高い遷移。",
     mood: ["bold", "cinematic", "modern"], impact: "high",
     parameters: { slices: { type: "number", default: 6, min: 4, max: 10 }, stagger: { type: "number", default: 0.05, min: 0, max: 0.15 } } },
+  { isNew: true, category: "transition", name: "CROSSFADE ZOOM TRANSITION", nameJa: "クロスフェードズーム遷移", shortDescription: "次の状態がわずかに拡大しながらクロスフェードで現れる", motionLevel: "low", performanceCost: "low", mobileSupport: true,
+    description: "現在の状態がそのまま残り、次の状態がわずかに大きい倍率からクロスフェードで縮小しながら重なる、映画のカット切り替えのような遷移。",
+    mood: ["cinematic", "premium", "minimal"], impact: "medium",
+    parameters: { scale: { type: "number", default: 1.08, min: 1.02, max: 1.2 }, duration: { type: "number", default: 0.8, min: 0.4, max: 1.6 } } },
 
   // ---------------- PHYSICS ----------------
   { legacyNumber: "54", category: "physics", name: "GRAVITY DROP TEXT", nameJa: "グラビティドロップテキスト", shortDescription: "文字が重力で落ちて弾む", motionLevel: "high", performanceCost: "low", mobileSupport: true },
@@ -267,6 +339,10 @@ window.GIMMICK_CATALOG = [
     description: "カードを好きな方向にドラッグでき、指を離すとオーバーシュートを伴うバネの動きで元の位置に戻る。GSAP Draggable + elasticイージングで実装。",
     mood: ["playful", "bold", "futuristic"], impact: "medium",
     parameters: { elasticity: { type: "number", default: 0.4, min: 0.1, max: 0.8 }, duration: { type: "number", default: 1, min: 0.4, max: 2 } } },
+  { isNew: true, category: "physics", name: "BOUNCY LIST REORDER", nameJa: "バウンシーリスト並び替え", shortDescription: "ドラッグして並び替えると、他の項目もバネの動きで席を譲る", motionLevel: "high", performanceCost: "low", mobileSupport: true,
+    description: "リスト項目をドラッグして別の位置へ移動させると、押しのけられた項目たちがオーバーシュートを伴うバネの動きで新しい位置へ移動する。既存のDRAG-REORDER LISTを物理挙動つきに拡張したもの。",
+    mood: ["playful", "bold", "modern"], impact: "medium",
+    parameters: { elasticity: { type: "number", default: 0.3, min: 0.1, max: 0.6 } } },
 ];
 
 /* Derive displayCode + stable internal id for every entry, in array order

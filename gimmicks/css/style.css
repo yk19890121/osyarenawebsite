@@ -1543,6 +1543,165 @@ code{font-family:var(--ff-mono);background:var(--line);padding:2px 6px;border-ra
 }
 .sdc-card:active{cursor:grabbing;}
 
+/* ---- new gimmick T16 — WORD SWAP CYCLER ---- */
+.wsc-line{font-family:var(--ff-jp);font-weight:900;font-size:clamp(24px,4vw,36px);}
+.wsc-cycler{display:inline-block;color:var(--accent);transition:opacity .3s var(--ease),transform .3s var(--ease);}
+.wsc-cycler.out{opacity:0;transform:translateY(-8px);}
+
+/* ---- new gimmick T17 — HIGHLIGHT MARKER SWEEP ---- */
+.hms-heading{font-family:var(--ff-jp);font-weight:900;font-size:clamp(24px,4vw,36px);}
+.hms-mark{position:relative;display:inline-block;}
+.hms-mark::before{
+  content:"";position:absolute;left:-4px;right:-4px;bottom:2px;height:38%;
+  background:var(--accent);opacity:.4;transform:scaleX(0);transform-origin:left;
+  transition:transform .6s var(--ease);z-index:-1;
+}
+.hms-mark.run::before{transform:scaleX(1);}
+
+/* ---- new gimmick I16 — FOCUS BLUR REVEAL ---- */
+.fbr-box{border-radius:14px;overflow:hidden;aspect-ratio:16/10;}
+.fbr-img{width:100%;height:100%;object-fit:cover;filter:blur(18px) saturate(.8);transform:scale(1.05);transition:filter 1s var(--ease),transform 1s var(--ease);}
+.fbr-img.in{filter:blur(0) saturate(1);transform:scale(1);}
+
+/* ---- new gimmick I17 — COLOR WASH REVEAL ---- */
+.cwr-box{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:16/10;}
+.cwr-box .cwr-img{width:100%;height:100%;object-fit:cover;}
+.cwr-wash{position:absolute;inset:0;background:var(--accent);transform-origin:left;transition:transform .9s var(--ease);}
+.cwr-wash.done{transform:scaleX(0);}
+
+/* ---- new gimmick G15 — INFINITE LOOP CAROUSEL ---- */
+.ilc-viewport{overflow:hidden;border-radius:12px;}
+.ilc-track{display:flex;gap:10px;width:max-content;animation:ilcScroll 22s linear infinite;}
+.ilc-viewport:hover .ilc-track{animation-play-state:paused;}
+.ilc-track img{width:140px;height:100px;object-fit:cover;border-radius:8px;flex-shrink:0;}
+@keyframes ilcScroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+/* ---- new gimmick G16 — GRID TO FULLSCREEN MORPH ---- */
+.gfm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.gfm-item{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;cursor:pointer;}
+.gfm-item.is-full{width:min(90vw,600px);aspect-ratio:4/3;border-radius:12px;}
+.gfm-overlay{
+  position:fixed;inset:0;z-index:950;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,0);pointer-events:none;transition:background .3s var(--ease);
+}
+.gfm-overlay.open{background:rgba(0,0,0,.85);pointer-events:auto;}
+
+/* ---- new gimmick C12 — PROGRESS RING CARD ---- */
+.prc-card{position:relative;width:180px;height:180px;display:flex;align-items:center;justify-content:center;}
+.prc-ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg);}
+.prc-track{fill:none;stroke:var(--line);stroke-width:6;}
+.prc-fill{fill:none;stroke:var(--accent);stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset 1.2s var(--ease);}
+.prc-inner{text-align:center;font-family:var(--ff-mono);}
+.prc-inner p{font-size:10px;letter-spacing:.08em;color:var(--ink-dim);margin-bottom:4px;}
+.prc-inner span{font-size:24px;font-weight:700;}
+
+/* ---- new gimmick C13 — CARD CONTENT SLIDE SWAP ---- */
+.css-card{position:relative;height:140px;border-radius:12px;background:var(--card);border:1px solid var(--line);overflow:hidden;}
+.css-face{position:absolute;inset:0;padding:20px;display:flex;flex-direction:column;justify-content:center;gap:8px;transition:transform .5s var(--ease);}
+.css-face-b{transform:translateY(100%);}
+.css-card:hover .css-face-a{transform:translateY(-100%);}
+.css-card:hover .css-face-b{transform:translateY(0);}
+.css-face p{font-family:var(--ff-jp);font-weight:700;font-size:16px;}
+.css-face span{font-family:var(--ff-mono);font-size:11px;color:var(--ink-dim);}
+
+/* ---- new gimmick S17 — SCROLL ROTATE REVEAL ---- */
+.srr-wrap{perspective:600px;}
+.srr-heading{
+  font-family:var(--ff-jp);font-weight:900;font-size:clamp(24px,4vw,36px);
+  transform:rotateX(60deg);transform-origin:bottom;opacity:0;
+  transition:transform 1s var(--ease),opacity 1s var(--ease);
+}
+.srr-heading.in{transform:rotateX(0);opacity:1;}
+
+/* ---- new gimmick S18 — SCROLL LINE DRAW PROGRESS ---- */
+.sld-box{border-radius:12px;border:1px solid var(--line);padding:20px;}
+.sld-svg{width:100%;height:auto;}
+.sld-svg path{stroke:var(--accent);stroke-width:3;}
+
+/* ---- new gimmick B14 — FLOATING SHAPES DRIFT ---- */
+.fsd-box{position:relative;height:220px;border-radius:12px;background:var(--bg-soft);overflow:hidden;}
+.fsd-shape{position:absolute;border:2px solid var(--line);border-radius:50%;opacity:.6;}
+.fsd-shape.fsd-triangle{border-radius:0;border:none;width:0;height:0;border-left:24px solid transparent;border-right:24px solid transparent;border-bottom:40px solid var(--line);background:none;}
+.fsd-1{width:60px;height:60px;top:10%;left:10%;animation:fsdFloat1 16s ease-in-out infinite;}
+.fsd-2{top:60%;left:30%;animation:fsdFloat2 20s ease-in-out infinite;}
+.fsd-3{width:36px;height:36px;top:20%;right:15%;animation:fsdFloat2 14s ease-in-out infinite reverse;}
+.fsd-4{top:65%;right:20%;animation:fsdFloat1 24s ease-in-out infinite reverse;}
+@keyframes fsdFloat1{0%,100%{transform:translate(0,0) rotate(0deg);}50%{transform:translate(16px,-14px) rotate(180deg);}}
+@keyframes fsdFloat2{0%,100%{transform:translate(0,0) rotate(0deg);}50%{transform:translate(-14px,16px) rotate(-180deg);}}
+
+/* ---- new gimmick B15 — SPOTLIGHT SCROLL FOLLOW ---- */
+.ssf-box{position:relative;height:200px;border-radius:12px;overflow-y:auto;background:var(--bg-soft);border:1px solid var(--line);}
+.ssf-track{height:520px;}
+.ssf-spot{
+  position:sticky;top:0;left:20%;width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle,var(--accent),transparent 70%);opacity:.5;filter:blur(6px);
+  pointer-events:none;
+}
+
+/* ---- new gimmick A10 — ICON SWAP BUTTON ---- */
+.isb-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border:1px solid var(--ink);border-radius:999px;font-family:var(--ff-mono);font-size:12px;letter-spacing:.06em;}
+.isb-icons{position:relative;width:16px;height:16px;}
+.isb-icon{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity .35s var(--ease),transform .35s var(--ease);}
+.isb-icon-b{opacity:0;transform:rotate(-90deg);}
+.isb-btn:hover .isb-icon-a{opacity:0;transform:rotate(90deg);}
+.isb-btn:hover .isb-icon-b{opacity:1;transform:rotate(0deg);}
+
+/* ---- new gimmick A11 — PRESS DEPTH BUTTON ---- */
+.pdb-btn{
+  padding:16px 30px;background:var(--accent);color:#fff;border-radius:8px;
+  font-family:var(--ff-mono);font-size:13px;letter-spacing:.06em;
+  box-shadow:0 6px 0 rgba(0,0,0,.35);transform:translateY(0);
+  transition:transform .1s var(--ease),box-shadow .1s var(--ease);
+}
+.pdb-btn:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.35);}
+
+/* ---- new gimmick N12 — MEGA MENU DROP REVEAL ---- */
+.mmd-wrap{position:relative;display:inline-block;}
+.mmd-trigger{font-family:var(--ff-mono);font-size:13px;letter-spacing:.06em;padding:10px 4px;}
+.mmd-panel{
+  position:absolute;top:100%;left:0;min-width:200px;background:var(--card);border:1px solid var(--line);
+  border-radius:10px;box-shadow:var(--shadow);padding:10px;display:flex;flex-direction:column;
+  max-height:0;opacity:0;overflow:hidden;transition:max-height .4s var(--ease),opacity .3s var(--ease);
+}
+.mmd-wrap:hover .mmd-panel{max-height:220px;opacity:1;}
+.mmd-panel a{padding:8px 10px;border-radius:6px;font-family:var(--ff-jp);font-size:13px;transition:background .2s;}
+.mmd-panel a:hover{background:var(--bg-soft);}
+
+/* ---- new gimmick N13 — BREADCRUMB TRAIL FADE ---- */
+.btf-crumbs{display:flex;align-items:center;gap:8px;font-family:var(--ff-mono);font-size:12px;color:var(--ink-dim);}
+.btf-crumbs>*{opacity:0;transform:translateX(-8px);transition:opacity .4s var(--ease),transform .4s var(--ease);}
+.btf-crumbs.in>*,.btf-crumbs>*.in{opacity:1;transform:translateX(0);}
+.btf-crumbs .current{color:var(--ink);}
+
+/* ---- new gimmick R10 — CROSSFADE ZOOM TRANSITION ---- */
+.czt-box{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:16/10;}
+.czt-a,.czt-b{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.czt-b{opacity:0;transform:scale(1.08);transition:opacity .8s var(--ease),transform .8s var(--ease);}
+.czt-b.show{opacity:1;transform:scale(1);}
+.czt-trigger{
+  position:absolute;left:50%;bottom:20px;transform:translateX(-50%);z-index:2;
+  font-family:var(--ff-mono);font-size:11px;letter-spacing:.08em;color:#fff;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(6px);padding:10px 20px;border-radius:999px;
+}
+
+/* ---- new gimmick U20 — CURSOR LABEL FOLLOW ---- */
+.clf-box{position:relative;height:180px;border-radius:12px;background:var(--bg-soft);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.clf-label{
+  position:absolute;top:0;left:0;padding:6px 14px;border-radius:999px;background:var(--ink);color:var(--bg);
+  font-family:var(--ff-mono);font-size:11px;letter-spacing:.06em;opacity:0;pointer-events:none;
+  transition:opacity .25s var(--ease);transform:translate(-50%,-50%);
+}
+.clf-box:hover .clf-label{opacity:1;}
+
+/* ---- new gimmick P10 — BOUNCY LIST REORDER ---- */
+.blr-list{position:relative;height:220px;list-style:none;margin:0;padding:0;}
+.blr-item{
+  position:absolute;left:0;right:0;height:44px;line-height:44px;padding:0 16px;
+  background:var(--card);border:1px solid var(--line);border-radius:8px;
+  font-family:var(--ff-mono);font-size:12px;letter-spacing:.06em;cursor:grab;touch-action:none;user-select:none;
+}
+.blr-item:active{cursor:grabbing;}
+
 @media (prefers-reduced-motion: reduce){
   *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
 }
