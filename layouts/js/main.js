@@ -270,7 +270,7 @@
     track.innerHTML = LAYOUTS.map(
       (l, i) => `<div class="cfl-item" data-index="${i}">
         <div class="layout-frame ${l.frame}">${l.blocks}</div>
-        <span class="cfl-item-name">${pad(i + 1)} — ${l.name}</span>
+        <span class="cfl-item-name">L${pad(i + 1)} — ${l.name}</span>
       </div>`
     ).join("");
     dotsWrap.innerHTML = LAYOUTS.map((_, i) => `<span class="cfl-dot" data-index="${i}"></span>`).join("");
@@ -281,7 +281,7 @@
 
     function renderDetail() {
       const l = LAYOUTS[active];
-      document.getElementById("detail-index").innerHTML = `<span class="tag-num">${pad(active + 1)}</span> / ${pad(LAYOUTS.length)}`;
+      document.getElementById("detail-index").innerHTML = `<span class="tag-num">L${pad(active + 1)}</span> / ${pad(LAYOUTS.length)}`;
       document.getElementById("detail-name").textContent = l.name;
       document.getElementById("detail-desc").textContent = l.desc;
       document.getElementById("detail-use").textContent = l.use;

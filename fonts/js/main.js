@@ -101,7 +101,7 @@
             .map(
               (f) => `<div class="font-card">
                 <div class="font-meta">
-                  <p class="font-num-row"><span class="tag-num">${pad(FONTS.indexOf(f) + 1)}</span></p>
+                  <p class="font-num-row"><span class="tag-num">F${pad(FONTS.indexOf(f) + 1)}</span></p>
                   <span class="font-name">${f.name}</span>
                   <span class="font-desc">${f.desc}</span>
                 </div>
