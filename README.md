@@ -2,10 +2,11 @@
 
 架空のミニマル・オーバーサイズファッションブランド「BLENCI」の素材を使った、Webデザインの実験サイト。
 
-- **TOP** (`/`) — LAYOUTS / GIMMICKS / FONTS / BUILD への入口
+- **TOP** (`/`) — LAYOUTS / GIMMICKS / FONTS / CAMERA / BUILD への入口
 - **LAYOUTS** (`/layouts/`) — 代表的なWebレイアウトパターン34種を3Dカバーフローで見比べるカタログ
 - **GIMMICKS** (`/gimmicks/`) — Webでよく使う演出・ギミック160種を11カテゴリーに分類した実験カタログ
 - **FONTS** (`/fonts/`) — 書体50種のプレビューカタログ
+- **CAMERA** (`/camera/`) — 動画のカメラワークと切り替え24種を、ピクトグラムのループアニメで見せるカタログ(動画生成AIへの指示・Blenderのブロックアウト用)
 - **BUILDER** (`/builder/`) — 上記のレイアウト・ギミック・フォントを組み合わせて、実際に動くサンプルを作り、別の開発者/AIへ引き継げる「BLUEPRINT」として書き出す実験室
 
 ## 使用技術
@@ -17,7 +18,9 @@
 ## 構成
 ```
 index.html / js/top.js / css/top.css   — TOPページ
-layouts/  gimmicks/  fonts/            — 各カタログ(index.html / css/style.css / js/main.js)
+layouts/  gimmicks/  fonts/  camera/   — 各カタログ(index.html / css/style.css / js/main.js)
+  camera/js/data/camera-works.js       — CAMERAのカテゴリー/エントリー定義(V01〜V24。Skillの同期元)
+  camera/js/pictograms.js              — カメラワークごとのピクトグラムSVG + GSAPタイムライン
   gimmicks/js/data/catalog.js          — GIMMICKSのカテゴリー/表示コード定義(BUILDERも共有参照)
   gimmicks/js/gimmicks-new.js          — 新規追加ギミックの実装(render/init)
   gimmicks/js/catalog-loader.js        — 起動時に旧DOMを新カテゴリー構成へ再編するローダー
@@ -77,6 +80,28 @@ scripts/dev_server.py                  — キャッシュを無効化するロ�
 `render()` は `<article class="demo">...</article>` のHTML文字列を返し、`init(articleEl)` が
 挿入後の実際の動き（GSAP/canvas/CSS等）を配線する。表示コードのバッジは `catalog-loader.js` が
 自動で付与するので `render()` 側では書かない。
+
+## CAMERA WORK カタログ構成
+`/camera/` は、動画生成AIへの指示や、Blenderで構図・カメラワークの骨組み(ブロックアウト)動画を作るときに、
+カメラワークを「名前とID」で指定するためのカタログです。
+
+| 範囲 | カテゴリー(`category`) | 内容 |
+| --- | --- | --- |
+| V01–V08 | CAMERA MOVE (`move`) | パン・ティルト・ドリーイン・ズームイン・トラッキング・オービット・クレーンアップ・ドリーズーム |
+| V09–V16 | SHOOTING & TIME (`time`) | ラックフォーカス・手持ち風・FPV・ダッチアングル・スローモーション・スピードランプ・タイムラプス・フリーズフレーム |
+| V17–V24 | TRANSITION (`transition`) | ジャンプカット・マッチカット・ホイップパン・クロスディゾルブ・ワイプ・スマッシュカット・Jカット・Lカット |
+
+**表示コード**: `V01`〜`V24`(V = Video)。FONTSの `F01`〜 と同じく、カテゴリーをまたいだ通し番号で、
+`camera-works.js` の配列順から自動採番される。**新しいエントリーは必ず配列の末尾に追加**して、既存コードを変えないこと。
+内部IDは `camera.move.001` 形式。
+
+**各エントリーの主なフィールド**: `prompt`(動画生成AI向け英文。カメラの動きの主語は必ず "The camera"、
+`{subject}` と `{duration}` はプレースホルダー)、`blender`(ブロックアウトの作り方)、`parameters`(秒数・速さなどの既定値)、
+`layer`(camera / lens / time / edit)、`continuousShot`(false = 2ショットをつなぐ編集技法)。
+
+**ピクトグラム**: 写真を使わず、人物・街・山・木・車の単純な図形だけで描いたSVGを、GSAPのタイムラインでループ再生する。
+画面外のカードは一時停止し、`prefers-reduced-motion` では静止画(ホバー/フォーカス時のみ再生)になる。
+カードをクリックすると詳細(PROMPT / BLENDER / IDでの指定例のコピー)が開き、`/camera/#V11` のように直接リンクもできる。
 
 ## BUILDER
 `/builder/` は、既存カタログの資産(レイアウト・ギミック・フォント)を組み合わせて
