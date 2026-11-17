@@ -32,7 +32,7 @@
     // gallery below and becoming untappable. Skip the desktop
     // positioning/depth-effect entirely on mobile instead of fighting it.
     const mobileQuery = window.matchMedia("(max-width:900px)");
-    const H = 360;
+    const H = 440;
     const anchors = items.map((_, i) => ((i + 0.5) / items.length) * H);
 
     function update(my) {
